@@ -4,14 +4,174 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url       = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
+}
+
+enum Section {
+  VARC
+  DILR
+  QA
+}
+
+enum QuestionType {
+  MCQ
+  TITA
+}
+
+enum AttemptStatus {
+  ANSWERED
+  MARKED_FOR_REVIEW
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  password String
+
+  attempts         Attempt[]
+  bookmarks        Bookmark[]
+  mockTestAttempts MockTestAttempt[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Passage {
+  id      String  @id @default(cuid())
+  title   String?
+  content String
+
+  questions Question[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id String @id @default(cuid())
+
+  year Int
+  slot Int
+
+  section Section
+  topic   String
+
+  type QuestionType @default(MCQ)
+
+  passageId String?
+  passage   Passage? @relation(fields: [passageId], references: [id])
+
+  question String
+
+  optionA String?
+  optionB String?
+  optionC String?
+  optionD String?
+
+  correctAnswer String
+
+  explanation String?
+
+  marks         Int @default(3)
+  negativeMarks Int @default(1)
+
+  attempts  Attempt[]
+  bookmarks Bookmark[]
+  mockTests MockTestQuestion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([section])
+  @@index([year])
+  @@index([topic])
+}
+
+model Attempt {
+  id String @id @default(cuid())
+
+  userId     String
+  questionId String
+
+  selectedAnswer String?
+
+  isCorrect Boolean
+
+  status AttemptStatus @default(ANSWERED)
+
+  timeTaken Int
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([questionId])
+}
+
+model Bookmark {
+  id String @id @default(cuid())
+
+  userId     String
+  questionId String
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, questionId])
+}
+
+model MockTest {
+  id String @id @default(cuid())
+
+  title String
+
+  duration Int
+
+  year Int?
+  slot Int?
+
+  isOfficial Boolean @default(false)
+
+  questions MockTestQuestion[]
+  attempts  MockTestAttempt[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MockTestQuestion {
+  id String @id @default(cuid())
+
+  mockTestId String
+  questionId String
+
+  order Int
+
+  mockTest MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([mockTestId, questionId])
+}
+
+model MockTestAttempt {
+  id String @id @default(cuid())
+
+  userId     String
+  mockTestId String
+
+  score     Int
+  accuracy  Float
+  timeTaken Int
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mockTest MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }

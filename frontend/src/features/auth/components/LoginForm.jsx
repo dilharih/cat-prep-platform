@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { login } from "../services/auth.service";
+import { login as loginService } from "../services/auth.service";import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
 import { loginSchema } from "../schemas/loginSchema";
 
 function LoginForm() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -18,18 +21,12 @@ function LoginForm() {
 
   async function onSubmit(data) {
   try {
-    const response = await login(data);
-
+const response = await loginService(data);
     // Store JWT
-    localStorage.setItem("token", response.token);
+    login(response.user, response.token);
 
-    // Store user
-    localStorage.setItem("user", JSON.stringify(response.user));
+navigate("/dashboard");
 
-    console.log("Login Successful!");
-    console.log(response);
-
-    alert("Login Successful!");
   } catch (error) {
     console.error(error);
 

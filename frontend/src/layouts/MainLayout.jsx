@@ -1,13 +1,21 @@
-import Navbar from "../components/common/Navbar";
-import Footer from "../components/common/Footer";
+import { Outlet } from "react-router-dom";
 
-function MainLayout({ children }) {
+import Sidebar from "../components/layout/Sidebar";
+import Navbar from "../components/layout/Navbar";
+
+function MainLayout() {
   return (
-    <>
-      <Navbar />
-      <main>{children}</main>
-      <Footer />
-    </>
+    <div className="flex min-h-screen bg-slate-100">
+      <Sidebar />
+
+      <div className="flex flex-1 flex-col">
+        <Navbar />
+
+        <main className="flex-1 p-8">
+          <Outlet />
+        </main>
+      </div>
+    </div>
   );
 }
 
