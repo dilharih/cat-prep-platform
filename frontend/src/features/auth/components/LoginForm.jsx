@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { login } from "../services/auth.service";
 
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
 import { loginSchema } from "../schemas/loginSchema";
+
 function LoginForm() {
   const {
     register,
@@ -14,9 +16,15 @@ function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  function onSubmit(data) {
-    console.log("Valid Data:", data);
+  async function onSubmit(data) {
+  try {
+    const response = await login(data);
+
+    console.log("Server Response:", response);
+  } catch (error) {
+    console.error("Login failed:", error);
   }
+}
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
