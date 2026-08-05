@@ -20,9 +20,22 @@ function LoginForm() {
   try {
     const response = await login(data);
 
-    console.log("Server Response:", response);
+    // Store JWT
+    localStorage.setItem("token", response.token);
+
+    // Store user
+    localStorage.setItem("user", JSON.stringify(response.user));
+
+    console.log("Login Successful!");
+    console.log(response);
+
+    alert("Login Successful!");
   } catch (error) {
-    console.error("Login failed:", error);
+    console.error(error);
+
+    alert(
+      error.response?.data?.message || "Login failed"
+    );
   }
 }
 
