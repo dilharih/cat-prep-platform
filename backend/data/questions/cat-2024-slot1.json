@@ -1,0 +1,18 @@
+[
+  {
+    "year": 2024,
+    "slot": 1,
+    "section": "QA",
+    "topic": "Arithmetic",
+    "type": "MCQ",
+    "question": "If x + y = 20 and x = 8, find y.",
+    "optionA": "10",
+    "optionB": "12",
+    "optionC": "14",
+    "optionD": "16",
+    "correctAnswer": "B",
+    "explanation": "Since x = 8, y = 12.",
+    "marks": 3,
+    "negativeMarks": 1
+  }
+]
