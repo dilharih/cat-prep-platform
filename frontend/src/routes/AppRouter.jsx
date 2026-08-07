@@ -1,13 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Home from "../pages/Home";
 import LoginPage from "../features/auth/pages/LoginPage";
 import Dashboard from "../pages/Dashboard";
-import Practice from "../pages/Practice";
+import PracticePage from "../features/practice/pages/PracticePage";
 import Test from "../pages/Test";
 import Result from "../pages/Result";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
-import MainLayout from "../layouts/MainLayout";
-
 function AppRouter() {
   return (
     <BrowserRouter>
@@ -16,17 +15,25 @@ function AppRouter() {
         <Route path="/login" element={<LoginPage />} />
 
         <Route
-  element={
-    <ProtectedRoute>
-      <MainLayout />
-    </ProtectedRoute>
-  }
->
-  <Route path="/dashboard" element={<Dashboard />} />
-  <Route path="/practice" element={<Practice />} />
-  <Route path="/test" element={<Test />} />
-  <Route path="/result" element={<Result />} />
-</Route>
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/practice"
+          element={
+            <ProtectedRoute>
+              <PracticePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/test" element={<Test />} />
+        <Route path="/result" element={<Result />} />
       </Routes>
     </BrowserRouter>
   );
