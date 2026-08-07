@@ -28,7 +28,39 @@ async function getQuestionById(id) {
   });
 }
 
+async function submitAttempt(userId, questionId, selectedAnswer, timeTaken) {
+  const question = await prisma.question.findUnique({
+    where: {
+      id: questionId,
+    },
+  });
+
+  if (!question) {
+    throw new Error("Question not found");
+  }
+
+  const isCorrect = question.correctAnswer === selectedAnswer;
+
+  const attempt = await prisma.attempt.create({
+    data: {
+      userId,
+      questionId,
+      selectedAnswer,
+      isCorrect,
+      timeTaken,
+    },
+  });
+
+  return {
+    attempt,
+    isCorrect,
+    correctAnswer: question.correctAnswer,
+    explanation: question.explanation,
+  };
+}
+
 module.exports = {
   getQuestions,
   getQuestionById,
+  submitAttempt,
 };
