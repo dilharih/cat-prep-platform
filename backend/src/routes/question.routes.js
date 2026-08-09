@@ -1,15 +1,26 @@
 const express = require("express");
 
-const controller = require("../controllers/question.controller");
+const {
+  getAllQuestions,
+  getSingleQuestion,
+  submitQuestionAttempt,
+} = require("../controllers/question.controller");
 
-console.log("Question Controller:", controller);
+const authenticate = require("../middleware/auth.middleware");
 
 const router = express.Router();
 
-router.get("/", controller.getAllQuestions);
+// GET all questions
+router.get("/", getAllQuestions);
 
-router.get("/:id", controller.getSingleQuestion);
+// GET single question
+router.get("/:id", getSingleQuestion);
 
-router.post("/:id/attempt", controller.submitQuestionAttempt);
+// POST attempt — protected
+router.post(
+  "/:id/attempt",
+  authenticate,
+  submitQuestionAttempt
+);
 
 module.exports = router;

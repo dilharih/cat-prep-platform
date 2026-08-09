@@ -45,17 +45,14 @@ async function getSingleQuestion(req, res) {
 
 async function submitQuestionAttempt(req, res) {
   try {
-    // Temporary until JWT middleware is added
-    const user = await require("../config/prisma").user.findFirst();
-
     const { selectedAnswer, timeTaken } = req.body;
 
     const result = await submitAttempt(
-      user.id,
-      req.params.id,
-      selectedAnswer,
-      timeTaken
-    );
+  req.user.userId,
+  req.params.id,
+  selectedAnswer,
+  timeTaken
+);
 
     res.status(200).json({
       success: true,
