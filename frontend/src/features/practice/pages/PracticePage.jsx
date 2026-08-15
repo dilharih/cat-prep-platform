@@ -9,23 +9,30 @@ import { submitAttempt } from "../api/attempt.api";
 
 function PracticePage() {
   const {
-    loading,
-    questions,
-    question,
-    currentIndex,
-    answers,
-    nextQuestion,
-    previousQuestion,
-    jumpToQuestion,
-    selectAnswer,
-  } = usePracticeSession();
+  loading,
+  questions,
+  question,
+  currentIndex,
+  answers,
+  answeredQuestions,
+  results,
+  nextQuestion,
+  previousQuestion,
+  jumpToQuestion,
+  selectAnswer,
+} = usePracticeSession();
 
   const [result, setResult] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const isSubmitted = !!answeredQuestions[question?.id];
 
   useEffect(() => {
-    setResult(null);
-  }, [question?.id]);
+  setResult(null);
+}, [question?.id]);
+
+  useEffect(() => {
+  setResult(results[question?.id] || null);
+}, [question?.id, results]);
 
   if (loading) {
     return <h2 className="p-8">Loading...</h2>;
@@ -85,24 +92,30 @@ function PracticePage() {
 
         {/* Options */}
         <OptionList
-          question={question}
-          selected={answers[question.id]}
-          onSelect={selectAnswer}
-          disabled={!!result}
-        />
+  question={question}
+  selected={answers[question.id]}
+  onSelect={selectAnswer}
+  disabled={isSubmitted || !!result}
+/>
 
         {/* Submit Button */}
         <div className="mt-8">
           <button
             onClick={handleSubmit}
-            disabled={!answers[question.id] || submitting || !!result}
+            disabled={
+  !answers[question.id] ||
+  submitting ||
+  isSubmitted ||
+  !!result
+}
             className="rounded-lg bg-green-600 px-6 py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {submitting
-              ? "Submitting..."
-              : result
-              ? "Answered"
-              : "Submit Answer"}
+           {isSubmitted || result
+  ? "Answered"
+  : submitting
+  ? "Submitting..."
+  : "Submit Answer"}
+
           </button>
         </div>
 

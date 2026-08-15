@@ -15,3 +15,9 @@ export async function submitAttempt(
 
   return response.data.data;
 }
+
+export async function getMyAttempts() {
+  const response = await api.get("/attempts/my");
+
+  return response.data.data;
+}

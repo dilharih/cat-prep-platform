@@ -6,6 +6,7 @@ const authRoutes = require("./routes/auth.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
 const questionRoutes = require("./routes/question.routes");
 const attemptRoutes = require("./routes/attempt.routes");
+const mockTestRoutes = require("./routes/mockTest.routes");
 
 const app = express();
 
@@ -17,4 +18,5 @@ app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/questions", questionRoutes);
+app.use("/api/mock-tests", mockTestRoutes);
 module.exports = app;

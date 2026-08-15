@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import MockTestPage from "../features/test/pages/MockTestPage";
 import Home from "../pages/Home";
 import LoginPage from "../features/auth/pages/LoginPage";
 import Dashboard from "../pages/Dashboard";
@@ -13,7 +14,10 @@ function AppRouter() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-
+        <Route
+  path="/mock-test"
+  element={<MockTestPage />}
+/>
         <Route
           path="/dashboard"
           element={
