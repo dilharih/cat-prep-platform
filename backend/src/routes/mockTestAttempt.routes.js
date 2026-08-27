@@ -1,17 +1,18 @@
 const express = require("express");
 
 const {
-  getStats,
-} = require("../controllers/dashboard.controller");
+  submitMockTestController,
+} = require("../controllers/mockTestAttempt.controller");
 
 const authenticate = require("../middleware/auth.middleware");
 
 const router = express.Router();
 
-router.get(
-  "/stats",
+// Submit a completed mock test
+router.post(
+  "/:mockTestId/submit",
   authenticate,
-  getStats
+  submitMockTestController
 );
 
 module.exports = router;

@@ -1,17 +1,18 @@
 const express = require("express");
 
 const {
-  getStats,
-} = require("../controllers/dashboard.controller");
+  getMockTestResult,
+} = require("../controllers/mockTestResult.controller");
 
 const authenticate = require("../middleware/auth.middleware");
 
 const router = express.Router();
 
+// Get a user's mock test result
 router.get(
-  "/stats",
+  "/:attemptId",
   authenticate,
-  getStats
+  getMockTestResult
 );
 
 module.exports = router;
