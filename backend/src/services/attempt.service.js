@@ -18,11 +18,22 @@ async function getMyAttempts(userId) {
     createdAt: true,
 
     question: {
-      select: {
-        correctAnswer: true,
-        explanation: true,
-      },
-    },
+  select: {
+    id: true,
+    year: true,
+    slot: true,
+    section: true,
+    topic: true,
+    type: true,
+    question: true,
+    optionA: true,
+    optionB: true,
+    optionC: true,
+    optionD: true,
+    correctAnswer: true,
+    explanation: true,
+  },
+},
   },
 });
 
