@@ -649,60 +649,83 @@ function MockTestPage() {
           TOP HEADER
       ================================================== */}
 
-      <header className="flex h-16 shrink-0 items-center justify-between bg-black px-5 text-white shadow-md">
+      <header className="flex h-14 shrink-0 items-center justify-between bg-black px-5 text-white">
 
-        <div className="flex items-center gap-5">
+  {/* Left: Branding + Paper */}
 
-          <div className="text-xl font-bold tracking-tight">
-            CAT<span className="text-orange-500">Prep</span>
-          </div>
+  <div className="flex min-w-0 items-center">
 
-          <div className="hidden h-7 w-px bg-slate-700 sm:block" />
+    <div className="mr-5 text-xl font-extrabold tracking-tight">
+      CAT<span className="text-orange-500">Prep</span>
+    </div>
 
-          <div>
-            <p className="text-sm font-semibold">
-              {mockTest.title}
-            </p>
+    <div className="h-7 w-px bg-slate-700" />
 
-            <p className="text-xs text-slate-400">
-              Computer Based Test
-            </p>
-          </div>
+    <div className="ml-5 min-w-0">
 
-        </div>
+      <p className="truncate text-sm font-bold">
+        {mockTest.title}
+      </p>
 
-        <div className="flex items-center gap-3">
+      <p className="text-[11px] text-slate-400">
+        Computer Based Test
+      </p>
 
-          <div className="hidden text-right sm:block">
-            <p className="text-xs text-slate-400">
-              Candidate
-            </p>
+    </div>
 
-            <p className="text-sm font-medium">
-              Test User
-            </p>
-          </div>
+  </div>
 
-          <div className="h-8 w-px bg-slate-700" />
+  {/* Center: Exam Information */}
 
-          <div
-            className={`rounded-lg px-4 py-2 text-center ${
-              timeLeft <= 300
-                ? "bg-red-600"
-                : "bg-slate-800"
-            }`}
-          >
-            <p className="text-[10px] uppercase tracking-wide text-slate-300">
-              Time Left
-            </p>
+  <div className="hidden text-center md:block">
 
-            <p className="font-mono text-lg font-bold">
-              {formattedTime}
-            </p>
-          </div>
+    <p className="text-sm font-bold tracking-wide">
+      CAT MOCK TEST
+    </p>
 
-        </div>
-      </header>
+    <p className="text-[10px] uppercase tracking-widest text-slate-500">
+      Full Question Paper
+    </p>
+
+  </div>
+
+  {/* Right: Candidate + Timer */}
+
+  <div className="flex items-center gap-4">
+
+    <div className="hidden border-r border-slate-700 pr-4 text-right sm:block">
+
+      <p className="text-[10px] uppercase tracking-wide text-slate-500">
+        Candidate
+      </p>
+
+      <p className="text-sm font-semibold">
+        Test User
+      </p>
+
+    </div>
+
+    <div
+      className={`min-w-[100px] rounded-md px-3 py-1.5 text-center ${
+        timeLeft <= 300
+          ? "bg-red-600"
+          : "bg-slate-800"
+      }`}
+    >
+
+      <p className="text-[9px] uppercase tracking-widest text-slate-400">
+        Time Left
+      </p>
+
+      <p className="font-mono text-base font-bold">
+        {formattedTime}
+      </p>
+
+    </div>
+
+  </div>
+
+</header>
 
       {/* ==================================================
           SECTION BAR
