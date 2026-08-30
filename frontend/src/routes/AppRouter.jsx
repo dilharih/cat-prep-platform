@@ -6,7 +6,7 @@ import Dashboard from "../pages/Dashboard";
 import PracticePage from "../features/practice/pages/PracticePage";
 import Test from "../pages/Test";
 import Result from "../pages/Result";
-
+import MockTestListPage from "../features/test/pages/MockTestListPage";
 import MockTestPage from "../features/test/pages/MockTestPage";
 import MockTestResultPage from "../features/test/pages/MockTestResultPage";
 import AttemptHistoryPage from "../features/practice/pages/AttemptHistoryPage";
@@ -54,14 +54,21 @@ function AppRouter() {
 />
 
         <Route
-          path="/mock-test"
-          element={
-            <ProtectedRoute>
-              <MockTestPage />
-            </ProtectedRoute>
-          }
-        />
-
+  path="/mock-test/:mockTestId"
+  element={
+    <ProtectedRoute>
+      <MockTestPage />
+    </ProtectedRoute>
+  }
+/>
+        <Route
+  path="/mock-tests"
+  element={
+    <ProtectedRoute>
+      <MockTestListPage />
+    </ProtectedRoute>
+  }
+/>
         <Route
           path="/mock-test-result/:attemptId"
           element={

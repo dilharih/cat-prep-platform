@@ -4,15 +4,17 @@ import {
   useState,
 } from "react";
 
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 
 import { getMockTest } from "../api/mockTest.api";
 import { submitMockTest } from "../api/mockTestAttempt.api";
 import QuestionPalette from "../components/QuestionPalette";
 
-const MOCK_TEST_ID = "cmsu0rsiz0000zhgcvy63npzx";
-
 function MockTestPage() {
+  const { mockTestId } = useParams();
   const navigate = useNavigate();
 
   const [mockTest, setMockTest] = useState(null);
@@ -41,11 +43,10 @@ function MockTestPage() {
   useEffect(() => {
     async function loadMockTest() {
       try {
-        const data = await getMockTest(MOCK_TEST_ID);
+        const data = await getMockTest(mockTestId);
 
         setMockTest(data);
 
-        // Duration is stored in minutes
         setTimeLeft(data.duration * 60);
       } catch (error) {
         console.error(
@@ -63,7 +64,7 @@ function MockTestPage() {
     }
 
     loadMockTest();
-  }, []);
+  }, [mockTestId]);
 
   // =========================
   // COUNTDOWN TIMER
@@ -153,7 +154,6 @@ function MockTestPage() {
   async function handleSubmitTest(
     autoSubmit = false
   ) {
-    // Prevent duplicate submissions
     if (submittingRef.current) {
       return;
     }
@@ -179,16 +179,14 @@ function MockTestPage() {
         durationInSeconds - timeLeft;
 
       const result = await submitMockTest(
-        MOCK_TEST_ID,
+        mockTestId,
         answersRef.current,
         timeTaken
       );
 
-      // Backend returns the saved attempt ID
       const attemptId =
         result.mockTestAttempt.id;
 
-      // Go to results page
       navigate(
         `/mock-test-result/${attemptId}`
       );
@@ -203,7 +201,6 @@ function MockTestPage() {
           "Failed to submit mock test."
       );
 
-      // Allow retry if submission failed
       submittingRef.current = false;
       setSubmitting(false);
     }
@@ -320,13 +317,12 @@ function MockTestPage() {
     <div className="mx-auto max-w-7xl p-8">
       <div className="grid gap-8 lg:grid-cols-4">
 
-        {/* =========================
-            MAIN TEST AREA
-        ========================== */}
+        {/* MAIN TEST AREA */}
 
         <div className="lg:col-span-3">
 
           {/* Header */}
+
           <div className="mb-8 flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold">
@@ -340,6 +336,7 @@ function MockTestPage() {
             </div>
 
             {/* Timer */}
+
             <div
               className={`rounded-xl border px-5 py-3 text-center shadow-sm ${
                 timeLeft <= 300
@@ -364,21 +361,21 @@ function MockTestPage() {
           </div>
 
           {/* Question Card */}
+
           <div className="rounded-xl border bg-white p-6 shadow-sm">
 
-            {/* Section */}
             <div className="mb-6">
               <span className="rounded bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
                 {currentQuestion.section}
               </span>
             </div>
 
-            {/* Question */}
             <h2 className="text-xl font-semibold">
               {currentQuestion.question}
             </h2>
 
             {/* Options */}
+
             <div className="mt-6 space-y-4">
               {options.map(
                 ([letter, text]) => (
@@ -410,6 +407,7 @@ function MockTestPage() {
           </div>
 
           {/* Navigation */}
+
           <div className="mt-6 flex justify-between">
 
             <button
@@ -438,6 +436,7 @@ function MockTestPage() {
           </div>
 
           {/* Mark for Review */}
+
           <div className="mt-4 flex justify-center">
             <button
               onClick={toggleMarkForReview}
@@ -454,7 +453,8 @@ function MockTestPage() {
             </button>
           </div>
 
-          {/* Submit Test */}
+          {/* Submit */}
+
           <div className="mt-6 flex justify-center">
             <button
               onClick={() =>
@@ -470,9 +470,7 @@ function MockTestPage() {
           </div>
         </div>
 
-        {/* =========================
-            QUESTION PALETTE
-        ========================== */}
+        {/* QUESTION PALETTE */}
 
         <div>
           <QuestionPalette

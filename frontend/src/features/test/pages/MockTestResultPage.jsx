@@ -186,11 +186,13 @@ function MockTestResultPage() {
           </button>
 
           <button
-            onClick={() => navigate("/mock-test")}
-            className="rounded-lg bg-gray-200 px-5 py-2 font-medium hover:bg-gray-300"
-          >
-            Take Test Again
-          </button>
+  onClick={() =>
+    navigate(`/mock-test/${result.mockTest.id}`)
+  }
+  className="rounded-lg bg-gray-200 px-5 py-2 font-medium hover:bg-gray-300"
+>
+  Take Test Again
+</button>
 
         </div>
       </div>
