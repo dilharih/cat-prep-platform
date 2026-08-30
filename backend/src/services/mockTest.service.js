@@ -11,8 +11,12 @@ async function getMockTestById(mockTestId) {
           order: "asc",
         },
         include: {
-          question: true,
-        },
+  question: {
+    include: {
+      passage: true,
+    },
+  },
+},
       },
     },
   });
