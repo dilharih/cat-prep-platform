@@ -6,18 +6,22 @@ async function submitMockTest(
   answers,
   timeTaken
 ) {
-  const mockTest = await prisma.mockTest.findUnique({
-    where: {
-      id: mockTestId,
-    },
-    include: {
-      questions: {
-        include: {
-          question: true,
+  const mockTest =
+    await prisma.mockTest.findUnique({
+      where: {
+        id: mockTestId,
+      },
+      include: {
+        questions: {
+          orderBy: {
+            order: "asc",
+          },
+          include: {
+            question: true,
+          },
         },
       },
-    },
-  });
+    });
 
   if (!mockTest) {
     throw new Error("Mock test not found");
@@ -25,32 +29,90 @@ async function submitMockTest(
 
   let score = 0;
   let correctAnswers = 0;
+  let answeredQuestions = 0;
+
+  /*
+   * Store answer records here.
+   * We create these only for questions
+   * that belong to this mock test.
+   */
+  const answerRecords = [];
 
   for (const item of mockTest.questions) {
     const question = item.question;
 
-    const selectedAnswer = answers[question.id];
+    const selectedAnswer =
+      answers[question.id];
 
-    if (!selectedAnswer) {
+    // ---------------------------------------------
+    // UNANSWERED
+    // ---------------------------------------------
+
+    if (
+      selectedAnswer === undefined ||
+      selectedAnswer === null ||
+      selectedAnswer === ""
+    ) {
+      answerRecords.push({
+        questionId: question.id,
+        selectedAnswer: null,
+        isCorrect: false,
+      });
+
       continue;
     }
 
-    if (selectedAnswer === question.correctAnswer) {
+    answeredQuestions++;
+
+    // ---------------------------------------------
+    // CORRECT
+    // ---------------------------------------------
+
+    if (
+      selectedAnswer ===
+      question.correctAnswer
+    ) {
       score += question.marks;
       correctAnswers++;
-    } else {
+
+      answerRecords.push({
+        questionId: question.id,
+        selectedAnswer,
+        isCorrect: true,
+      });
+
+      continue;
+    }
+
+    // ---------------------------------------------
+    // WRONG
+    // ---------------------------------------------
+
+    answerRecords.push({
+      questionId: question.id,
+      selectedAnswer,
+      isCorrect: false,
+    });
+
+    // MCQ gets negative marking.
+    // TITA does not get negative marking.
+    if (question.type === "MCQ") {
       score -= question.negativeMarks;
     }
   }
 
-  const totalQuestions = mockTest.questions.length;
-
-  const answeredQuestions = Object.keys(answers).length;
+  const totalQuestions =
+    mockTest.questions.length;
 
   const accuracy =
     answeredQuestions > 0
-      ? (correctAnswers / answeredQuestions) * 100
+      ? (correctAnswers / answeredQuestions) *
+        100
       : 0;
+
+  // ---------------------------------------------
+  // CREATE ATTEMPT + ANSWERS
+  // ---------------------------------------------
 
   const mockTestAttempt =
     await prisma.mockTestAttempt.create({
@@ -60,6 +122,14 @@ async function submitMockTest(
         score,
         accuracy,
         timeTaken,
+
+        answers: {
+          create: answerRecords,
+        },
+      },
+
+      include: {
+        answers: true,
       },
     });
 
@@ -93,6 +163,12 @@ async function getMockTestAttemptById(
             slot: true,
           },
         },
+
+        answers: {
+  include: {
+    question: true,
+  },
+},
       },
     });
 

@@ -39,10 +39,10 @@ function MockTestPage() {
   const [submitting, setSubmitting] =
     useState(false);
 
-  const [showSubmitModal, setShowSubmitModal] =
-  useState(false);
-
   const submittingRef = useRef(false);
+
+  const [showSubmitModal, setShowSubmitModal] =
+    useState(false);
 
   const [calculatorOpen, setCalculatorOpen] =
     useState(false);
@@ -321,6 +321,9 @@ function MockTestPage() {
 
   // =====================================================
   // NEXT QUESTION
+  // IMPORTANT:
+  // Moves through the entire paper, including
+  // VARC -> DILR -> QA.
   // =====================================================
 
   function nextQuestion() {
@@ -434,10 +437,6 @@ function MockTestPage() {
     if (submittingRef.current) {
       return;
     }
-
-    if (!autoSubmit) {
-  // Confirmation is handled by the custom submit modal.
-}
 
     try {
       submittingRef.current = true;
@@ -651,6 +650,10 @@ function MockTestPage() {
   const notVisitedCount =
     mockTest.questions.length -
     visitedCount;
+
+  const unansweredCount =
+    mockTest.questions.length -
+    answeredCount;
 
   // =====================================================
   // RENDER
@@ -893,9 +896,7 @@ function MockTestPage() {
 
               <div className="grid min-h-full lg:grid-cols-[1fr_1fr]">
 
-                {/* =================================================
-                    DIRECTIONS / PASSAGE
-                ================================================= */}
+                {/* DIRECTIONS / PASSAGE */}
 
                 <div className="border-b border-slate-300 bg-white p-5 lg:border-b-0 lg:border-r">
 
@@ -945,9 +946,7 @@ function MockTestPage() {
 
                 </div>
 
-                {/* =================================================
-                    ANSWER AREA
-                ================================================= */}
+                {/* ANSWER AREA */}
 
                 <div className="p-5">
 
@@ -1208,9 +1207,7 @@ function MockTestPage() {
 
               </div>
 
-              {/* =================================================
-                  LEGEND
-              ================================================= */}
+              {/* LEGEND */}
 
               <div className="mt-6 border-t border-slate-300 pt-5">
 
@@ -1249,9 +1246,7 @@ function MockTestPage() {
 
               </div>
 
-              {/* =================================================
-                  STATISTICS
-              ================================================= */}
+              {/* STATISTICS */}
 
               <div className="mt-6 rounded-xl bg-slate-50 p-4">
 
@@ -1307,21 +1302,21 @@ function MockTestPage() {
 
             </div>
 
-            {/* =================================================
-                SUBMIT
-            ================================================= */}
+            {/* SUBMIT */}
 
             <div className="shrink-0 border-t border-slate-300 bg-white p-4">
 
               <button
-  onClick={() => setShowSubmitModal(true)}
-  disabled={submitting}
-  className="w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
->
-  {submitting
-    ? "Submitting..."
-    : "Submit Test"}
-</button>
+                onClick={() =>
+                  setShowSubmitModal(true)
+                }
+                disabled={submitting}
+                className="w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {submitting
+                  ? "Submitting..."
+                  : "Submit Test"}
+              </button>
 
             </div>
 
@@ -1420,124 +1415,133 @@ function MockTestPage() {
         </div>
       )}
 
+      {/* =================================================
+          SUBMIT CONFIRMATION MODAL
+      ================================================= */}
+
       {showSubmitModal && (
-  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-    <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl">
 
-      {/* Header */}
+            {/* HEADER */}
 
-      <div className="border-b border-slate-200 px-6 py-5">
+            <div className="border-b border-slate-200 px-6 py-5">
 
-        <h2 className="text-xl font-bold text-slate-900">
-          Submit Test
-        </h2>
+              <h2 className="text-xl font-bold text-slate-900">
+                Submit Test
+              </h2>
 
-        <p className="mt-1 text-sm text-slate-500">
-          Review your attempt before submitting.
-        </p>
+              <p className="mt-1 text-sm text-slate-500">
+                Review your attempt before submitting.
+              </p>
 
-      </div>
+            </div>
 
-      {/* Statistics */}
+            {/* STATISTICS */}
 
-      <div className="grid grid-cols-2 gap-3 p-6">
+            <div className="grid grid-cols-2 gap-3 p-6">
 
-        <div className="rounded-xl bg-green-50 p-4">
+              {/* ANSWERED */}
 
-          <p className="text-xs font-semibold text-green-700">
-            Answered
-          </p>
+              <div className="rounded-xl bg-green-50 p-4">
 
-          <p className="mt-1 text-2xl font-bold text-green-800">
-            {answeredCount}
-          </p>
+                <p className="text-xs font-semibold text-green-700">
+                  Answered
+                </p>
 
-        </div>
+                <p className="mt-1 text-2xl font-bold text-green-800">
+                  {answeredCount}
+                </p>
 
-        <div className="rounded-xl bg-slate-100 p-4">
+              </div>
 
-          <p className="text-xs font-semibold text-slate-600">
-            Not Answered
-          </p>
+              {/* UNANSWERED */}
 
-          <p className="mt-1 text-2xl font-bold text-slate-800">
-            {mockTest.questions.length -
-              answeredCount}
-          </p>
+              <div className="rounded-xl bg-slate-100 p-4">
 
-        </div>
+                <p className="text-xs font-semibold text-slate-600">
+                  Unanswered
+                </p>
 
-        <div className="rounded-xl bg-orange-50 p-4">
+                <p className="mt-1 text-2xl font-bold text-slate-800">
+                  {unansweredCount}
+                </p>
 
-          <p className="text-xs font-semibold text-orange-700">
-            Marked for Review
-          </p>
+              </div>
 
-          <p className="mt-1 text-2xl font-bold text-orange-800">
-            {markedCount}
-          </p>
+              {/* MARKED */}
 
-        </div>
+              <div className="rounded-xl bg-orange-50 p-4">
 
-        <div className="rounded-xl bg-slate-100 p-4">
+                <p className="text-xs font-semibold text-orange-700">
+                  Marked
+                </p>
 
-          <p className="text-xs font-semibold text-slate-600">
-            Not Visited
-          </p>
+                <p className="mt-1 text-2xl font-bold text-orange-800">
+                  {markedCount}
+                </p>
 
-          <p className="mt-1 text-2xl font-bold text-slate-800">
-            {notVisitedCount}
-          </p>
+              </div>
 
-        </div>
+              {/* NOT VISITED */}
 
-      </div>
+              <div className="rounded-xl bg-slate-100 p-4">
 
-      {/* Warning */}
+                <p className="text-xs font-semibold text-slate-600">
+                  Not Visited
+                </p>
 
-      {mockTest.questions.length -
-        answeredCount >
-        0 && (
-        <div className="mx-6 rounded-lg border border-orange-200 bg-orange-50 p-3 text-sm text-orange-800">
-          You still have unanswered questions.
-          Make sure you want to submit the test.
+                <p className="mt-1 text-2xl font-bold text-slate-800">
+                  {notVisitedCount}
+                </p>
+
+              </div>
+
+            </div>
+
+            {/* WARNING */}
+
+            {unansweredCount > 0 && (
+              <div className="mx-6 rounded-lg border border-orange-200 bg-orange-50 p-3 text-sm text-orange-800">
+                You still have unanswered questions.
+                Make sure you want to submit the test.
+              </div>
+            )}
+
+            {/* ACTIONS */}
+
+            <div className="flex justify-end gap-3 border-t border-slate-200 p-6">
+
+              <button
+                onClick={() =>
+                  setShowSubmitModal(false)
+                }
+                disabled={submitting}
+                className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50"
+              >
+                Go Back
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowSubmitModal(false);
+                  handleSubmitTest(false);
+                }}
+                disabled={submitting}
+                className="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-bold text-white hover:bg-blue-800 disabled:opacity-50"
+              >
+                {submitting
+                  ? "Submitting..."
+                  : "Submit Test"}
+              </button>
+
+            </div>
+
+          </div>
+
         </div>
       )}
-
-      {/* Actions */}
-
-      <div className="flex justify-end gap-3 border-t border-slate-200 p-6">
-
-        <button
-          onClick={() =>
-            setShowSubmitModal(false)
-          }
-          disabled={submitting}
-          className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50"
-        >
-          Go Back
-        </button>
-
-        <button
-          onClick={() => {
-            setShowSubmitModal(false);
-            handleSubmitTest(false);
-          }}
-          disabled={submitting}
-          className="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-bold text-white hover:bg-blue-800 disabled:opacity-50"
-        >
-          {submitting
-            ? "Submitting..."
-            : "Submit Test"}
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-)}
 
     </div>
   );
