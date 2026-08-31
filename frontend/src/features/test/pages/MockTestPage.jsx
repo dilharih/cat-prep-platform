@@ -39,6 +39,9 @@ function MockTestPage() {
   const [submitting, setSubmitting] =
     useState(false);
 
+  const [showSubmitModal, setShowSubmitModal] =
+  useState(false);
+
   const submittingRef = useRef(false);
 
   const [calculatorOpen, setCalculatorOpen] =
@@ -50,9 +53,9 @@ function MockTestPage() {
   const [isFullscreen, setIsFullscreen] =
     useState(false);
 
-  // =========================
+  // =====================================================
   // LOAD MOCK TEST
-  // =========================
+  // =====================================================
 
   useEffect(() => {
     async function loadMockTest() {
@@ -89,9 +92,9 @@ function MockTestPage() {
     loadMockTest();
   }, [mockTestId]);
 
-  // =========================
+  // =====================================================
   // TIMER
-  // =========================
+  // =====================================================
 
   useEffect(() => {
     if (
@@ -115,9 +118,9 @@ function MockTestPage() {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  // =========================
+  // =====================================================
   // AUTO SUBMIT
-  // =========================
+  // =====================================================
 
   useEffect(() => {
     if (
@@ -129,9 +132,9 @@ function MockTestPage() {
     }
   }, [timeLeft, mockTest]);
 
-  // =========================
+  // =====================================================
   // FULLSCREEN
-  // =========================
+  // =====================================================
 
   async function toggleFullscreen() {
     try {
@@ -170,9 +173,9 @@ function MockTestPage() {
     };
   }, []);
 
-  // =========================
-  // SECTIONS
-  // =========================
+  // =====================================================
+  // AVAILABLE SECTIONS
+  // =====================================================
 
   const availableSections = useMemo(() => {
     if (!mockTest?.questions) {
@@ -188,9 +191,17 @@ function MockTestPage() {
     ];
   }, [mockTest]);
 
+  // =====================================================
+  // CURRENT SECTION
+  // =====================================================
+
   const currentSection =
     mockTest?.questions?.[currentIndex]?.question
       ?.section || availableSections[0];
+
+  // =====================================================
+  // QUESTIONS IN CURRENT SECTION
+  // =====================================================
 
   const sectionQuestions = useMemo(() => {
     if (!mockTest?.questions) {
@@ -208,9 +219,9 @@ function MockTestPage() {
       );
   }, [mockTest, currentSection]);
 
-  // =========================
+  // =====================================================
   // SECTION PROGRESS
-  // =========================
+  // =====================================================
 
   const sectionProgress = useMemo(() => {
     if (!mockTest?.questions) {
@@ -247,9 +258,9 @@ function MockTestPage() {
     answers,
   ]);
 
-  // =========================
+  // =====================================================
   // CURRENT QUESTION
-  // =========================
+  // =====================================================
 
   const currentQuestion =
     mockTest?.questions?.[currentIndex]?.question;
@@ -260,9 +271,9 @@ function MockTestPage() {
         item.originalIndex === currentIndex
     ) + 1;
 
-  // =========================
+  // =====================================================
   // SELECT ANSWER
-  // =========================
+  // =====================================================
 
   function selectAnswer(answer) {
     if (!currentQuestion || submitting) {
@@ -284,9 +295,9 @@ function MockTestPage() {
     }));
   }
 
-  // =========================
+  // =====================================================
   // VISIT QUESTION
-  // =========================
+  // =====================================================
 
   function visitQuestion(index) {
     if (
@@ -308,9 +319,9 @@ function MockTestPage() {
     }));
   }
 
-  // =========================
+  // =====================================================
   // NEXT QUESTION
-  // =========================
+  // =====================================================
 
   function nextQuestion() {
     if (
@@ -322,9 +333,9 @@ function MockTestPage() {
     }
   }
 
-  // =========================
+  // =====================================================
   // PREVIOUS QUESTION
-  // =========================
+  // =====================================================
 
   function previousQuestion() {
     if (
@@ -335,9 +346,9 @@ function MockTestPage() {
     }
   }
 
-  // =========================
+  // =====================================================
   // MARK FOR REVIEW
-  // =========================
+  // =====================================================
 
   function toggleMarkForReview() {
     if (!currentQuestion || submitting) {
@@ -352,9 +363,9 @@ function MockTestPage() {
     }));
   }
 
-  // =========================
-  // MARK + NEXT
-  // =========================
+  // =====================================================
+  // MARK FOR REVIEW + NEXT
+  // =====================================================
 
   function markForReviewAndNext() {
     if (!currentQuestion || submitting) {
@@ -371,9 +382,9 @@ function MockTestPage() {
     nextQuestion();
   }
 
-  // =========================
+  // =====================================================
   // CLEAR RESPONSE
-  // =========================
+  // =====================================================
 
   function clearResponse() {
     if (!currentQuestion || submitting) {
@@ -391,9 +402,9 @@ function MockTestPage() {
     setAnswers(updatedAnswers);
   }
 
-  // =========================
-  // SECTION CHANGE
-  // =========================
+  // =====================================================
+  // CHANGE SECTION
+  // =====================================================
 
   function changeSection(section) {
     if (!mockTest || submitting) {
@@ -413,9 +424,9 @@ function MockTestPage() {
     visitQuestion(firstQuestionIndex);
   }
 
-  // =========================
-  // SUBMIT
-  // =========================
+  // =====================================================
+  // SUBMIT TEST
+  // =====================================================
 
   async function handleSubmitTest(
     autoSubmit = false
@@ -425,14 +436,8 @@ function MockTestPage() {
     }
 
     if (!autoSubmit) {
-      const confirmed = window.confirm(
-        "Are you sure you want to submit the test?"
-      );
-
-      if (!confirmed) {
-        return;
-      }
-    }
+  // Confirmation is handled by the custom submit modal.
+}
 
     try {
       submittingRef.current = true;
@@ -472,9 +477,9 @@ function MockTestPage() {
     }
   }
 
-  // =========================
+  // =====================================================
   // CALCULATOR
-  // =========================
+  // =====================================================
 
   function addCalculatorValue(value) {
     setCalculatorValue(
@@ -492,7 +497,7 @@ function MockTestPage() {
         return;
       }
 
-      // Basic calculator only.
+      // Basic calculator for the mock-test UI.
       // eslint-disable-next-line no-new-func
       const result = Function(
         `"use strict"; return (${calculatorValue})`
@@ -504,13 +509,13 @@ function MockTestPage() {
     }
   }
 
-  // =========================
+  // =====================================================
   // LOADING
-  // =========================
+  // =====================================================
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100">
+      <div className="flex h-screen items-center justify-center bg-slate-100">
         <div className="rounded-xl bg-white px-8 py-6 shadow">
           <p className="font-semibold">
             Loading test...
@@ -520,13 +525,13 @@ function MockTestPage() {
     );
   }
 
-  // =========================
+  // =====================================================
   // ERROR
-  // =========================
+  // =====================================================
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100 p-6">
+      <div className="flex h-screen items-center justify-center bg-slate-100 p-6">
         <div className="rounded-xl bg-white p-8 shadow">
           <h2 className="text-xl font-semibold text-red-600">
             {error}
@@ -536,9 +541,9 @@ function MockTestPage() {
     );
   }
 
-  // =========================
+  // =====================================================
   // NO QUESTIONS
-  // =========================
+  // =====================================================
 
   if (
     !mockTest ||
@@ -546,7 +551,7 @@ function MockTestPage() {
     mockTest.questions.length === 0
   ) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100">
+      <div className="flex h-screen items-center justify-center bg-slate-100">
         <div className="rounded-xl bg-white p-8 shadow">
           <h2 className="text-xl font-semibold">
             No questions found.
@@ -556,9 +561,9 @@ function MockTestPage() {
     );
   }
 
-  // =========================
-  // TIMER FORMAT
-  // =========================
+  // =====================================================
+  // TIMER
+  // =====================================================
 
   const hours = Math.floor(
     timeLeft / 3600
@@ -582,9 +587,9 @@ function MockTestPage() {
           seconds
         ).padStart(2, "0")}`;
 
-  // =========================
+  // =====================================================
   // CURRENT ANSWER
-  // =========================
+  // =====================================================
 
   const selectedAnswer =
     currentQuestion
@@ -598,9 +603,9 @@ function MockTestPage() {
         )
       : false;
 
-  // =========================
+  // =====================================================
   // OPTIONS
-  // =========================
+  // =====================================================
 
   const options = currentQuestion
     ? [
@@ -608,130 +613,143 @@ function MockTestPage() {
         ["B", currentQuestion.optionB],
         ["C", currentQuestion.optionC],
         ["D", currentQuestion.optionD],
-      ].filter(([, text]) => text !== null)
+      ].filter(
+        ([, text]) =>
+          text !== null &&
+          text !== undefined
+      )
     : [];
 
-  // =========================
-  // PALETTE COUNTS
-  // =========================
+  // =====================================================
+  // GLOBAL STATISTICS
+  // =====================================================
 
-  const answeredCount = mockTest.questions.filter(
-    (item) =>
-      Boolean(
-        answers[item.question.id]
-      )
-  ).length;
+  const answeredCount =
+    mockTest.questions.filter(
+      (item) =>
+        Boolean(
+          answers[item.question.id]
+        )
+    ).length;
 
-  const markedCount = mockTest.questions.filter(
-    (item) =>
-      Boolean(
-        markedQuestions[item.question.id]
-      )
-  ).length;
+  const markedCount =
+    mockTest.questions.filter(
+      (item) =>
+        Boolean(
+          markedQuestions[item.question.id]
+        )
+    ).length;
 
-  const visitedCount = mockTest.questions.filter(
-    (item) =>
-      Boolean(
-        visitedQuestions[item.question.id]
-      )
-  ).length;
+  const visitedCount =
+    mockTest.questions.filter(
+      (item) =>
+        Boolean(
+          visitedQuestions[item.question.id]
+        )
+    ).length;
 
   const notVisitedCount =
     mockTest.questions.length -
     visitedCount;
 
+  // =====================================================
+  // RENDER
+  // =====================================================
+
   return (
     <div
-  ref={testContainerRef}
-  className="flex h-screen w-full flex-col overflow-hidden bg-slate-100 text-slate-900"
->
-      {/* ==================================================
-          TOP HEADER
-      ================================================== */}
+      ref={testContainerRef}
+      className="flex h-screen w-full flex-col overflow-hidden bg-slate-100 text-slate-900"
+    >
+      {/* =================================================
+          HEADER
+      ================================================= */}
 
       <header className="flex h-14 shrink-0 items-center justify-between bg-black px-5 text-white">
 
-  {/* Left: Branding + Paper */}
+        {/* LEFT */}
 
-  <div className="flex min-w-0 items-center">
+        <div className="flex min-w-0 items-center">
 
-    <div className="mr-5 text-xl font-extrabold tracking-tight">
-      CAT<span className="text-orange-500">Prep</span>
-    </div>
+          <div className="mr-5 text-xl font-extrabold tracking-tight">
+            CAT<span className="text-orange-500">
+              Prep
+            </span>
+          </div>
 
-    <div className="h-7 w-px bg-slate-700" />
+          <div className="h-7 w-px bg-slate-700" />
 
-    <div className="ml-5 min-w-0">
+          <div className="ml-5 min-w-0">
 
-      <p className="truncate text-sm font-bold">
-        {mockTest.title}
-      </p>
+            <p className="truncate text-sm font-bold">
+              {mockTest.title}
+            </p>
 
-      <p className="text-[11px] text-slate-400">
-        Computer Based Test
-      </p>
+            <p className="text-[11px] text-slate-400">
+              Computer Based Test
+            </p>
 
-    </div>
+          </div>
 
-  </div>
+        </div>
 
-  {/* Center: Exam Information */}
+        {/* CENTER */}
 
-  <div className="hidden text-center md:block">
+        <div className="hidden text-center md:block">
 
-    <p className="text-sm font-bold tracking-wide">
-      CAT MOCK TEST
-    </p>
+          <p className="text-sm font-bold tracking-wide">
+            CAT MOCK TEST
+          </p>
 
-    <p className="text-[10px] uppercase tracking-widest text-slate-500">
-      Full Question Paper
-    </p>
+          <p className="text-[10px] uppercase tracking-widest text-slate-500">
+            Full Question Paper
+          </p>
 
-  </div>
+        </div>
 
-  {/* Right: Candidate + Timer */}
+        {/* RIGHT */}
 
-  <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4">
 
-    <div className="hidden border-r border-slate-700 pr-4 text-right sm:block">
+          <div className="hidden border-r border-slate-700 pr-4 text-right sm:block">
 
-      <p className="text-[10px] uppercase tracking-wide text-slate-500">
-        Candidate
-      </p>
+            <p className="text-[10px] uppercase tracking-wide text-slate-500">
+              Candidate
+            </p>
 
-      <p className="text-sm font-semibold">
-        Test User
-      </p>
+            <p className="text-sm font-semibold">
+              Test User
+            </p>
 
-    </div>
+          </div>
 
-    <div
-      className={`min-w-[100px] rounded-md px-3 py-1.5 text-center ${
-        timeLeft <= 300
-          ? "bg-red-600"
-          : "bg-slate-800"
-      }`}
-    >
+          <div
+            className={`min-w-[100px] rounded-md px-3 py-1.5 text-center ${
+              timeLeft <= 300
+                ? "bg-red-600"
+                : "bg-slate-800"
+            }`}
+          >
 
-      <p className="text-[9px] uppercase tracking-widest text-slate-400">
-        Time Left
-      </p>
+            <p className="text-[9px] uppercase tracking-widest text-slate-400">
+              Time Left
+            </p>
 
-      <p className="font-mono text-base font-bold">
-        {formattedTime}
-      </p>
+            <p className="font-mono text-base font-bold">
+              {formattedTime}
+            </p>
 
-    </div>
+          </div>
 
-  </div>
+        </div>
 
-</header>
+      </header>
 
-      {/* ==================================================
+      {/* =================================================
           SECTION BAR
-      ================================================== */}
+      ================================================= */}
 
-      <div className="flex shrink-0 items-center justify-between border-b bg-white px-5 py-3 shadow-sm">
+      <div className="flex shrink-0 items-center justify-between border-b border-slate-300 bg-white px-5 py-3 shadow-sm">
 
         <div>
 
@@ -766,6 +784,7 @@ function MockTestPage() {
                         : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                     }`}
                   >
+
                     <div className="text-sm font-bold">
                       {sectionName}
                     </div>
@@ -780,6 +799,7 @@ function MockTestPage() {
                       {progress?.answered || 0}/
                       {progress?.total || 0} answered
                     </div>
+
                   </button>
                 );
               }
@@ -789,13 +809,17 @@ function MockTestPage() {
 
         </div>
 
-        {/* Tools */}
+        {/* TOOLS */}
 
         <div className="flex items-center gap-2">
 
           <button
             onClick={toggleFullscreen}
-            title="Fullscreen"
+            title={
+              isFullscreen
+                ? "Exit Fullscreen"
+                : "Fullscreen"
+            }
             className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-lg hover:bg-slate-200"
           >
             ⛶
@@ -821,57 +845,67 @@ function MockTestPage() {
 
       </div>
 
-      {/* ==================================================
+      {/* =================================================
           MAIN TEST AREA
-      ================================================== */}
+      ================================================= */}
 
-<main className="min-h-0 flex-1 overflow-hidden p-3 sm:p-4">
-<div className="grid h-full min-h-0 overflow-hidden gap-3 lg:grid-cols-[minmax(0,1fr)_300px]">
-          {/* QUESTION AREA */}
+      <main className="min-h-0 flex-1 overflow-hidden p-3 sm:p-4">
 
-          <section className="flex min-h-0 flex-col overflow-hidden rounded-2xl border bg-white shadow-sm">
+        <div className="grid h-full min-h-0 gap-3 overflow-hidden lg:grid-cols-[minmax(0,1fr)_300px]">
 
-            {/* Question Header */}
+          {/* =================================================
+              QUESTION CARD
+          ================================================= */}
 
-            <div className="flex shrink-0 items-center justify-between border-b bg-slate-50 px-5 py-3">
+          <section className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-sm">
+
+            {/* QUESTION HEADER */}
+
+            <div className="flex shrink-0 items-center justify-between border-b border-slate-300 bg-white px-5 py-3">
 
               <div>
 
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                  {currentSection}
+                <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                  {currentSection === "VARC"
+                    ? "Verbal Ability"
+                    : currentSection === "DILR"
+                    ? "LR DI"
+                    : "QA"}
                 </p>
 
-                <h1 className="text-base font-bold">
+                <h1 className="mt-1 text-lg font-bold text-slate-900">
                   Question{" "}
                   {currentSectionQuestionNumber}
                 </h1>
 
               </div>
 
-              <div className="rounded-full bg-slate-200 px-3 py-1 text-xs font-medium text-slate-600">
+              <div className="rounded-full border border-slate-300 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600">
                 {currentSectionQuestionNumber} /{" "}
                 {sectionQuestions.length}
               </div>
 
             </div>
 
-            {/* Question Content */}
+            {/* QUESTION CONTENT */}
 
             <div className="min-h-0 flex-1 overflow-auto">
 
               <div className="grid min-h-full lg:grid-cols-[1fr_1fr]">
 
-                {/* Passage / Directions */}
+                {/* =================================================
+                    DIRECTIONS / PASSAGE
+                ================================================= */}
 
-                <div className="border-b bg-slate-50 p-5 lg:border-b-0 lg:border-r">
+                <div className="border-b border-slate-300 bg-white p-5 lg:border-b-0 lg:border-r">
 
                   <div className="mb-4">
 
-                    <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                    <p className="text-sm font-bold uppercase tracking-wide text-slate-700">
                       Directions
                     </p>
 
-                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
                       {currentQuestion.passage
                         ? "Read the passage carefully and answer the question based on it."
                         : "Read the question carefully and select the most appropriate answer."}
@@ -880,7 +914,7 @@ function MockTestPage() {
                   </div>
 
                   {currentQuestion.passage ? (
-                    <div className="h-full overflow-auto rounded-xl border bg-white p-5">
+                    <div className="h-full overflow-auto rounded-xl border border-slate-300 bg-white p-5">
 
                       {currentQuestion.passage.title && (
                         <h3 className="mb-4 text-base font-bold text-slate-900">
@@ -900,7 +934,7 @@ function MockTestPage() {
 
                     </div>
                   ) : (
-                    <div className="rounded-xl border bg-white p-5">
+                    <div className="rounded-xl border border-slate-300 bg-white p-5">
 
                       <p className="text-sm leading-7 text-slate-700">
                         This question does not have an associated passage.
@@ -911,39 +945,43 @@ function MockTestPage() {
 
                 </div>
 
-                {/* Answer Area */}
+                {/* =================================================
+                    ANSWER AREA
+                ================================================= */}
 
-<div className="p-5">
+                <div className="p-5">
 
-  {/* Question Text */}
+                  {/* QUESTION TEXT */}
 
-  <div className="mb-6">
+                  <div className="mb-6">
 
-    <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
-      Question
-    </p>
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
+                      Question
+                    </p>
 
-    <p className="text-base font-medium leading-7 text-slate-900">
-      {currentQuestion.question}
-    </p>
+                    <p className="text-[15px] font-semibold leading-7 text-slate-900">
+                      {currentQuestion.question}
+                    </p>
 
-  </div>
+                  </div>
 
-  {/* Answer Header */}
+                  {/* ANSWER HEADER */}
 
-  <div className="mb-5 flex items-center justify-between">
+                  <div className="mb-5 flex items-center justify-between">
 
-    <h2 className="text-sm font-bold">
-      Choose your answer
-    </h2>
+                    <h2 className="text-sm font-bold">
+                      Choose your answer
+                    </h2>
 
-    {selectedAnswer && (
-      <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
-        Answered
-      </span>
-    )}
+                    {selectedAnswer && (
+                      <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                        Answered
+                      </span>
+                    )}
 
-  </div>
+                  </div>
+
+                  {/* OPTIONS */}
 
                   <div className="space-y-3">
 
@@ -955,18 +993,18 @@ function MockTestPage() {
                             selectAnswer(letter)
                           }
                           disabled={submitting}
-                          className={`flex w-full items-start gap-4 rounded-xl border-2 p-4 text-left transition ${
+                          className={`flex w-full items-start gap-4 rounded-lg border p-4 text-left transition ${
                             selectedAnswer === letter
-                              ? "border-green-500 bg-green-50"
-                              : "border-slate-200 bg-white hover:border-blue-400 hover:bg-blue-50"
+                              ? "border-green-600 bg-green-50 shadow-sm"
+                              : "border-slate-300 bg-white hover:border-blue-500 hover:bg-blue-50"
                           }`}
                         >
 
                           <span
-                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border font-bold ${
+                            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${
                               selectedAnswer ===
                               letter
-                                ? "border-green-500 bg-green-500 text-white"
+                                ? "border-green-600 bg-green-600 text-white"
                                 : "border-slate-300 bg-white text-slate-700"
                             }`}
                           >
@@ -983,6 +1021,8 @@ function MockTestPage() {
 
                   </div>
 
+                  {/* MARKED MESSAGE */}
+
                   {isCurrentMarked && (
                     <div className="mt-5 rounded-lg bg-purple-50 p-3 text-sm text-purple-700">
                       This question is marked for
@@ -996,9 +1036,11 @@ function MockTestPage() {
 
             </div>
 
-            {/* Bottom Controls */}
+            {/* =================================================
+                BOTTOM CONTROLS
+            ================================================= */}
 
-            <div className="shrink-0 border-t bg-white p-3">
+            <div className="shrink-0 border-t border-slate-300 bg-white px-4 py-3">
 
               <div className="flex flex-wrap items-center justify-between gap-3">
 
@@ -1009,7 +1051,7 @@ function MockTestPage() {
                       markForReviewAndNext
                     }
                     disabled={submitting}
-                    className="rounded-lg bg-purple-600 px-4 py-2 text-xs font-semibold text-white hover:bg-purple-700 disabled:opacity-50"
+                    className="rounded-lg bg-purple-700 px-5 py-2.5 text-xs font-bold text-white hover:bg-purple-800 disabled:opacity-50"
                   >
                     Mark for Review & Next
                   </button>
@@ -1020,7 +1062,7 @@ function MockTestPage() {
                       submitting ||
                       !selectedAnswer
                     }
-                    className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Clear Response
                   </button>
@@ -1035,7 +1077,7 @@ function MockTestPage() {
                       currentIndex === 0 ||
                       submitting
                     }
-                    className="rounded-lg border border-slate-300 px-4 py-2 text-xs font-semibold disabled:opacity-40"
+                    className="rounded-lg border border-slate-300 px-5 py-2.5 text-xs font-bold disabled:opacity-40"
                   >
                     Previous
                   </button>
@@ -1048,7 +1090,7 @@ function MockTestPage() {
                           1 ||
                       submitting
                     }
-                    className="rounded-lg bg-orange-500 px-5 py-2 text-xs font-semibold text-white hover:bg-orange-600 disabled:opacity-40"
+                    className="rounded-lg bg-orange-500 px-6 py-2.5 text-xs font-bold text-white hover:bg-orange-600 disabled:opacity-40"
                   >
                     Save & Next
                   </button>
@@ -1061,13 +1103,15 @@ function MockTestPage() {
 
           </section>
 
-          {/* ==================================================
+          {/* =================================================
               QUESTION PALETTE
-          ================================================== */}
+          ================================================= */}
 
-          <aside className="flex min-h-0 flex-col overflow-hidden rounded-2xl border bg-white shadow-sm">
+          <aside className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-sm">
 
-            <div className="shrink-0 border-b bg-slate-50 p-4">
+            {/* PALETTE HEADER */}
+
+            <div className="shrink-0 border-b border-slate-300 bg-white p-4">
 
               <p className="text-xs text-slate-500">
                 You are viewing
@@ -1086,6 +1130,8 @@ function MockTestPage() {
               </p>
 
             </div>
+
+            {/* PALETTE CONTENT */}
 
             <div className="min-h-0 flex-1 overflow-auto p-4">
 
@@ -1162,9 +1208,11 @@ function MockTestPage() {
 
               </div>
 
-              {/* Legend */}
+              {/* =================================================
+                  LEGEND
+              ================================================= */}
 
-              <div className="mt-6 border-t pt-5">
+              <div className="mt-6 border-t border-slate-300 pt-5">
 
                 <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-500">
                   Legend
@@ -1201,11 +1249,14 @@ function MockTestPage() {
 
               </div>
 
-              {/* Statistics */}
+              {/* =================================================
+                  STATISTICS
+              ================================================= */}
 
               <div className="mt-6 rounded-xl bg-slate-50 p-4">
 
                 <div className="flex justify-between text-xs">
+
                   <span className="text-slate-500">
                     Answered
                   </span>
@@ -1213,9 +1264,11 @@ function MockTestPage() {
                   <span className="font-bold">
                     {answeredCount}
                   </span>
+
                 </div>
 
                 <div className="mt-2 flex justify-between text-xs">
+
                   <span className="text-slate-500">
                     Marked
                   </span>
@@ -1223,9 +1276,11 @@ function MockTestPage() {
                   <span className="font-bold">
                     {markedCount}
                   </span>
+
                 </div>
 
                 <div className="mt-2 flex justify-between text-xs">
+
                   <span className="text-slate-500">
                     Visited
                   </span>
@@ -1233,9 +1288,11 @@ function MockTestPage() {
                   <span className="font-bold">
                     {visitedCount}
                   </span>
+
                 </div>
 
                 <div className="mt-2 flex justify-between text-xs">
+
                   <span className="text-slate-500">
                     Not Visited
                   </span>
@@ -1243,27 +1300,28 @@ function MockTestPage() {
                   <span className="font-bold">
                     {notVisitedCount}
                   </span>
+
                 </div>
 
               </div>
 
             </div>
 
-            {/* Submit */}
+            {/* =================================================
+                SUBMIT
+            ================================================= */}
 
-            <div className="shrink-0 border-t bg-white p-4">
+            <div className="shrink-0 border-t border-slate-300 bg-white p-4">
 
               <button
-                onClick={() =>
-                  handleSubmitTest(false)
-                }
-                disabled={submitting}
-                className="w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {submitting
-                  ? "Submitting..."
-                  : "Submit Test"}
-              </button>
+  onClick={() => setShowSubmitModal(true)}
+  disabled={submitting}
+  className="w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
+>
+  {submitting
+    ? "Submitting..."
+    : "Submit Test"}
+</button>
 
             </div>
 
@@ -1273,12 +1331,12 @@ function MockTestPage() {
 
       </main>
 
-      {/* ==================================================
+      {/* =================================================
           CALCULATOR
-      ================================================== */}
+      ================================================= */}
 
       {calculatorOpen && (
-        <div className="fixed right-6 top-24 z-50 w-72 rounded-2xl border bg-white p-4 shadow-2xl">
+        <div className="fixed right-6 top-24 z-50 w-72 rounded-2xl border border-slate-300 bg-white p-4 shadow-2xl">
 
           <div className="mb-3 flex items-center justify-between">
 
@@ -1304,7 +1362,7 @@ function MockTestPage() {
                 event.target.value
               )
             }
-            className="mb-3 w-full rounded-lg border p-3 text-right font-mono"
+            className="mb-3 w-full rounded-lg border border-slate-300 p-3 text-right font-mono"
             placeholder="0"
           />
 
@@ -1361,6 +1419,125 @@ function MockTestPage() {
 
         </div>
       )}
+
+      {showSubmitModal && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
+
+    <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl">
+
+      {/* Header */}
+
+      <div className="border-b border-slate-200 px-6 py-5">
+
+        <h2 className="text-xl font-bold text-slate-900">
+          Submit Test
+        </h2>
+
+        <p className="mt-1 text-sm text-slate-500">
+          Review your attempt before submitting.
+        </p>
+
+      </div>
+
+      {/* Statistics */}
+
+      <div className="grid grid-cols-2 gap-3 p-6">
+
+        <div className="rounded-xl bg-green-50 p-4">
+
+          <p className="text-xs font-semibold text-green-700">
+            Answered
+          </p>
+
+          <p className="mt-1 text-2xl font-bold text-green-800">
+            {answeredCount}
+          </p>
+
+        </div>
+
+        <div className="rounded-xl bg-slate-100 p-4">
+
+          <p className="text-xs font-semibold text-slate-600">
+            Not Answered
+          </p>
+
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {mockTest.questions.length -
+              answeredCount}
+          </p>
+
+        </div>
+
+        <div className="rounded-xl bg-orange-50 p-4">
+
+          <p className="text-xs font-semibold text-orange-700">
+            Marked for Review
+          </p>
+
+          <p className="mt-1 text-2xl font-bold text-orange-800">
+            {markedCount}
+          </p>
+
+        </div>
+
+        <div className="rounded-xl bg-slate-100 p-4">
+
+          <p className="text-xs font-semibold text-slate-600">
+            Not Visited
+          </p>
+
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {notVisitedCount}
+          </p>
+
+        </div>
+
+      </div>
+
+      {/* Warning */}
+
+      {mockTest.questions.length -
+        answeredCount >
+        0 && (
+        <div className="mx-6 rounded-lg border border-orange-200 bg-orange-50 p-3 text-sm text-orange-800">
+          You still have unanswered questions.
+          Make sure you want to submit the test.
+        </div>
+      )}
+
+      {/* Actions */}
+
+      <div className="flex justify-end gap-3 border-t border-slate-200 p-6">
+
+        <button
+          onClick={() =>
+            setShowSubmitModal(false)
+          }
+          disabled={submitting}
+          className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50"
+        >
+          Go Back
+        </button>
+
+        <button
+          onClick={() => {
+            setShowSubmitModal(false);
+            handleSubmitTest(false);
+          }}
+          disabled={submitting}
+          className="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-bold text-white hover:bg-blue-800 disabled:opacity-50"
+        >
+          {submitting
+            ? "Submitting..."
+            : "Submit Test"}
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
 
     </div>
   );
