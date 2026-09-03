@@ -90,7 +90,6 @@ body,
   background-color: var(--brand-primary-dark) !important;
 }
 
-/* Dashboard next-step card */
 .dashboard-next-step {
   background-color: #ffffff !important;
   border-color: var(--brand-primary-dark) !important;
@@ -105,7 +104,6 @@ body,
   color: #276678 !important;
 }
 
-/* Common interactive accents */
 .ring-blue-500,
 .ring-blue-600,
 .focus\\:ring-blue-500:focus,
@@ -113,7 +111,6 @@ body,
   --tw-ring-color: var(--brand-primary) !important;
 }
 
-/* Active mock-test header and CAT Prep accent */
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header.bg-black {
   background-color: var(--brand-primary-dark) !important;
 }
@@ -123,7 +120,7 @@ body,
   color: var(--brand-primary) !important;
 }
 
-/* Dark mode palette: deep blue-teal surfaces with the same accent */
+/* Dark mode palette */
 .theme-dark,
 .theme-dark body,
 .theme-dark #root {
@@ -216,7 +213,6 @@ body,
   background-color: #1687a7 !important;
 }
 
-/* Dashboard next-step card in dark mode */
 .theme-dark .dashboard-next-step {
   background-color: var(--brand-dark-surface) !important;
   border-color: rgba(22, 135, 167, 0.3) !important;
@@ -235,10 +231,7 @@ body,
   background-color: #194353 !important;
 }
 
-/* =====================================================
-   MOCK TEST QUESTION LAYOUT
-   ===================================================== */
-
+/* Mock test question layout */
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div.overflow-auto > div.grid:not(:has(> div:first-child div.h-full.overflow-auto)) {
   grid-template-columns: minmax(0, 1fr) !important;
 }
@@ -256,7 +249,6 @@ body,
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
 }
 
-/* Cleaner palette treatment */
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button {
   border-width: 1px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -304,10 +296,7 @@ body,
   color: #ffffff !important;
 }
 
-/* =====================================================
-   RESULT PAGE
-   Keep result-page styling isolated from global theme rules.
-   ===================================================== */
+/* Result page */
 .result-page {
   background-color: #f6f5f5 !important;
   color: #276678 !important;
@@ -365,6 +354,39 @@ body,
   color: #276678 !important;
 }
 
+/* Result semantic states: force readable light-mode colors even when the OS prefers dark mode. */
+.result-page .bg-green-50 {
+  background-color: #f0fdf4 !important;
+}
+
+.result-page .text-green-700 {
+  color: #15803d !important;
+}
+
+.result-page .text-green-800 {
+  color: #166534 !important;
+}
+
+.result-page .border-green-200 {
+  border-color: #bbf7d0 !important;
+}
+
+.result-page .bg-red-50 {
+  background-color: #fef2f2 !important;
+}
+
+.result-page .text-red-700 {
+  color: #b91c1c !important;
+}
+
+.result-page .text-red-800 {
+  color: #991b1b !important;
+}
+
+.result-page .border-red-200 {
+  border-color: #fecaca !important;
+}
+
 .theme-dark .result-page {
   background-color: #091a21 !important;
   color: #d3e0ea !important;
@@ -420,4 +442,36 @@ body,
 .theme-dark .result-page .result-dashboard-button:hover {
   background-color: #194353 !important;
   color: #d3e0ea !important;
+}
+
+.theme-dark .result-page .bg-green-50 {
+  background-color: #052e16 !important;
+}
+
+.theme-dark .result-page .text-green-700 {
+  color: #86efac !important;
+}
+
+.theme-dark .result-page .text-green-800 {
+  color: #bbf7d0 !important;
+}
+
+.theme-dark .result-page .border-green-200 {
+  border-color: #166534 !important;
+}
+
+.theme-dark .result-page .bg-red-50 {
+  background-color: #450a0a !important;
+}
+
+.theme-dark .result-page .text-red-700 {
+  color: #fca5a5 !important;
+}
+
+.theme-dark .result-page .text-red-800 {
+  color: #fecaca !important;
+}
+
+.theme-dark .result-page .border-red-200 {
+  border-color: #991b1b !important;
 }
