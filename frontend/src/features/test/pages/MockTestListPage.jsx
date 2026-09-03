@@ -206,18 +206,18 @@ function MockTestListPage() {
                   </span>
                 </div>
 
-                <h3 className="mt-6 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+                <h3 className="mt-5 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                   {mockTest.title}
                 </h3>
 
-                <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 border-y border-[#d3e0ea] py-4 dark:border-slate-700">
                   <InfoItem icon={<FiCalendar />} label="Year" value={mockTest.year || "—"} />
                   <InfoItem icon={<FiLayers />} label="Slot" value={mockTest.slot || "—"} />
                   <InfoItem icon={<FiBookOpen />} label="Questions" value={mockTest._count?.questions || 0} />
                   <InfoItem icon={<FiClock />} label="Duration" value={`${mockTest.duration} min`} />
                 </div>
 
-                <div className="mt-6 flex-1" />
+                <div className="mt-5 flex-1" />
 
                 <button
                   type="button"
@@ -258,12 +258,12 @@ function FilterSelect({ label, value, onChange, options }) {
 
 function InfoItem({ icon, label, value }) {
   return (
-    <div className="rounded-xl border border-[#d3e0ea] bg-[#f6f5f5] p-3 dark:border-slate-700 dark:bg-[#102a33]">
-      <div className="flex items-center gap-2 text-[#1687a7]">
+    <div className="flex items-center justify-between gap-3 rounded-xl bg-[#f6f5f5] px-3 py-2.5 dark:bg-[#102a33]">
+      <div className="flex min-w-0 items-center gap-2 text-[#1687a7]">
         {icon}
         <span className="text-[11px] font-semibold uppercase tracking-wide text-[#5f7f8d] dark:text-[#91b2bf]">{label}</span>
       </div>
-      <p className="mt-1 text-sm font-bold text-[#276678] dark:text-[#d3e0ea]">{value}</p>
+      <p className="shrink-0 text-sm font-bold text-[#276678] dark:text-[#d3e0ea]">{value}</p>
     </div>
   );
 }
