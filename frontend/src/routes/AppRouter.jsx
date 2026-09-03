@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import PublicLandingPage from "../pages/PublicLandingPage";
 import LoginPage from "../features/auth/pages/LoginPage";
@@ -10,11 +10,21 @@ import MockTestReviewPage from "../features/test/pages/MockTestReviewPage";
 import AttemptHistoryPage from "../features/practice/pages/AttemptHistoryPage";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import PublicOnlyRoute from "../components/auth/PublicOnlyRoute";
+import ThemeToggle from "../components/common/ThemeToggle";
 import SiteLayout from "../layouts/SiteLayout";
 
-function AppRouter() {
+function AppRouterContent() {
+  const location = useLocation();
+  const isMockTestPage = /^\/mock-test\/[^/]+$/.test(location.pathname);
+
   return (
-    <BrowserRouter>
+    <>
+      {isMockTestPage && (
+        <div className="fixed right-[174px] top-[84px] z-[100] rounded-xl border border-white/10 bg-slate-900/80 p-1 shadow-lg backdrop-blur-sm">
+          <ThemeToggle />
+        </div>
+      )}
+
       <Routes>
         <Route
           path="/"
@@ -39,6 +49,14 @@ function AppRouter() {
           element={<ProtectedRoute><MockTestPage /></ProtectedRoute>}
         />
       </Routes>
+    </>
+  );
+}
+
+function AppRouter() {
+  return (
+    <BrowserRouter>
+      <AppRouterContent />
     </BrowserRouter>
   );
 }
