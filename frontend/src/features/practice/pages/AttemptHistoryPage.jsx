@@ -26,8 +26,10 @@ function AttemptHistoryPage() {
 
   const filteredAttempts = useMemo(() => {
     return attempts.filter((attempt) => {
-      if (resultFilter === "CORRECT" && !attempt.isCorrect) return false;
-      if (resultFilter === "WRONG" && attempt.isCorrect) return false;
+      const unanswered = !attempt.selectedAnswer;
+
+      if (resultFilter === "CORRECT" && (!attempt.isCorrect || unanswered)) return false;
+      if (resultFilter === "WRONG" && (attempt.isCorrect || unanswered)) return false;
       if (sectionFilter !== "ALL" && attempt.question.section !== sectionFilter) return false;
       return true;
     });
@@ -131,6 +133,7 @@ function AttemptHistoryPage() {
             {filteredAttempts.map((attempt, index) => {
               const question = attempt.question;
               const isCorrect = attempt.isCorrect;
+              const isUnanswered = !attempt.selectedAnswer;
               const selectedAnswer = attempt.selectedAnswer || "Not answered";
 
               return (
@@ -152,14 +155,21 @@ function AttemptHistoryPage() {
                       <span className="rounded-lg border border-[#D3E0EA] bg-white px-3 py-1 text-xs font-semibold text-[#5F7F8D] dark:border-[#245766] dark:bg-[#102A33] dark:text-[#B4CBD2]">
                         Slot {question.slot}
                       </span>
+                      {attempt.source === "MOCK_TEST" && (
+                        <span className="rounded-lg bg-[#EAF5F8] px-3 py-1 text-xs font-bold text-[#1687A7] dark:bg-[#123740] dark:text-[#7FD3E8]">
+                          Mock Test
+                        </span>
+                      )}
                     </div>
 
                     <span className={`rounded-full px-3 py-1 text-xs font-bold ${
-                      isCorrect
-                        ? "bg-green-100 text-green-800 dark:bg-green-950/60 dark:text-green-200"
-                        : "bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-200"
+                      isUnanswered
+                        ? "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+                        : isCorrect
+                          ? "bg-green-100 text-green-800 dark:bg-green-950/60 dark:text-green-200"
+                          : "bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-200"
                     }`}>
-                      {isCorrect ? "Correct" : "Wrong"}
+                      {isUnanswered ? "Unanswered" : isCorrect ? "Correct" : "Wrong"}
                     </span>
                   </div>
 
@@ -171,7 +181,13 @@ function AttemptHistoryPage() {
                     <div className="mt-5 grid gap-4 md:grid-cols-2">
                       <div className="rounded-xl border border-[#D3E0EA] bg-[#F6F5F5] p-4 dark:border-[#245766] dark:bg-[#194353]">
                         <p className="text-xs font-bold uppercase tracking-wider text-[#5F7F8D] dark:text-[#B4CBD2]">Your Answer</p>
-                        <p className={`mt-2 text-sm font-bold ${isCorrect ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300"}`}>
+                        <p className={`mt-2 text-sm font-bold ${
+                          isUnanswered
+                            ? "text-[#5F7F8D] dark:text-[#B4CBD2]"
+                            : isCorrect
+                              ? "text-green-700 dark:text-green-300"
+                              : "text-red-700 dark:text-red-300"
+                        }`}>
                           {selectedAnswer}
                         </p>
                       </div>
@@ -194,7 +210,7 @@ function AttemptHistoryPage() {
                     )}
 
                     <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 border-t border-[#D3E0EA] pt-4 text-xs text-[#5F7F8D] dark:border-[#245766] dark:text-[#9BB5BF] sm:text-sm">
-                      <span>Time: {attempt.timeTaken}s</span>
+                      <span>{attempt.source === "MOCK_TEST" ? "Mock test" : "Question"} · Time: {attempt.timeTaken}s</span>
                       <span>Attempted: {new Date(attempt.createdAt).toLocaleString()}</span>
                     </div>
                   </div>
