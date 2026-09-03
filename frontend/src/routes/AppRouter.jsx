@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import PublicLandingPage from "../pages/PublicLandingPage";
 import LoginPage from "../features/auth/pages/LoginPage";
+import SignupPage from "../features/auth/pages/SignupPage";
 import Dashboard from "../pages/Dashboard";
 import MockTestListPage from "../features/test/pages/MockTestListPage";
 import MockTestPage from "../features/test/pages/MockTestPage";
@@ -35,7 +36,23 @@ function AppRouterContent() {
           }
         />
 
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/login"
+          element={
+            <PublicOnlyRoute>
+              <LoginPage />
+            </PublicOnlyRoute>
+          }
+        />
+
+        <Route
+          path="/signup"
+          element={
+            <PublicOnlyRoute>
+              <SignupPage />
+            </PublicOnlyRoute>
+          }
+        />
 
         <Route element={<SiteLayout />}>
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
