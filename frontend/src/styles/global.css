@@ -13,7 +13,7 @@ html,
 body,
 #root,
 #root * {
-  transition-duration: 1s;
+  transition-duration: 0.6s;
 }
 
 body {
