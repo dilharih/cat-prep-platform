@@ -1,48 +1,53 @@
 .theme-dark .answer-option,
 .theme-dark .answer-option span {
-  color: #0f172a !important;
+  color: #f1f8fa !important;
 }
 
 .theme-dark .answer-option {
-  background-color: #ffffff !important;
-  border-color: #d3e0ea !important;
+  background-color: #123740 !important;
+  border-color: #245766 !important;
 }
 
 .theme-dark .answer-option:hover {
-  background-color: #f6f5f5 !important;
+  background-color: #194353 !important;
   border-color: #1687a7 !important;
 }
 
 .theme-dark .answer-option.selected {
   background-color: #dcfce7 !important;
   border-color: #16a34a !important;
+  color: #14532d !important;
 }
 
 .theme-dark .answer-option .answer-letter {
   background-color: #d3e0ea !important;
   border-color: #276678 !important;
-  color: #0f172a !important;
+  color: #102a33 !important;
 }
 
 /* Unselected answer cards */
 .theme-dark main section button[class*="bg-white"] {
-  background-color: #ffffff !important;
-  border-color: #c5d9e2 !important;
-  color: #102a33 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18) !important;
+  background-color: #123740 !important;
+  border-color: #245766 !important;
+  color: #f1f8fa !important;
+  box-shadow: none !important;
 }
 
 .theme-dark main section button[class*="bg-white"] > span {
-  color: #102a33 !important;
+  color: #f1f8fa !important;
 }
 
 .theme-dark main section button[class*="bg-white"]:hover {
-  background-color: #f6f5f5 !important;
+  background-color: #194353 !important;
   border-color: #1687a7 !important;
-  color: #102a33 !important;
+  color: #ffffff !important;
 }
 
-/* Selected answers: use the same green treatment as light mode. */
+.theme-dark main section button[class*="bg-white"]:hover > span {
+  color: #ffffff !important;
+}
+
+/* Selected answers: keep the green treatment from light mode. */
 .theme-dark main section button[class*="bg-green-50"] {
   background-color: #dcfce7 !important;
   border-color: #16a34a !important;
