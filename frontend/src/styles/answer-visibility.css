@@ -14,8 +14,8 @@
 }
 
 .theme-dark .answer-option.selected {
-  background-color: #e8f5f8 !important;
-  border-color: #1687a7 !important;
+  background-color: #dcfce7 !important;
+  border-color: #16a34a !important;
 }
 
 .theme-dark .answer-option .answer-letter {
@@ -24,7 +24,7 @@
   color: #0f172a !important;
 }
 
-/* Answer cards in the current mock-test UI */
+/* Unselected answer cards */
 .theme-dark main section button[class*="bg-white"] {
   background-color: #ffffff !important;
   border-color: #c5d9e2 !important;
@@ -42,28 +42,33 @@
   color: #102a33 !important;
 }
 
-/* Selected answers: strong contrast without losing the brand palette. */
+/* Selected answers: use the same green treatment as light mode. */
 .theme-dark main section button[class*="bg-green-50"] {
-  background-color: #e8f5f8 !important;
-  border-color: #1687a7 !important;
-  color: #102a33 !important;
-  box-shadow: 0 1px 4px rgba(22, 135, 167, 0.22) !important;
+  background-color: #dcfce7 !important;
+  border-color: #16a34a !important;
+  color: #14532d !important;
+  box-shadow: 0 1px 4px rgba(22, 163, 74, 0.25) !important;
 }
 
 .theme-dark main section button[class*="bg-green-50"] > span {
-  color: #102a33 !important;
+  color: #14532d !important;
 }
 
-/* Answer letters remain clearly visible in both states. */
-.theme-dark main section button[class*="bg-white"] span[class*="rounded-full"],
-.theme-dark main section button[class*="bg-green-50"] span[class*="rounded-full"] {
+/* Answer letters */
+.theme-dark main section button[class*="bg-white"] span[class*="rounded-full"] {
   color: #102a33 !important;
   border-color: #276678 !important;
   background-color: #d3e0ea !important;
 }
 
+.theme-dark main section button[class*="bg-green-50"] span[class*="rounded-full"] {
+  color: #ffffff !important;
+  border-color: #16a34a !important;
+  background-color: #16a34a !important;
+}
+
 .theme-dark main section button[class*="bg-green-50"] span[class*="bg-green-600"] {
   color: #ffffff !important;
-  background-color: #1687a7 !important;
-  border-color: #1687a7 !important;
+  background-color: #16a34a !important;
+  border-color: #16a34a !important;
 }
