@@ -27,7 +27,7 @@
   position: absolute;
   cursor: pointer;
   inset: 0;
-  background-color: #2196f3;
+  background-color: #1687a7;
   transition: background-color var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--toggle-duration) ease;
   z-index: 0;
   overflow: hidden;
@@ -45,11 +45,11 @@
 }
 
 .theme-switch #dark-mode:checked + .slider {
-  background-color: #000;
+  background-color: #276678;
 }
 
 .theme-switch #dark-mode:focus-visible + .slider {
-  box-shadow: 0 0 calc(var(--scale) * 2px) #2196f3;
+  box-shadow: 0 0 calc(var(--scale) * 2px) #1687a7;
 }
 
 .theme-switch #dark-mode:checked + .slider .sun-moon {
