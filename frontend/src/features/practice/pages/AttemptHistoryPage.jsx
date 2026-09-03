@@ -5,29 +5,17 @@ function AttemptHistoryPage() {
   const [attempts, setAttempts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const [resultFilter, setResultFilter] =
-    useState("ALL");
-
-  const [sectionFilter, setSectionFilter] =
-    useState("ALL");
+  const [resultFilter, setResultFilter] = useState("ALL");
+  const [sectionFilter, setSectionFilter] = useState("ALL");
 
   useEffect(() => {
     async function loadAttempts() {
       try {
         const data = await getMyAttempts();
-
         setAttempts(data);
       } catch (error) {
-        console.error(
-          "Failed to load attempt history:",
-          error
-        );
-
-        setError(
-          error.response?.data?.message ||
-            "Failed to load attempt history."
-        );
+        console.error("Failed to load attempt history:", error);
+        setError(error.response?.data?.message || "Failed to load attempt history.");
       } finally {
         setLoading(false);
       }
@@ -36,28 +24,11 @@ function AttemptHistoryPage() {
     loadAttempts();
   }, []);
 
-  // =========================
-  // FILTER ATTEMPTS
-  // =========================
-
   const filteredAttempts = useMemo(() => {
     return attempts.filter((attempt) => {
-      // Result filter
-      if (
-        resultFilter === "CORRECT" &&
-        !attempt.isCorrect
-      ) {
-        return false;
-      }
+      if (resultFilter === "CORRECT" && !attempt.isCorrect) return false;
+      if (resultFilter === "WRONG" && attempt.isCorrect) return false;
 
-      if (
-        resultFilter === "WRONG" &&
-        attempt.isCorrect
-      ) {
-        return false;
-      }
-
-      // Section filter
       if (
         sectionFilter !== "ALL" &&
         attempt.question.section !== sectionFilter
@@ -67,313 +38,201 @@ function AttemptHistoryPage() {
 
       return true;
     });
-  }, [
-    attempts,
-    resultFilter,
-    sectionFilter,
-  ]);
-
-  // =========================
-  // LOADING
-  // =========================
+  }, [attempts, resultFilter, sectionFilter]);
 
   if (loading) {
     return (
-      <div className="p-8">
-        <h1 className="text-3xl font-bold">
-          Question History
-        </h1>
-
-        <p className="mt-2 text-gray-500">
-          Loading your attempts...
-        </p>
+      <div className="history-page flex min-h-screen items-center justify-center p-4">
+        <div className="history-panel rounded-2xl p-7 text-center shadow-sm">
+          <div className="mx-auto mb-3 h-8 w-8 animate-spin rounded-full border-2 border-[#D3E0EA] border-t-[#1687A7]" />
+          <h1 className="history-heading text-lg font-semibold">Loading history...</h1>
+        </div>
       </div>
     );
   }
 
-  // =========================
-  // ERROR
-  // =========================
-
   if (error) {
     return (
-      <div className="p-8">
-        <h1 className="text-3xl font-bold">
-          Question History
-        </h1>
-
-        <div className="mt-6 rounded-lg border border-red-300 bg-red-50 p-4 text-red-700">
-          {error}
+      <div className="history-page min-h-screen p-4 sm:p-6 lg:p-8">
+        <div className="mx-auto max-w-6xl">
+          <h1 className="history-title text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Question History
+          </h1>
+          <div className="history-error mt-6 rounded-2xl border p-5 text-sm font-medium">
+            {error}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-6xl p-8">
+    <div className="history-page min-h-screen font-sans">
+      <main className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <header>
+          <p className="history-eyebrow text-xs font-bold uppercase tracking-[0.18em]">
+            Your progress
+          </p>
+          <h1 className="history-title mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Question History
+          </h1>
+          <p className="history-muted mt-2 text-sm sm:text-base">
+            Review the questions you have attempted and learn from your mistakes.
+          </p>
+        </header>
 
-      {/* =========================
-          HEADER
-      ========================== */}
+        <section className="history-panel mt-6 rounded-2xl p-5 shadow-sm sm:p-6">
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="history-label mb-2 text-xs font-bold uppercase tracking-wider">
+                Result
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  ["ALL", "All"],
+                  ["CORRECT", "Correct"],
+                  ["WRONG", "Wrong"],
+                ].map(([value, label]) => (
+                  <button
+                    key={value}
+                    onClick={() => setResultFilter(value)}
+                    className={`history-filter rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-[#1687A7] focus:ring-offset-2 ${
+                      resultFilter === value ? "active" : ""
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-      <div>
-        <h1 className="text-3xl font-bold">
-          Question History
-        </h1>
-
-        <p className="mt-2 text-gray-500">
-          Review the questions you have attempted.
-        </p>
-      </div>
-
-      {/* =========================
-          FILTERS
-      ========================== */}
-
-      <div className="mt-8 rounded-xl border bg-white p-5 shadow-sm">
-
-        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-
-          {/* Result Filter */}
-          <div>
-            <p className="mb-2 text-sm font-medium text-gray-700">
-              Result
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() =>
-                  setResultFilter("ALL")
-                }
-                className={`rounded-lg px-4 py-2 text-sm font-medium ${
-                  resultFilter === "ALL"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
+            <div className="w-full md:w-auto">
+              <label
+                htmlFor="history-section"
+                className="history-label mb-2 block text-xs font-bold uppercase tracking-wider"
               >
-                All
-              </button>
-
-              <button
-                onClick={() =>
-                  setResultFilter("CORRECT")
-                }
-                className={`rounded-lg px-4 py-2 text-sm font-medium ${
-                  resultFilter === "CORRECT"
-                    ? "bg-green-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
+                Section
+              </label>
+              <select
+                id="history-section"
+                value={sectionFilter}
+                onChange={(event) => setSectionFilter(event.target.value)}
+                className="history-select w-full rounded-xl px-4 py-2.5 text-sm font-medium outline-none transition focus:ring-2 focus:ring-[#1687A7] md:min-w-44"
               >
-                Correct
-              </button>
-
-              <button
-                onClick={() =>
-                  setResultFilter("WRONG")
-                }
-                className={`rounded-lg px-4 py-2 text-sm font-medium ${
-                  resultFilter === "WRONG"
-                    ? "bg-red-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Wrong
-              </button>
+                <option value="ALL">All Sections</option>
+                <option value="VARC">VARC</option>
+                <option value="DILR">DILR</option>
+                <option value="QA">QA</option>
+              </select>
             </div>
           </div>
 
-          {/* Section Filter */}
-          <div>
-            <p className="mb-2 text-sm font-medium text-gray-700">
-              Section
-            </p>
-
-            <select
-              value={sectionFilter}
-              onChange={(event) =>
-                setSectionFilter(
-                  event.target.value
-                )
-              }
-              className="rounded-lg border px-4 py-2 text-sm outline-none focus:border-blue-500"
-            >
-              <option value="ALL">
-                All Sections
-              </option>
-
-              <option value="VARC">
-                VARC
-              </option>
-
-              <option value="DILR">
-                DILR
-              </option>
-
-              <option value="QA">
-                QA
-              </option>
-            </select>
+          <div className="history-divider mt-5 border-t pt-4 text-sm">
+            Showing <span className="history-count font-bold">{filteredAttempts.length}</span> of{" "}
+            <span className="history-count font-bold">{attempts.length}</span> attempts
           </div>
+        </section>
 
-        </div>
+        {filteredAttempts.length === 0 && (
+          <section className="history-panel mt-6 rounded-2xl p-8 text-center shadow-sm">
+            <h2 className="history-heading text-xl font-bold">No attempts found</h2>
+            <p className="history-muted mt-2 text-sm">
+              Try changing your filters or complete a mock test question first.
+            </p>
+          </section>
+        )}
 
-        {/* Result count */}
-        <div className="mt-5 border-t pt-4 text-sm text-gray-500">
-          Showing{" "}
-          <span className="font-semibold text-gray-900">
-            {filteredAttempts.length}
-          </span>{" "}
-          of{" "}
-          <span className="font-semibold text-gray-900">
-            {attempts.length}
-          </span>{" "}
-          attempts
-        </div>
-      </div>
+        {filteredAttempts.length > 0 && (
+          <div className="mt-6 space-y-5">
+            {filteredAttempts.map((attempt, index) => {
+              const question = attempt.question;
+              const isCorrect = attempt.isCorrect;
+              const selectedAnswer = attempt.selectedAnswer || "Not answered";
 
-      {/* =========================
-          EMPTY STATE
-      ========================== */}
+              return (
+                <article
+                  key={attempt.id}
+                  className="history-card rounded-2xl shadow-sm"
+                >
+                  <div className="history-card-header flex flex-col gap-3 border-b px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                    <div className="flex min-w-0 flex-wrap items-center gap-2">
+                      <span className="history-question-number inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2 text-xs font-extrabold">
+                        {index + 1}
+                      </span>
+                      <span className="history-badge history-badge-section rounded-lg px-3 py-1 text-xs font-bold">
+                        {question.section}
+                      </span>
+                      <span className="history-badge rounded-lg px-3 py-1 text-xs font-semibold">
+                        {question.topic}
+                      </span>
+                      <span className="history-badge rounded-lg px-3 py-1 text-xs font-semibold">
+                        {question.year}
+                      </span>
+                      <span className="history-badge rounded-lg px-3 py-1 text-xs font-semibold">
+                        Slot {question.slot}
+                      </span>
+                    </div>
 
-      {filteredAttempts.length === 0 && (
-        <div className="mt-8 rounded-xl border bg-white p-8 text-center shadow-sm">
-          <h2 className="text-xl font-semibold">
-            No attempts found
-          </h2>
-
-          <p className="mt-2 text-gray-500">
-            Try changing your filters or solve some
-            more questions.
-          </p>
-        </div>
-      )}
-
-      {/* =========================
-          ATTEMPTS
-      ========================== */}
-
-      {filteredAttempts.length > 0 && (
-        <div className="mt-8 space-y-6">
-          {filteredAttempts.map((attempt) => {
-            const question =
-              attempt.question;
-
-            return (
-              <div
-                key={attempt.id}
-                className="rounded-xl border bg-white p-6 shadow-sm"
-              >
-
-                {/* Question Header */}
-                <div className="flex flex-wrap items-center justify-between gap-3">
-
-                  <div className="flex flex-wrap gap-2">
-
-                    <span className="rounded bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
-                      {question.section}
-                    </span>
-
-                    <span className="rounded bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-                      {question.topic}
-                    </span>
-
-                    <span className="rounded bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-                      {question.year}
-                    </span>
-
-                    <span className="rounded bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-                      Slot {question.slot}
-                    </span>
-
-                  </div>
-
-                  {/* Result */}
-                  <span
-                    className={`rounded-full px-3 py-1 text-sm font-semibold ${
-                      attempt.isCorrect
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {attempt.isCorrect
-                      ? "Correct"
-                      : "Wrong"}
-                  </span>
-                </div>
-
-                {/* Question */}
-                <div className="mt-5">
-                  <h2 className="text-lg font-semibold">
-                    {question.question}
-                  </h2>
-                </div>
-
-                {/* Answers */}
-                <div className="mt-5 grid gap-4 md:grid-cols-2">
-
-                  <div className="rounded-lg bg-gray-50 p-4">
-                    <p className="text-sm text-gray-500">
-                      Your Answer
-                    </p>
-
-                    <p
-                      className={`mt-1 font-semibold ${
-                        attempt.isCorrect
-                          ? "text-green-600"
-                          : "text-red-600"
+                    <span
+                      className={`history-status rounded-full px-3 py-1 text-xs font-bold ${
+                        isCorrect ? "correct" : "wrong"
                       }`}
                     >
-                      {attempt.selectedAnswer ||
-                        "Not answered"}
-                    </p>
+                      {isCorrect ? "Correct" : "Wrong"}
+                    </span>
                   </div>
 
-                  <div className="rounded-lg bg-gray-50 p-4">
-                    <p className="text-sm text-gray-500">
-                      Correct Answer
+                  <div className="p-5 sm:p-6">
+                    <p className="history-question text-base font-semibold leading-7 sm:text-lg">
+                      {question.question}
                     </p>
 
-                    <p className="mt-1 font-semibold text-green-600">
-                      {question.correctAnswer}
-                    </p>
+                    <div className="mt-5 grid gap-4 md:grid-cols-2">
+                      <div className="history-answer rounded-xl border p-4">
+                        <p className="history-label text-xs font-bold uppercase tracking-wider">
+                          Your Answer
+                        </p>
+                        <p
+                          className={`mt-2 text-sm font-bold ${
+                            isCorrect ? "history-answer-correct" : "history-answer-wrong"
+                          }`}
+                        >
+                          {selectedAnswer}
+                        </p>
+                      </div>
+
+                      <div className="history-answer rounded-xl border p-4">
+                        <p className="history-label text-xs font-bold uppercase tracking-wider">
+                          Correct Answer
+                        </p>
+                        <p className="history-answer-correct mt-2 text-sm font-bold">
+                          {question.correctAnswer}
+                        </p>
+                      </div>
+                    </div>
+
+                    {question.explanation && (
+                      <div className="history-explanation mt-4 rounded-xl border p-4">
+                        <p className="history-explanation-title text-xs font-bold uppercase tracking-wider">
+                          Explanation
+                        </p>
+                        <p className="history-explanation-text mt-2 text-sm leading-6">
+                          {question.explanation}
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="history-meta mt-5 flex flex-wrap gap-x-6 gap-y-2 border-t pt-4 text-xs sm:text-sm">
+                      <span>Time: {attempt.timeTaken}s</span>
+                      <span>Attempted: {new Date(attempt.createdAt).toLocaleString()}</span>
+                    </div>
                   </div>
-
-                </div>
-
-                {/* Explanation */}
-                {question.explanation && (
-                  <div className="mt-5 rounded-lg border bg-blue-50 p-4">
-                    <p className="text-sm font-semibold text-blue-800">
-                      Explanation
-                    </p>
-
-                    <p className="mt-1 text-gray-700">
-                      {question.explanation}
-                    </p>
-                  </div>
-                )}
-
-                {/* Metadata */}
-                <div className="mt-5 flex flex-wrap gap-6 border-t pt-4 text-sm text-gray-500">
-
-                  <span>
-                    Time:{" "}
-                    {attempt.timeTaken}s
-                  </span>
-
-                  <span>
-                    Attempted:{" "}
-                    {new Date(
-                      attempt.createdAt
-                    ).toLocaleString()}
-                  </span>
-
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </main>
     </div>
   );
 }
