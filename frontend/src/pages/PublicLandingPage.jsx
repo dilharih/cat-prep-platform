@@ -33,11 +33,11 @@ function PublicLandingPage() {
 
   return (
     <main className="public-landing-page min-h-screen overflow-x-hidden bg-[#f6f5f5] text-[#276678]">
-      <header className="public-landing-header border-b border-[#d3e0ea]/70 bg-[#f6f5f5]/95 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10 lg:px-12">
+      <header className="public-landing-header border-b backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5 sm:px-10 lg:px-12">
           <Link
             to="/"
-            className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#276678]"
+            className="flex items-center gap-2 text-lg font-extrabold tracking-tight text-[#276678] sm:text-xl"
             aria-label="CAT Prep home"
           >
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#276678] text-sm font-black text-white shadow-sm">
@@ -46,17 +46,17 @@ function PublicLandingPage() {
             CAT <span className="text-[#1687a7]">Prep</span>
           </Link>
 
-          <nav className="flex items-center gap-3" aria-label="Public navigation">
+          <nav className="flex items-center gap-2 sm:gap-3" aria-label="Public navigation">
             <a
               href="#features"
-              className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-[#5f7f8d] transition hover:bg-[#d3e0ea]/50 hover:text-[#276678] sm:inline-flex"
+              className="hidden rounded-lg px-3 py-2 text-sm font-semibold transition sm:inline-flex"
             >
               Features
             </a>
             <ThemeToggle />
             <Link
               to="/login"
-              className="rounded-xl border border-[#276678] bg-white px-5 py-2.5 text-sm font-bold text-[#276678] transition hover:bg-[#276678] hover:text-white"
+              className="rounded-xl border border-[#276678] bg-white px-4 py-2.5 text-sm font-bold text-[#276678] transition hover:bg-[#276678] hover:text-white sm:px-5"
             >
               Log in
             </Link>
@@ -172,9 +172,9 @@ function PublicLandingPage() {
         </Link>
       </section>
 
-      <footer className="public-landing-footer border-t border-[#285363] bg-[#091a21] text-[#d3e0ea]">
-        <div className="mx-auto max-w-7xl px-6 py-10 sm:px-10 lg:px-12">
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+      <footer className="public-landing-footer border-t">
+        <div className="mx-auto max-w-7xl px-6 py-8 sm:px-10 lg:px-12">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <Link to="/" className="flex items-center gap-2 text-lg font-extrabold">
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#276678] text-xs font-black text-white">
@@ -182,18 +182,18 @@ function PublicLandingPage() {
                 </span>
                 CAT <span className="text-[#1687a7]">Prep</span>
               </Link>
-              <p className="mt-3 max-w-sm text-sm leading-6 text-[#91b2bf]">
+              <p className="mt-2 max-w-sm text-sm leading-6">
                 A simple platform for focused CAT preparation, mock tests, and performance tracking.
               </p>
             </div>
 
             <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold" aria-label="Footer navigation">
-              <a href="#features" className="transition hover:text-white">Features</a>
-              <Link to="/login" className="transition hover:text-white">Log in</Link>
+              <a href="#features" className="transition">Features</a>
+              <Link to="/login" className="transition">Log in</Link>
             </nav>
           </div>
 
-          <div className="mt-8 border-t border-[#285363] pt-6 text-xs text-[#6f919e]">
+          <div className="mt-6 border-t pt-5 text-xs">
             © {new Date().getFullYear()} CAT Prep. Built for CAT aspirants.
           </div>
         </div>
