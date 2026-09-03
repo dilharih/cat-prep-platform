@@ -85,7 +85,7 @@ function PublicLandingPage() {
 
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
-                to="/login"
+                to="/signup"
                 className="rounded-xl bg-[#1687a7] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1687a7]/15 transition hover:bg-[#276678]"
               >
                 Start practicing
@@ -166,7 +166,7 @@ function PublicLandingPage() {
           </h2>
         </div>
         <Link
-          to="/login"
+          to="/signup"
           className="shrink-0 rounded-xl bg-[#1687a7] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#276678]"
         >
           Get started
