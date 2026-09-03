@@ -72,7 +72,17 @@ function LoginForm() {
         {isSubmitting ? "Signing in..." : "Login"}
       </button>
 
-      <div className="mt-7 text-sm">
+      <div className="mt-6 text-center text-sm text-[#5f7f8d] dark:text-[#9bb5bf]">
+        New to CAT Prep?{" "}
+        <Link
+          to="/signup"
+          className="font-semibold text-[#1687a7] hover:text-[#276678] dark:hover:text-[#45aeca]"
+        >
+          Create an account
+        </Link>
+      </div>
+
+      <div className="mt-5 text-sm">
         <Link to="/" className="auth-page__back font-semibold transition">
           ← Back to home
         </Link>
