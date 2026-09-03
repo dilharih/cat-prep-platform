@@ -258,12 +258,12 @@ function FilterSelect({ label, value, onChange, options }) {
 
 function InfoItem({ icon, label, value }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-3 dark:border-slate-700 dark:bg-slate-800/60">
+    <div className="rounded-xl border border-[#d3e0ea] bg-[#f6f5f5] p-3 dark:border-slate-700 dark:bg-[#102a33]">
       <div className="flex items-center gap-2 text-[#1687a7]">
         {icon}
-        <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-[#5f7f8d] dark:text-[#91b2bf]">{label}</span>
       </div>
-      <p className="mt-1 text-sm font-bold text-slate-800 dark:text-slate-200">{value}</p>
+      <p className="mt-1 text-sm font-bold text-[#276678] dark:text-[#d3e0ea]">{value}</p>
     </div>
   );
 }
