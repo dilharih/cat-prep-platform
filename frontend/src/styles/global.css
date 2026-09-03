@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 html,
 body,
 #root {
@@ -6,4 +7,129 @@ body,
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+/*
+ * Active mock-test viewport
+ * Keep the existing CAT-style layout, but compact the controls so the
+ * complete test workspace fits inside the viewport without nested scrolling.
+ */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] {
+  font-size: 13px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header {
+  height: 48px;
+  min-height: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header .text-xl {
+  font-size: 18px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] {
+  padding: 6px 16px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] .mb-2 {
+  margin-bottom: 4px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] button {
+  padding: 6px 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main {
+  padding: 8px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main > div {
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) 260px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-b"] {
+  padding: 8px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] {
+  overflow: hidden;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div {
+  padding: 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] p[class*="leading-7"] {
+  line-height: 1.35;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="h-full"][class*="overflow-auto"] {
+  height: 100%;
+  overflow: hidden;
+  padding: 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
+  padding: 8px 10px;
+  gap: 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button > span:first-child {
+  width: 30px;
+  height: 30px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] {
+  padding: 8px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] button {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-b"] {
+  padding: 10px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="overflow-auto"] {
+  overflow: hidden;
+  padding: 10px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] {
+  gap: 6px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button {
+  width: 32px;
+  height: 32px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="mt-6"] {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="bg-slate-50"][class*="p-4"] {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-t"] {
+  padding: 8px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-t"] button {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
