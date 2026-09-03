@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Tailwind dark: utilities must follow our explicit .dark class, not the OS preference. */
+/* Tailwind dark: utilities follow our explicit .dark class, not the OS preference. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 html,
@@ -36,18 +36,425 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-html.theme-dark body {
-  background: #091a21;
-  color: #d3e0ea;
+.theme-dark body,
+.theme-dark {
+  background: #020617;
+  color: #e2e8f0;
 }
 
-/* Keep browser-native form controls aligned with the active theme. */
-html.theme-dark {
-  color-scheme: dark;
+.theme-dark .bg-slate-50 { background-color: #0f172a !important; }
+.theme-dark .bg-slate-100 { background-color: #1e293b !important; }
+.theme-dark .bg-white { background-color: #0f172a !important; }
+.theme-dark .bg-gray-50 { background-color: #0f172a !important; }
+.theme-dark .bg-gray-100 { background-color: #1e293b !important; }
+
+.theme-dark .text-slate-950,
+.theme-dark .text-slate-900,
+.theme-dark .text-slate-800,
+.theme-dark .text-gray-900 { color: #f8fafc !important; }
+
+.theme-dark .text-slate-700,
+.theme-dark .text-slate-600,
+.theme-dark .text-gray-700,
+.theme-dark .text-gray-600 { color: #cbd5e1 !important; }
+
+.theme-dark .text-slate-500,
+.theme-dark .text-gray-500 { color: #94a3b8 !important; }
+
+.theme-dark .border-slate-200,
+.theme-dark .border-slate-300,
+.theme-dark .border-gray-200,
+.theme-dark .border-gray-300 { border-color: #334155 !important; }
+
+.theme-dark .hover\\:bg-slate-100:hover,
+.theme-dark .hover\\:bg-slate-200:hover { background-color: #1e293b !important; }
+
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #475569;
 }
 
-html:not(.theme-dark) {
-  color-scheme: light;
+/* Compact active mock-test viewport */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] {
+  font-size: 13px;
 }
 
-/* Mock-test and shared theme rules below this point remain unchanged. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header {
+  height: 48px;
+  min-height: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header .text-xl {
+  font-size: 18px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] {
+  padding: 6px 16px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] .mb-2 {
+  margin-bottom: 4px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] button {
+  padding: 6px 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main {
+  padding: 8px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main > div {
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) 260px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-b"] {
+  padding: 8px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] {
+  overflow: hidden;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div {
+  padding: 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] p[class*="leading-7"] {
+  line-height: 1.35;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="h-full"][class*="overflow-auto"] {
+  height: 100%;
+  overflow: hidden;
+  padding: 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
+  padding: 8px 10px;
+  gap: 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button > span:first-child {
+  width: 30px;
+  height: 30px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] {
+  padding: 8px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] button {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-b"] {
+  padding: 10px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="overflow-auto"] {
+  overflow: hidden;
+  padding: 10px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] {
+  gap: 6px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button {
+  width: 32px;
+  height: 32px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="mt-6"] {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="bg-slate-50"][class*="p-4"] {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-t"] {
+  padding: 8px 12px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-t"] button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* =====================================================
+   MOCK TEST UI POLISH
+   Scoped to the full-screen mock-test shell only.
+   ===================================================== */
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] {
+  --mock-bg: #eef4f7;
+  --mock-surface: #ffffff;
+  --mock-soft: #f6f5f5;
+  --mock-border: #c8dbe4;
+  --mock-text: #173f4b;
+  --mock-muted: #66808b;
+  --mock-primary: #1687a7;
+  --mock-accent: #ff6b00;
+  --mock-review: #8b20d9;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header {
+  background: #276678 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 10px rgba(39, 102, 120, 0.16);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header .text-orange-500 {
+  color: #7fd3e8 !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header [class*="bg-slate-800"] {
+  background: #173f4b !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] {
+  background: var(--mock-surface) !important;
+  border-bottom-color: var(--mock-border) !important;
+  box-shadow: 0 1px 0 rgba(39, 102, 120, 0.05);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] button {
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] button:not([class*="bg-orange-500"]) {
+  background: #dceaf0 !important;
+  color: var(--mock-text) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] button:not([class*="bg-orange-500"]):hover {
+  background: #cfe2e9 !important;
+  border-color: #a9c8d4;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] button[class*="bg-orange-500"] {
+  background: var(--mock-accent) !important;
+  box-shadow: 0 4px 10px rgba(255, 107, 0, 0.18);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main {
+  background: var(--mock-bg);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main > div {
+  grid-template-columns: minmax(0, 1fr) 276px;
+  gap: 10px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"],
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main aside[class*="rounded-2xl"] {
+  border-color: var(--mock-border) !important;
+  border-radius: 14px;
+  box-shadow: 0 3px 14px rgba(39, 102, 120, 0.08);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-b"],
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main aside[class*="rounded-2xl"] > div[class*="border-b"] {
+  background: var(--mock-surface) !important;
+  border-color: var(--mock-border) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div {
+  background: var(--mock-surface);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div:first-child {
+  flex: 0 0 42%;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div:first-child,
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div:nth-child(2) {
+  border-color: var(--mock-border) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="h-full"][class*="overflow-auto"] {
+  border-color: var(--mock-border) !important;
+  background: var(--mock-soft) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] p[class*="text-[15px]"] {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--mock-text) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
+  min-height: 52px;
+  border-color: var(--mock-border) !important;
+  background: var(--mock-surface) !important;
+  color: var(--mock-text) !important;
+  box-shadow: 0 1px 2px rgba(39, 102, 120, 0.05);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button:hover {
+  border-color: #1687a7 !important;
+  background: #f0f8fa !important;
+  transform: translateY(-1px);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button[class*="bg-green-50"] {
+  background: #e5f6ea !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 2px 7px rgba(22, 163, 74, 0.12);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button[class*="bg-green-50"] > span:first-child {
+  background: #16a34a !important;
+  border-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] {
+  background: var(--mock-surface) !important;
+  border-color: var(--mock-border) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] button,
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main aside[class*="rounded-2xl"] > div[class*="border-t"] button {
+  border-radius: 8px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] button[class*="bg-orange-500"] {
+  background: var(--mock-accent) !important;
+  box-shadow: 0 3px 8px rgba(255, 107, 0, 0.16);
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] button[class*="bg-purple-700"] {
+  background: var(--mock-review) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 7px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button {
+  width: 34px;
+  height: 34px;
+  justify-self: center;
+  box-shadow: none;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button[class*="ring-2"] {
+  box-shadow: 0 0 0 2px #1687a7 !important;
+  ring-offset-width: 2px;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="mt-6"] {
+  border-color: var(--mock-border) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="bg-slate-50"][class*="p-4"] {
+  background: var(--mock-soft) !important;
+  border: 1px solid #dbe8ed;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-t"] {
+  background: var(--mock-surface) !important;
+  border-color: var(--mock-border) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] > div[class*="border-t"] button {
+  background: var(--mock-primary) !important;
+  box-shadow: 0 4px 10px rgba(22, 135, 167, 0.18);
+}
+
+/* Calculator */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="fixed"][class*="right-6"] {
+  border-color: var(--mock-border) !important;
+  background: var(--mock-surface) !important;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.22);
+}
+
+/* Submit modal */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="fixed"][class*="inset-0"] > div {
+  border: 1px solid var(--mock-border);
+}
+
+/* Dark mode */
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] {
+  --mock-bg: #0a2028;
+  --mock-surface: #0d2932;
+  --mock-soft: #123740;
+  --mock-border: #245766;
+  --mock-text: #e5f3f7;
+  --mock-muted: #8fb1bb;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header {
+  background: #102a33 !important;
+  border-bottom-color: #245766;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > div[class*="border-b"][class*="bg-white"] button:not([class*="bg-orange-500"]) {
+  background: #174452 !important;
+  color: #d3e0ea !important;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
+  background: #ffffff !important;
+  color: #102a33 !important;
+  border-color: #c5d9e2 !important;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button:hover {
+  background: #f6f5f5 !important;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button[class*="bg-green-50"] {
+  background: #dcfce7 !important;
+  color: #14532d !important;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="bg-slate-50"][class*="p-4"] {
+  background: #123740 !important;
+  border-color: #245766;
+}
+
+@media (max-width: 1023px) {
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main {
+    overflow-y: auto;
+  }
+
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main > div {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"],
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main aside[class*="rounded-2xl"] {
+    min-height: 420px;
+  }
+
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div:first-child {
+    flex-basis: 100%;
+  }
+
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div {
+    display: block;
+  }
+}
