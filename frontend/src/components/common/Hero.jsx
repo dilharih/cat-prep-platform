@@ -30,9 +30,9 @@ function Hero() {
                 <Button>Start Practice</Button>
               </Link>
 
-              <Button variant="secondary">
-                Attempt Mock Test
-              </Button>
+              <Link to="/mock-tests">
+                <Button variant="secondary">Attempt Mock Test</Button>
+              </Link>
             </div>
           </div>
 

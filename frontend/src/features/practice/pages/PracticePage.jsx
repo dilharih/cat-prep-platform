@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import QuestionCard from "../components/QuestionCard";
 import OptionList from "../components/OptionList";
@@ -22,17 +22,10 @@ function PracticePage() {
   selectAnswer,
 } = usePracticeSession();
 
-  const [result, setResult] = useState(null);
+  const [submittedResults, setSubmittedResults] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const isSubmitted = !!answeredQuestions[question?.id];
-
-  useEffect(() => {
-  setResult(null);
-}, [question?.id]);
-
-  useEffect(() => {
-  setResult(results[question?.id] || null);
-}, [question?.id, results]);
+  const result = results[question?.id] || submittedResults[question?.id];
 
   if (loading) {
     return <h2 className="p-8">Loading...</h2>;
@@ -59,7 +52,10 @@ function PracticePage() {
         30
       );
 
-      setResult(response);
+      setSubmittedResults((previous) => ({
+        ...previous,
+        [question.id]: response,
+      }));
     } catch (error) {
       console.error(error);
 

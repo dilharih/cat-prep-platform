@@ -1,6 +1,7 @@
 import {
   useEffect,
   useMemo,
+  useCallback,
   useRef,
   useState,
 } from "react";
@@ -118,6 +119,49 @@ function MockTestPage() {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
+  const handleSubmitTest = useCallback(async () => {
+    if (submittingRef.current) {
+      return;
+    }
+
+    try {
+      submittingRef.current = true;
+      setSubmitting(true);
+
+      const durationInSeconds =
+        mockTest.duration * 60;
+
+      const timeTaken =
+        durationInSeconds - timeLeft;
+
+      const result = await submitMockTest(
+        mockTestId,
+        answersRef.current,
+        timeTaken
+      );
+
+      const attemptId =
+        result.mockTestAttempt.id;
+
+      navigate(
+        `/mock-test-result/${attemptId}`
+      );
+    } catch (error) {
+      console.error(
+        "Failed to submit mock test:",
+        error
+      );
+
+      alert(
+        error.response?.data?.message ||
+          "Failed to submit mock test."
+      );
+
+      submittingRef.current = false;
+      setSubmitting(false);
+    }
+  }, [mockTest, mockTestId, timeLeft, navigate]);
+
   // =====================================================
   // AUTO SUBMIT
   // =====================================================
@@ -128,9 +172,9 @@ function MockTestPage() {
       !submittingRef.current &&
       mockTest
     ) {
-      handleSubmitTest(true);
+      handleSubmitTest();
     }
-  }, [timeLeft, mockTest]);
+  }, [handleSubmitTest, timeLeft, mockTest]);
 
   // =====================================================
   // FULLSCREEN
@@ -353,19 +397,6 @@ function MockTestPage() {
   // MARK FOR REVIEW
   // =====================================================
 
-  function toggleMarkForReview() {
-    if (!currentQuestion || submitting) {
-      return;
-    }
-
-    const questionId = currentQuestion.id;
-
-    setMarkedQuestions((previous) => ({
-      ...previous,
-      [questionId]: !previous[questionId],
-    }));
-  }
-
   // =====================================================
   // MARK FOR REVIEW + NEXT
   // =====================================================
@@ -428,55 +459,6 @@ function MockTestPage() {
   }
 
   // =====================================================
-  // SUBMIT TEST
-  // =====================================================
-
-  async function handleSubmitTest(
-    autoSubmit = false
-  ) {
-    if (submittingRef.current) {
-      return;
-    }
-
-    try {
-      submittingRef.current = true;
-      setSubmitting(true);
-
-      const durationInSeconds =
-        mockTest.duration * 60;
-
-      const timeTaken =
-        durationInSeconds - timeLeft;
-
-      const result = await submitMockTest(
-        mockTestId,
-        answersRef.current,
-        timeTaken
-      );
-
-      const attemptId =
-        result.mockTestAttempt.id;
-
-      navigate(
-        `/mock-test-result/${attemptId}`
-      );
-    } catch (error) {
-      console.error(
-        "Failed to submit mock test:",
-        error
-      );
-
-      alert(
-        error.response?.data?.message ||
-          "Failed to submit mock test."
-      );
-
-      submittingRef.current = false;
-      setSubmitting(false);
-    }
-  }
-
-  // =====================================================
   // CALCULATOR
   // =====================================================
 
@@ -497,7 +479,6 @@ function MockTestPage() {
       }
 
       // Basic calculator for the mock-test UI.
-      // eslint-disable-next-line no-new-func
       const result = Function(
         `"use strict"; return (${calculatorValue})`
       )();
