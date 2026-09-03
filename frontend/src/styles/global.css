@@ -9,10 +9,18 @@ body,
   overflow: hidden;
 }
 
+html,
+body,
+#root,
+#root * {
+  transition-duration: 3s;
+}
+
 body {
   background: #f8fafc;
   color: #0f172a;
-  transition: background-color 0.6s ease, color 0.6s ease;
+  transition-property: background-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .theme-dark body,
