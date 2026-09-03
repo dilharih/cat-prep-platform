@@ -28,21 +28,22 @@ function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
       <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
-        <Link to="/" className="shrink-0 text-xl font-extrabold tracking-tight text-slate-950 dark:text-white">
+        <Link to={user ? "/dashboard" : "/"} className="shrink-0 text-xl font-extrabold tracking-tight text-slate-950 dark:text-white">
           CAT <span className="text-blue-600 dark:text-blue-400">Prep</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
           {visibleLinks.map((link) => {
+            const linkPath = link.name === "Home" && user ? "/dashboard" : link.path;
             const active =
-              link.path === "/"
+              linkPath === "/"
                 ? location.pathname === "/"
-                : location.pathname === link.path || location.pathname.startsWith(`${link.path}/`);
+                : location.pathname === linkPath || location.pathname.startsWith(`${linkPath}/`);
 
             return (
               <Link
                 key={link.path}
-                to={link.path}
+                to={linkPath}
                 className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
                   active
                     ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
@@ -69,42 +70,18 @@ function Navbar() {
               />
               <div className="slider round">
                 <div className="sun-moon">
-                  <svg id="moon-dot-1" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="moon-dot-2" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="moon-dot-3" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="light-ray-1" className="light-ray" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="light-ray-2" className="light-ray" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="light-ray-3" className="light-ray" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="cloud-1" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="cloud-2" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="cloud-3" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="cloud-4" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="cloud-5" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
-                  <svg id="cloud-6" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="50" />
-                  </svg>
+                  <svg id="moon-dot-1" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="moon-dot-2" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="moon-dot-3" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="light-ray-1" className="light-ray" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="light-ray-2" className="light-ray" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="light-ray-3" className="light-ray" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="cloud-1" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="cloud-2" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="cloud-3" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="cloud-4" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="cloud-5" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  <svg id="cloud-6" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
                 </div>
                 <div className="stars">
                   {[1, 2, 3, 4].map((star) => (
@@ -144,19 +121,22 @@ function Navbar() {
       </div>
 
       <nav className="flex gap-1 overflow-x-auto border-t border-slate-100 px-5 py-2 md:hidden dark:border-slate-800">
-        {visibleLinks.map((link) => (
-          <Link
-            key={link.path}
-            to={link.path}
-            className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold ${
-              location.pathname === link.path
-                ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
-                : "text-slate-600 dark:text-slate-300"
-            }`}
-          >
-            {link.name}
-          </Link>
-        ))}
+        {visibleLinks.map((link) => {
+          const linkPath = link.name === "Home" && user ? "/dashboard" : link.path;
+          return (
+            <Link
+              key={link.path}
+              to={linkPath}
+              className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold ${
+                location.pathname === linkPath
+                  ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
+                  : "text-slate-600 dark:text-slate-300"
+              }`}
+            >
+              {link.name}
+            </Link>
+          );
+        })}
       </nav>
     </header>
   );
