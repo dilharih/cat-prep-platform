@@ -18,28 +18,24 @@ function Hero() {
             </h1>
 
             <p className="mb-8 max-w-xl text-lg leading-8 text-gray-600 md:text-xl">
-              Practice previous-year questions, take full mock tests, and see
-              where you can improve — all in one focused platform.
+              Take complete CAT question papers under a focused, exam-style test environment and see where you can improve.
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Link to="/practice">
-                <Button>Start Practicing</Button>
-              </Link>
               <Link to="/mock-tests">
-                <Button variant="secondary">Explore Mock Tests</Button>
+                <Button>Explore Mock Tests</Button>
               </Link>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-gray-600">
               <span className="flex items-center gap-2">
-                <FaCheckCircle className="text-cyan-600" /> Previous-year questions
+                <FaCheckCircle className="text-cyan-600" /> Previous-year CAT papers
               </span>
               <span className="flex items-center gap-2">
-                <FaCheckCircle className="text-cyan-600" /> Section-wise practice
+                <FaCheckCircle className="text-cyan-600" /> Full-length mock tests
               </span>
               <span className="flex items-center gap-2">
-                <FaCheckCircle className="text-cyan-600" /> Progress tracking
+                <FaCheckCircle className="text-cyan-600" /> Performance tracking
               </span>
             </div>
           </div>
@@ -49,46 +45,37 @@ function Hero() {
               <div className="mb-5 flex items-center justify-between border-b border-slate-200 pb-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-cyan-600">
-                    Mock Test 01
+                    CAT Mock Test
                   </p>
                   <p className="mt-1 text-lg font-bold text-gray-900">
-                    CAT Practice Session
+                    Full Question Paper
                   </p>
                 </div>
                 <div className="flex items-center gap-2 rounded-full bg-slate-100 px-3 py-2 text-sm font-semibold text-gray-700">
-                  <FaClock /> 60:00
+                  <FaClock /> Timed
                 </div>
               </div>
 
               <p className="mb-5 text-sm font-semibold text-gray-800">
-                Which option best completes the following sequence?
+                Attempt the complete paper in the same focused flow as the real exam.
               </p>
 
               <div className="space-y-3">
                 {[
-                  ["A", "Option A", false],
-                  ["B", "Option B", true],
-                  ["C", "Option C", false],
-                  ["D", "Option D", false],
-                ].map(([letter, option, selected]) => (
+                  ["VARC", "Verbal Ability & Reading Comprehension"],
+                  ["DILR", "Data Interpretation & Logical Reasoning"],
+                  ["QA", "Quantitative Ability"],
+                ].map(([section, description]) => (
                   <div
-                    key={letter}
-                    className={`flex items-center gap-3 rounded-xl border p-3 text-sm font-medium ${
-                      selected
-                        ? "border-green-500 bg-green-50 text-green-900"
-                        : "border-slate-200 bg-slate-50 text-gray-700"
-                    }`}
+                    key={section}
+                    className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4"
                   >
-                    <span
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold ${
-                        selected
-                          ? "border-green-600 bg-green-600 text-white"
-                          : "border-slate-300 bg-white text-gray-700"
-                      }`}
-                    >
-                      {letter}
+                    <span className="flex h-9 w-12 items-center justify-center rounded-lg bg-[#1687a7] text-xs font-bold text-white">
+                      {section}
                     </span>
-                    {option}
+                    <span className="text-sm font-medium text-gray-700">
+                      {description}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -96,16 +83,16 @@ function Hero() {
               <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 <div className="rounded-xl bg-slate-50 p-3">
                   <p className="text-xs text-gray-500">Questions</p>
-                  <p className="mt-1 text-lg font-bold text-gray-900">24</p>
+                  <p className="mt-1 text-lg font-bold text-gray-900">120+</p>
                 </div>
                 <div className="rounded-xl bg-slate-50 p-3">
-                  <p className="text-xs text-gray-500">Answered</p>
-                  <p className="mt-1 text-lg font-bold text-gray-900">18</p>
+                  <p className="text-xs text-gray-500">Sections</p>
+                  <p className="mt-1 text-lg font-bold text-gray-900">3</p>
                 </div>
                 <div className="col-span-2 rounded-xl bg-slate-50 p-3 sm:col-span-1">
-                  <p className="text-xs text-gray-500">Accuracy</p>
+                  <p className="text-xs text-gray-500">Mode</p>
                   <p className="mt-1 flex items-center gap-2 text-lg font-bold text-gray-900">
-                    <FaChartLine className="text-cyan-600" /> 83%
+                    <FaChartLine className="text-cyan-600" /> Exam style
                   </p>
                 </div>
               </div>
