@@ -30,9 +30,9 @@ function PublicLandingPage() {
   }
 
   return (
-    <main className="h-screen overflow-y-auto bg-[#f6f5f5] text-[#276678]">
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-6 sm:px-10 lg:px-12 lg:pb-24 lg:pt-8">
-        <nav className="flex items-center justify-between">
+    <main className="public-landing-page min-h-screen overflow-y-auto bg-[#f6f5f5] text-[#276678]">
+      <section className="mx-auto max-w-7xl px-6 pb-16 pt-6 sm:px-10 lg:px-12 lg:pb-20 lg:pt-8">
+        <nav className="public-landing-nav flex items-center justify-between">
           <Link
             to="/"
             className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#276678]"
@@ -51,14 +51,14 @@ function PublicLandingPage() {
           </Link>
         </nav>
 
-        <div className="grid items-center gap-12 pt-12 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16 lg:pt-16">
-          <div>
+        <div className="grid items-center gap-10 pt-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:pt-14">
+          <div className="public-landing-copy">
             <div className="mb-5 inline-flex items-center rounded-full border border-[#d3e0ea] bg-white px-4 py-2 text-sm font-bold text-[#276678] shadow-sm">
               <span className="mr-2 h-2 w-2 rounded-full bg-[#1687a7]" />
               Free CAT preparation
             </div>
 
-            <h1 className="max-w-2xl text-5xl font-extrabold leading-[1.04] tracking-tight text-[#276678] sm:text-6xl lg:text-[4.4rem]">
+            <h1 className="max-w-2xl text-5xl font-extrabold leading-[1.04] tracking-tight text-[#276678] sm:text-6xl lg:text-[4.25rem]">
               Practice better.
               <span className="block text-[#1687a7]">Score higher.</span>
             </h1>
@@ -99,23 +99,23 @@ function PublicLandingPage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-[#d3e0ea] bg-white p-2 shadow-[0_28px_80px_rgba(39,102,120,0.16)] sm:p-3">
+          <div className="public-landing-visual overflow-hidden rounded-[2rem] border border-[#d3e0ea] bg-white p-2 shadow-[0_28px_80px_rgba(39,102,120,0.16)] sm:p-3">
             <img
               src="/landing-study.png"
               alt="Focused CAT preparation with books, notes, and past papers"
-              className="h-auto w-full rounded-[1.5rem] object-cover"
+              className="h-auto max-h-[650px] w-full rounded-[1.5rem] object-contain"
             />
           </div>
         </div>
       </section>
 
-      <section id="features" className="border-y border-[#d3e0ea] bg-white">
+      <section id="features" className="public-landing-features border-y border-[#194353] bg-[#102a33]">
         <div className="mx-auto max-w-7xl px-6 py-14 sm:px-10 lg:px-12 lg:py-16">
           <div className="mb-9 max-w-2xl">
             <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1687a7]">
               Everything you need
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#276678] sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#d3e0ea] sm:text-4xl">
               Built for focused CAT preparation.
             </h2>
           </div>
@@ -141,7 +141,7 @@ function PublicLandingPage() {
         </div>
       </section>
 
-      <section className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-8 px-6 py-16 sm:px-10 lg:flex-row lg:items-center lg:px-12 lg:py-20">
+      <section className="public-landing-cta mx-auto flex max-w-5xl flex-col items-start justify-between gap-8 px-6 py-16 sm:px-10 lg:flex-row lg:items-center lg:px-12 lg:py-20">
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1687a7]">
             Start when you're ready
