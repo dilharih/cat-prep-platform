@@ -72,10 +72,7 @@ function Dashboard() {
               <p className="mt-2 max-w-xl text-sm leading-6 text-white/80 sm:text-base">Keep building your CAT momentum. Your next mock test is one step closer to exam day.</p>
             </div>
           </div>
-          <Link to="/mock-tests" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#276678] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white/80 focus:ring-offset-2 focus:ring-offset-[#1687a7]">
-            Take a Mock Test
-            <FiArrowRight />
-          </Link>
+          <Link to="/mock-tests" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#276678] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white/80 focus:ring-offset-2 focus:ring-offset-[#1687a7]">Take a Mock Test<FiArrowRight /></Link>
         </div>
       </section>
 
@@ -107,7 +104,7 @@ function Dashboard() {
           </div>
         </section>
 
-        <section className="dashboard-next-step relative overflow-hidden rounded-[2rem] border p-7 shadow-[0_12px_35px_rgba(39,102,120,0.10)] sm:p-8">
+        <section className="dashboard-next-step relative overflow-hidden rounded-[2rem] border border-slate-200/80 p-7 shadow-[0_12px_35px_rgba(39,102,120,0.10)] sm:p-8 dark:border-slate-700">
           <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[#1687a7]/10" />
           <p className="relative text-sm font-semibold uppercase tracking-wider text-[#1687a7]">Next step</p>
           <h2 className="relative mt-2 text-2xl font-bold">Ready for a timed challenge?</h2>
