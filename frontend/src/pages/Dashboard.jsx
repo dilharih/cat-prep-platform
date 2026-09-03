@@ -55,6 +55,8 @@ function Dashboard() {
   const wrongAnswers = stats?.wrongAnswers ?? Math.max(0, questionsSolved - correctAnswers);
   const displayName = user?.name || user?.username || "CAT Aspirant";
   const initial = displayName.charAt(0).toUpperCase();
+  const firstName = displayName.split(" ")[0];
+  const accuracyWidth = Math.min(Math.max(accuracy, 0), 100);
 
   return (
     <div className="mx-auto max-w-7xl space-y-7 pt-5 pb-12 sm:pt-7 sm:pb-16">
@@ -66,11 +68,14 @@ function Dashboard() {
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/30 bg-white/15 text-2xl font-bold shadow-lg backdrop-blur-sm">{initial}</div>
             <div>
               <p className="text-sm font-medium text-white/75">Welcome back</p>
-              <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{displayName}!</h1>
+              <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{firstName}!</h1>
               <p className="mt-2 max-w-xl text-sm leading-6 text-white/80 sm:text-base">Keep building your CAT momentum. Your next mock test is one step closer to exam day.</p>
             </div>
           </div>
-          <Link to="/mock-tests" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#276678] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl">Take a Mock Test<FiArrowRight /></Link>
+          <Link to="/mock-tests" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#276678] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white/80 focus:ring-offset-2 focus:ring-offset-[#1687a7]">
+            Take a Mock Test
+            <FiArrowRight />
+          </Link>
         </div>
       </section>
 
@@ -98,7 +103,7 @@ function Dashboard() {
           </div>
           <div className="mt-8">
             <div className="mb-3 flex items-center justify-between text-sm font-semibold"><span className="text-slate-600 dark:text-slate-300">Accuracy</span><span className="text-[#276678] dark:text-[#7ec6d9]">{accuracy}%</span></div>
-            <div className="h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"><div className="h-full rounded-full bg-gradient-to-r from-[#276678] to-[#1687a7] transition-all duration-700" style={{ width: `${Math.min(accuracy, 100)}%` }} /></div>
+            <div className="h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800" aria-label={`Accuracy ${accuracy}%`}><div className="h-full rounded-full bg-gradient-to-r from-[#276678] to-[#1687a7] transition-all duration-700" style={{ width: `${accuracyWidth}%` }} /></div>
           </div>
         </section>
 
@@ -107,7 +112,7 @@ function Dashboard() {
           <p className="relative text-sm font-semibold uppercase tracking-wider text-[#1687a7]">Next step</p>
           <h2 className="relative mt-2 text-2xl font-bold">Ready for a timed challenge?</h2>
           <p className="relative mt-3 text-sm leading-6">Simulate the pressure of the real exam with a full-length mock test and review your performance afterwards.</p>
-          <Link to="/mock-tests" className="relative mt-7 inline-flex items-center gap-2 rounded-xl bg-[#276678] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#276678]/20 transition hover:-translate-y-0.5 hover:bg-[#1687a7]">Explore Mock Tests<FiArrowRight /></Link>
+          <Link to="/mock-tests" className="relative mt-7 inline-flex items-center gap-2 rounded-xl bg-[#276678] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#276678]/20 transition hover:-translate-y-0.5 hover:bg-[#1687a7] focus:outline-none focus:ring-2 focus:ring-[#1687a7] focus:ring-offset-2 dark:focus:ring-offset-slate-900">Explore Mock Tests<FiArrowRight /></Link>
         </section>
       </div>
     </div>
