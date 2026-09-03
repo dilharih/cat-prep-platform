@@ -24,12 +24,46 @@
   color: #0f172a !important;
 }
 
-/* The current answer UI uses Tailwind classes rather than answer-option.
-   Keep text dark whenever an answer card becomes white in dark mode. */
+/* Answer cards in the current mock-test UI */
 .theme-dark main section button[class*="bg-white"] {
-  color: #0f172a !important;
+  background-color: #ffffff !important;
+  border-color: #c5d9e2 !important;
+  color: #102a33 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18) !important;
 }
 
 .theme-dark main section button[class*="bg-white"] > span {
-  color: #0f172a !important;
+  color: #102a33 !important;
+}
+
+.theme-dark main section button[class*="bg-white"]:hover {
+  background-color: #f6f5f5 !important;
+  border-color: #1687a7 !important;
+  color: #102a33 !important;
+}
+
+/* Selected answers: strong contrast without losing the brand palette. */
+.theme-dark main section button[class*="bg-green-50"] {
+  background-color: #e8f5f8 !important;
+  border-color: #1687a7 !important;
+  color: #102a33 !important;
+  box-shadow: 0 1px 4px rgba(22, 135, 167, 0.22) !important;
+}
+
+.theme-dark main section button[class*="bg-green-50"] > span {
+  color: #102a33 !important;
+}
+
+/* Answer letters remain clearly visible in both states. */
+.theme-dark main section button[class*="bg-white"] span[class*="rounded-full"],
+.theme-dark main section button[class*="bg-green-50"] span[class*="rounded-full"] {
+  color: #102a33 !important;
+  border-color: #276678 !important;
+  background-color: #d3e0ea !important;
+}
+
+.theme-dark main section button[class*="bg-green-50"] span[class*="bg-green-600"] {
+  color: #ffffff !important;
+  background-color: #1687a7 !important;
+  border-color: #1687a7 !important;
 }
