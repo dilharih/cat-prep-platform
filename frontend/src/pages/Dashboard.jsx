@@ -93,7 +93,7 @@ function Dashboard() {
             </div>
             <div className="hidden rounded-xl bg-[#d3e0ea]/60 p-3 text-xl text-[#276678] dark:bg-[#194353] dark:text-[#d3e0ea] sm:block"><FiBarChart2 /></div>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid gap-4 border-y border-[#d3e0ea] py-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-[#d3e0ea] dark:border-slate-700 dark:divide-slate-700">
             <PerformanceItem icon={<FiTarget />} label="Attempted" value={questionsSolved} />
             <PerformanceItem icon={<FiCheckCircle />} label="Correct" value={correctAnswers} />
             <PerformanceItem icon={<FiXCircle />} label="Wrong" value={wrongAnswers} />
@@ -129,9 +129,9 @@ function StatCard({ icon, label, value, detail }) {
 
 function PerformanceItem({ icon, label, value }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-700 dark:bg-slate-800/60">
+    <div className="px-0 py-2 sm:px-5 sm:py-1 first:sm:pl-0 last:sm:pr-0">
       <div className="flex items-center gap-2 text-[#276678] dark:text-[#7ec6d9]">{icon}<span className="text-sm font-medium">{label}</span></div>
-      <p className="mt-3 text-3xl font-bold text-slate-900 dark:text-slate-100">{value}</p>
+      <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-slate-100">{value}</p>
     </div>
   );
 }
