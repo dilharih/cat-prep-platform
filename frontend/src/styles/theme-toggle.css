@@ -1,6 +1,6 @@
 .theme-switch {
   --scale: 0.8;
-  --toggle-duration: 0.8s;
+  --toggle-duration: 3s;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -28,7 +28,7 @@
   cursor: pointer;
   inset: 0;
   background-color: #2196f3;
-  transition: background-color var(--toggle-duration) ease, box-shadow var(--toggle-duration) ease;
+  transition: background-color var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--toggle-duration) ease;
   z-index: 0;
   overflow: hidden;
 }
@@ -40,7 +40,7 @@
   left: calc(var(--scale) * 4px);
   bottom: calc(var(--scale) * 4px);
   background-color: #fde047;
-  transition: transform var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--toggle-duration) ease;
+  transition: transform var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 50%;
 }
 
@@ -55,7 +55,7 @@
 .theme-switch #dark-mode:checked + .slider .sun-moon {
   transform: translateX(calc(var(--scale) * 26px));
   background-color: #fff;
-  animation: rotate-center 0.9s ease-in-out both;
+  animation: rotate-center var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .theme-switch .moon-dot {
