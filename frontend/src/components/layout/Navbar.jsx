@@ -3,7 +3,7 @@ import { useAuth } from "../../context/useAuth";
 import { useTheme } from "../../context/ThemeContext";
 
 const links = [
-  { name: "Home", path: "/" },
+  { name: "Home", path: "/", publicOnly: true },
   { name: "Dashboard", path: "/dashboard", protected: true },
   { name: "Practice", path: "/practice", protected: true },
   { name: "Mock Tests", path: "/mock-tests", protected: true },
@@ -23,7 +23,10 @@ function Navbar() {
     navigate("/login");
   }
 
-  const visibleLinks = links.filter((link) => !link.protected || user);
+  const visibleLinks = links.filter((link) => {
+    if (link.publicOnly) return !user;
+    return !link.protected || user;
+  });
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
@@ -34,16 +37,15 @@ function Navbar() {
 
         <nav className="hidden items-center gap-1 md:flex">
           {visibleLinks.map((link) => {
-            const linkPath = link.name === "Home" && user ? "/dashboard" : link.path;
             const active =
-              linkPath === "/"
+              link.path === "/"
                 ? location.pathname === "/"
-                : location.pathname === linkPath || location.pathname.startsWith(`${linkPath}/`);
+                : location.pathname === link.path || location.pathname.startsWith(`${link.path}/`);
 
             return (
               <Link
                 key={link.path}
-                to={linkPath}
+                to={link.path}
                 className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
                   active
                     ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
@@ -70,18 +72,15 @@ function Navbar() {
               />
               <div className="slider round">
                 <div className="sun-moon">
-                  <svg id="moon-dot-1" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="moon-dot-2" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="moon-dot-3" className="moon-dot" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="light-ray-1" className="light-ray" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="light-ray-2" className="light-ray" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="light-ray-3" className="light-ray" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="cloud-1" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="cloud-2" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="cloud-3" className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="cloud-4" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="cloud-5" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
-                  <svg id="cloud-6" className="cloud-light" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  {["moon-dot-1", "moon-dot-2", "moon-dot-3", "light-ray-1", "light-ray-2", "light-ray-3"].map((id) => (
+                    <svg key={id} id={id} className={id.startsWith("moon") ? "moon-dot" : "light-ray"} viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  ))}
+                  {[1, 2, 3].map((id) => (
+                    <svg key={`dark-cloud-${id}`} id={`cloud-${id}`} className="cloud-dark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  ))}
+                  {[4, 5, 6].map((id) => (
+                    <svg key={`light-cloud-${id}`} id={`cloud-${id}`} className="cloud-light" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" /></svg>
+                  ))}
                 </div>
                 <div className="stars">
                   {[1, 2, 3, 4].map((star) => (
@@ -121,22 +120,19 @@ function Navbar() {
       </div>
 
       <nav className="flex gap-1 overflow-x-auto border-t border-slate-100 px-5 py-2 md:hidden dark:border-slate-800">
-        {visibleLinks.map((link) => {
-          const linkPath = link.name === "Home" && user ? "/dashboard" : link.path;
-          return (
-            <Link
-              key={link.path}
-              to={linkPath}
-              className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold ${
-                location.pathname === linkPath
-                  ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
-                  : "text-slate-600 dark:text-slate-300"
-              }`}
-            >
-              {link.name}
-            </Link>
-          );
-        })}
+        {visibleLinks.map((link) => (
+          <Link
+            key={link.path}
+            to={link.path}
+            className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold ${
+              location.pathname === link.path
+                ? "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
+                : "text-slate-600 dark:text-slate-300"
+            }`}
+          >
+            {link.name}
+          </Link>
+        ))}
       </nav>
     </header>
   );
