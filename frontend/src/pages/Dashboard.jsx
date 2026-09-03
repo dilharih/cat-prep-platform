@@ -17,15 +17,11 @@ function Dashboard() {
         setStats(response.data.data);
       } catch (requestError) {
         console.error("Failed to load dashboard stats:", requestError);
-        setError(
-          requestError.response?.data?.message ||
-            "Failed to load dashboard statistics."
-        );
+        setError(requestError.response?.data?.message || "Failed to load dashboard statistics.");
       } finally {
         setLoading(false);
       }
     }
-
     fetchDashboardStats();
   }, []);
 
@@ -34,9 +30,7 @@ function Dashboard() {
       <div className="mx-auto max-w-7xl space-y-6">
         <div className="h-36 animate-pulse rounded-3xl bg-slate-200 dark:bg-slate-800" />
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} className="h-36 animate-pulse rounded-3xl bg-slate-200 dark:bg-slate-800" />
-          ))}
+          {[1, 2, 3, 4].map((item) => <div key={item} className="h-36 animate-pulse rounded-3xl bg-slate-200 dark:bg-slate-800" />)}
         </div>
       </div>
     );
@@ -69,21 +63,14 @@ function Dashboard() {
         <div className="absolute -bottom-32 right-20 h-72 w-72 rounded-full bg-[#d3e0ea]/10 blur-3xl" />
         <div className="relative flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-5">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/30 bg-white/15 text-2xl font-bold shadow-lg backdrop-blur-sm">
-              {initial}
-            </div>
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/30 bg-white/15 text-2xl font-bold shadow-lg backdrop-blur-sm">{initial}</div>
             <div>
               <p className="text-sm font-medium text-white/75">Welcome back</p>
               <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{displayName}!</h1>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-white/80 sm:text-base">
-                Keep building your CAT momentum. Your next mock test is one step closer to exam day.
-              </p>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-white/80 sm:text-base">Keep building your CAT momentum. Your next mock test is one step closer to exam day.</p>
             </div>
           </div>
-          <Link to="/mock-tests" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#276678] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl">
-            Take a Mock Test
-            <FiArrowRight />
-          </Link>
+          <Link to="/mock-tests" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#276678] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl">Take a Mock Test<FiArrowRight /></Link>
         </div>
       </section>
 
@@ -95,7 +82,7 @@ function Dashboard() {
       </section>
 
       <div className="grid gap-7 lg:grid-cols-[1.5fr_1fr]">
-        <section className="rounded-[2rem] border border-slate-200/80 bg-white p-7 shadow-[0_12px_35px_rgba(39,102,120,0.10)] dark:border-slate-700 dark:bg-slate-900 dark:shadow-[0_15px_40px_rgba(0,0,0,0.22)] sm:p-8">
+        <section className="rounded-[2rem] border border-slate-200/80 bg-white p-7 shadow-[0_12px_35px_rgba(15,23,42,0.08)] dark:border-slate-700 dark:bg-slate-900 dark:shadow-[0_15px_40px_rgba(0,0,0,0.22)] sm:p-8">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider text-[#1687a7]">Your performance</p>
@@ -110,13 +97,8 @@ function Dashboard() {
             <PerformanceItem icon={<FiXCircle />} label="Wrong" value={wrongAnswers} />
           </div>
           <div className="mt-8">
-            <div className="mb-3 flex items-center justify-between text-sm font-semibold">
-              <span className="text-slate-600 dark:text-slate-300">Accuracy</span>
-              <span className="text-[#276678] dark:text-[#7ec6d9]">{accuracy}%</span>
-            </div>
-            <div className="h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-              <div className="h-full rounded-full bg-gradient-to-r from-[#276678] to-[#1687a7] transition-all duration-700" style={{ width: `${Math.min(accuracy, 100)}%` }} />
-            </div>
+            <div className="mb-3 flex items-center justify-between text-sm font-semibold"><span className="text-slate-600 dark:text-slate-300">Accuracy</span><span className="text-[#276678] dark:text-[#7ec6d9]">{accuracy}%</span></div>
+            <div className="h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"><div className="h-full rounded-full bg-gradient-to-r from-[#276678] to-[#1687a7] transition-all duration-700" style={{ width: `${Math.min(accuracy, 100)}%` }} /></div>
           </div>
         </section>
 
@@ -125,10 +107,7 @@ function Dashboard() {
           <p className="relative text-sm font-semibold uppercase tracking-wider text-[#1687a7]">Next step</p>
           <h2 className="relative mt-2 text-2xl font-bold">Ready for a timed challenge?</h2>
           <p className="relative mt-3 text-sm leading-6">Simulate the pressure of the real exam with a full-length mock test and review your performance afterwards.</p>
-          <Link to="/mock-tests" className="relative mt-7 inline-flex items-center gap-2 rounded-xl bg-[#276678] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#276678]/20 transition hover:-translate-y-0.5 hover:bg-[#1687a7]">
-            Explore Mock Tests
-            <FiArrowRight />
-          </Link>
+          <Link to="/mock-tests" className="relative mt-7 inline-flex items-center gap-2 rounded-xl bg-[#276678] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#276678]/20 transition hover:-translate-y-0.5 hover:bg-[#1687a7]">Explore Mock Tests<FiArrowRight /></Link>
         </section>
       </div>
     </div>
@@ -137,11 +116,8 @@ function Dashboard() {
 
 function StatCard({ icon, label, value, detail }) {
   return (
-    <div className="group relative overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white p-6 shadow-[0_8px_0_0_#d3e0ea,0_15px_30px_rgba(39,102,120,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_8px_0_0_#1687a7,0_22px_38px_rgba(39,102,120,0.14)] dark:border-slate-700 dark:bg-slate-900 dark:shadow-[0_8px_0_0_#194353,0_18px_35px_rgba(0,0,0,0.25)] dark:hover:shadow-[0_8px_0_0_#1687a7,0_24px_42px_rgba(0,0,0,0.3)]">
-      <div className="flex items-center justify-between">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#d3e0ea]/70 text-xl text-[#276678] dark:bg-[#194353] dark:text-[#7ec6d9]">{icon}</div>
-        <span className="h-2 w-2 rounded-full bg-[#1687a7] opacity-60 transition group-hover:scale-150" />
-      </div>
+    <div className="group relative overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white p-6 shadow-[0_8px_0_0_#d3e0ea,0_15px_30px_rgba(15,23,42,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_8px_0_0_#1687a7,0_22px_38px_rgba(15,23,42,0.14)] dark:border-slate-700 dark:bg-slate-900 dark:shadow-[0_8px_0_0_#194353,0_18px_35px_rgba(0,0,0,0.25)] dark:hover:shadow-[0_8px_0_0_#1687a7,0_24px_42px_rgba(0,0,0,0.3)]">
+      <div className="flex items-center justify-between"><div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#d3e0ea]/70 text-xl text-[#276678] dark:bg-[#194353] dark:text-[#7ec6d9]">{icon}</div><span className="h-2 w-2 rounded-full bg-[#1687a7] opacity-60 transition group-hover:scale-150" /></div>
       <p className="mt-5 text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
       <p className="mt-1 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{value}</p>
       <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{detail}</p>
