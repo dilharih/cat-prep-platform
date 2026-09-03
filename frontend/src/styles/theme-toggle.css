@@ -1,5 +1,6 @@
 .theme-switch {
   --scale: 0.8;
+  --toggle-duration: 0.8s;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -27,7 +28,7 @@
   cursor: pointer;
   inset: 0;
   background-color: #2196f3;
-  transition: 0.4s;
+  transition: background-color var(--toggle-duration) ease, box-shadow var(--toggle-duration) ease;
   z-index: 0;
   overflow: hidden;
 }
@@ -39,7 +40,7 @@
   left: calc(var(--scale) * 4px);
   bottom: calc(var(--scale) * 4px);
   background-color: #fde047;
-  transition: 0.4s;
+  transition: transform var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--toggle-duration) ease;
   border-radius: 50%;
 }
 
@@ -54,12 +55,12 @@
 .theme-switch #dark-mode:checked + .slider .sun-moon {
   transform: translateX(calc(var(--scale) * 26px));
   background-color: #fff;
-  animation: rotate-center 0.6s ease-in-out both;
+  animation: rotate-center 0.9s ease-in-out both;
 }
 
 .theme-switch .moon-dot {
   opacity: 0;
-  transition: 0.4s;
+  transition: opacity var(--toggle-duration) ease;
   fill: #9ca3af;
 }
 
@@ -188,15 +189,15 @@
 .theme-switch .stars {
   transform: translateY(calc(var(--scale) * -32px));
   opacity: 0;
-  transition: 0.4s;
+  transition: transform var(--toggle-duration) cubic-bezier(0.4, 0, 0.2, 1), opacity var(--toggle-duration) ease;
 }
 
 .theme-switch .star {
   fill: #fff;
   position: absolute;
-  transition: 0.4s;
+  transition: transform var(--toggle-duration) ease, opacity var(--toggle-duration) ease;
   animation-name: star-twinkle;
-  animation-duration: 2s;
+  animation-duration: 2.5s;
   animation-iteration-count: infinite;
 }
 
