@@ -9,7 +9,7 @@ function getLocalDateKey(date) {
 }
 
 async function getDashboardStats(userId) {
-  // Get all answered question attempts
+  // Standalone question attempts.
   const attempts = await prisma.attempt.findMany({
     where: {
       userId,
@@ -24,25 +24,48 @@ async function getDashboardStats(userId) {
     },
   });
 
+  // Answers submitted as part of completed mock tests are stored in
+  // MockTestAnswer, not Attempt, so they must also be included in the
+  // dashboard totals.
+  const mockTestAnswers = await prisma.mockTestAnswer.findMany({
+    where: {
+      attempt: {
+        userId,
+      },
+      selectedAnswer: {
+        not: null,
+      },
+    },
+    select: {
+      isCorrect: true,
+      attempt: {
+        select: {
+          createdAt: true,
+        },
+      },
+    },
+  });
+
   // =========================
-  // QUESTIONS SOLVED
+  // QUESTIONS ATTEMPTED
   // =========================
 
-  const questionsSolved = attempts.length;
+  const questionsAttempted =
+    attempts.length + mockTestAnswers.length;
 
   // =========================
   // ACCURACY
   // =========================
 
-  const correctAnswers = attempts.filter(
-    (attempt) => attempt.isCorrect
-  ).length;
+  const correctAnswers =
+    attempts.filter((attempt) => attempt.isCorrect).length +
+    mockTestAnswers.filter((answer) => answer.isCorrect).length;
 
-  const wrongAnswers = questionsSolved - correctAnswers;
+  const wrongAnswers = questionsAttempted - correctAnswers;
 
   const accuracy =
-    questionsSolved > 0
-      ? Math.round((correctAnswers / questionsSolved) * 100)
+    questionsAttempted > 0
+      ? Math.round((correctAnswers / questionsAttempted) * 100)
       : 0;
 
   // =========================
@@ -59,12 +82,16 @@ async function getDashboardStats(userId) {
   // STUDY STREAK
   // =========================
 
-  // Use calendar dates in the server's local timezone instead of UTC.
-  // This prevents attempts around midnight from being assigned to the
-  // wrong day and incorrectly breaking the streak.
-  const studyDays = new Set(
-    attempts.map((attempt) => getLocalDateKey(new Date(attempt.createdAt)))
-  );
+  // A study day is any day on which the user answered at least one
+  // standalone question or at least one question inside a mock test.
+  const studyDays = new Set([
+    ...attempts.map((attempt) =>
+      getLocalDateKey(new Date(attempt.createdAt))
+    ),
+    ...mockTestAnswers.map((answer) =>
+      getLocalDateKey(new Date(answer.attempt.createdAt))
+    ),
+  ]);
 
   let studyStreak = 0;
   const currentDate = new Date();
@@ -83,7 +110,7 @@ async function getDashboardStats(userId) {
     currentDate.setDate(currentDate.getDate() - 1);
   } else {
     return {
-      questionsSolved,
+      questionsAttempted,
       correctAnswers,
       wrongAnswers,
       accuracy,
@@ -104,7 +131,7 @@ async function getDashboardStats(userId) {
   }
 
   return {
-    questionsSolved,
+    questionsAttempted,
     correctAnswers,
     wrongAnswers,
     accuracy,
