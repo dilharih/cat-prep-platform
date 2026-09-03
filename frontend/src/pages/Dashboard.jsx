@@ -136,11 +136,11 @@ function Dashboard() {
         </section>
 
         {/* Next step */}
-        <section className="relative overflow-hidden rounded-[2rem] border border-[#1687a7]/20 bg-[#f6f5f5] p-7 shadow-[0_12px_35px_rgba(39,102,120,0.10)] dark:border-[#1687a7]/30 dark:bg-[#102a33] sm:p-8">
+        <section className="dashboard-next-step relative overflow-hidden rounded-[2rem] border p-7 shadow-[0_12px_35px_rgba(39,102,120,0.10)] sm:p-8">
           <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[#1687a7]/10" />
           <p className="relative text-sm font-semibold uppercase tracking-wider text-[#1687a7]">Next step</p>
-          <h2 className="relative mt-2 text-2xl font-bold text-[#276678] dark:text-[#d3e0ea]">Ready for a timed challenge?</h2>
-          <p className="relative mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+          <h2 className="relative mt-2 text-2xl font-bold">Ready for a timed challenge?</h2>
+          <p className="relative mt-3 text-sm leading-6">
             Simulate the pressure of the real exam with a full-length mock test and review your performance afterwards.
           </p>
           <Link
