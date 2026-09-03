@@ -90,6 +90,21 @@ body,
   background-color: var(--brand-primary-dark) !important;
 }
 
+/* Dashboard next-step card */
+.dashboard-next-step {
+  background-color: #ffffff !important;
+  border-color: rgba(22, 135, 167, 0.2) !important;
+  color: #276678 !important;
+}
+
+.dashboard-next-step p:not([class*="tracking-wider"]) {
+  color: #5f7f8d !important;
+}
+
+.dashboard-next-step h2 {
+  color: #276678 !important;
+}
+
 /* Common interactive accents */
 .ring-blue-500,
 .ring-blue-600,
@@ -199,6 +214,21 @@ body,
 .theme-dark .bg-indigo-500,
 .theme-dark .bg-indigo-600 {
   background-color: #1687a7 !important;
+}
+
+/* Dashboard next-step card in dark mode */
+.theme-dark .dashboard-next-step {
+  background-color: var(--brand-dark-surface) !important;
+  border-color: rgba(22, 135, 167, 0.3) !important;
+  color: var(--brand-dark-text) !important;
+}
+
+.theme-dark .dashboard-next-step h2 {
+  color: var(--brand-dark-text) !important;
+}
+
+.theme-dark .dashboard-next-step p:not([class*="tracking-wider"]) {
+  color: #91b2bf !important;
 }
 
 .theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header.bg-black {
