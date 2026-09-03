@@ -4,53 +4,19 @@ import Home from "../pages/Home";
 import LoginPage from "../features/auth/pages/LoginPage";
 import Dashboard from "../pages/Dashboard";
 import PracticePage from "../features/practice/pages/PracticePage";
-import Test from "../pages/Test";
-import Result from "../pages/Result";
-
 import MockTestListPage from "../features/test/pages/MockTestListPage";
 import MockTestPage from "../features/test/pages/MockTestPage";
 import MockTestResultPage from "../features/test/pages/MockTestResultPage";
 import MockTestReviewPage from "../features/test/pages/MockTestReviewPage";
-
 import AttemptHistoryPage from "../features/practice/pages/AttemptHistoryPage";
-
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-
-        {/* =================================================
-            PUBLIC ROUTES
-        ================================================= */}
-
-        <Route
-          path="/"
-          element={<Home />}
-        />
-
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
-
-        <Route
-          path="/test"
-          element={<Test />}
-        />
-
-        <Route
-          path="/result"
-          element={<Result />}
-        />
-
-
-        {/* =================================================
-            PROTECTED ROUTES
-        ================================================= */}
-
-        {/* Dashboard */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
 
         <Route
           path="/dashboard"
@@ -61,9 +27,6 @@ function AppRouter() {
           }
         />
 
-
-        {/* Practice */}
-
         <Route
           path="/practice"
           element={
@@ -72,9 +35,6 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
-
-
-        {/* Attempt History */}
 
         <Route
           path="/history"
@@ -85,13 +45,6 @@ function AppRouter() {
           }
         />
 
-
-        {/* =================================================
-            MOCK TEST ROUTES
-        ================================================= */}
-
-        {/* Mock Test List */}
-
         <Route
           path="/mock-tests"
           element={
@@ -100,9 +53,6 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
-
-
-        {/* Individual Mock Test */}
 
         <Route
           path="/mock-test/:mockTestId"
@@ -113,9 +63,6 @@ function AppRouter() {
           }
         />
 
-
-        {/* Mock Test Result */}
-
         <Route
           path="/mock-test-result/:attemptId"
           element={
@@ -125,9 +72,6 @@ function AppRouter() {
           }
         />
 
-
-        {/* Mock Test Attempt Review */}
-
         <Route
           path="/mock-test-review/:attemptId"
           element={
@@ -136,7 +80,6 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
     </BrowserRouter>
   );
