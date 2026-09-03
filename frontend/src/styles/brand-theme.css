@@ -241,21 +241,22 @@ body,
    without a passage use the full available workspace.
    ===================================================== */
 
-#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child:not(:has(div[class*="h-full"][class*="overflow-auto"]))) {
+/* Questions without passages: hide the unused directions column. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div.overflow-auto > div.grid:not(:has(> div:first-child div.h-full.overflow-auto)) {
   grid-template-columns: minmax(0, 1fr) !important;
 }
 
-#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child:not(:has(div[class*="h-full"][class*="overflow-auto"]))) > div:first-child {
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div.overflow-auto > div.grid:not(:has(> div:first-child div.h-full.overflow-auto)) > div:first-child {
   display: none !important;
 }
 
-#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child:not(:has(div[class*="h-full"][class*="overflow-auto"]))) > div:nth-child(2) {
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div.overflow-auto > div.grid:not(:has(> div:first-child div.h-full.overflow-auto)) > div:nth-child(2) {
   grid-column: 1 / -1 !important;
-  padding: 20px 24px 24px !important;
+  padding: 24px 28px 28px !important;
 }
 
-/* Keep passage questions balanced. */
-#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child div[class*="h-full"][class*="overflow-auto"]) {
+/* Passage questions keep the balanced split layout. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div.overflow-auto > div.grid:has(> div:first-child div.h-full.overflow-auto) {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
 }
 
