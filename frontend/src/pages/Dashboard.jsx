@@ -27,7 +27,7 @@ function Dashboard() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl space-y-6">
+      <div className="mx-auto max-w-7xl space-y-6 pb-10">
         <div className="h-36 animate-pulse rounded-3xl bg-slate-200 dark:bg-slate-800" />
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {[1, 2, 3, 4].map((item) => <div key={item} className="h-36 animate-pulse rounded-3xl bg-slate-200 dark:bg-slate-800" />)}
@@ -38,7 +38,7 @@ function Dashboard() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl pb-10">
         <div className="rounded-3xl border border-red-200 bg-red-50 p-6 text-red-700 shadow-sm dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300">
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="mt-2">{error}</p>
@@ -57,7 +57,7 @@ function Dashboard() {
   const initial = displayName.charAt(0).toUpperCase();
 
   return (
-    <div className="mx-auto max-w-7xl space-y-7">
+    <div className="mx-auto max-w-7xl space-y-7 pt-5 pb-12 sm:pt-7 sm:pb-16">
       <section className="relative overflow-hidden rounded-[2rem] border border-[#276678]/20 bg-gradient-to-br from-[#276678] via-[#1687a7] to-[#276678] p-7 text-white shadow-[0_18px_45px_rgba(39,102,120,0.28)] sm:p-9">
         <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
         <div className="absolute -bottom-32 right-20 h-72 w-72 rounded-full bg-[#d3e0ea]/10 blur-3xl" />
