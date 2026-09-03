@@ -1,0 +1,25 @@
+.theme-dark .answer-option,
+.theme-dark .answer-option span {
+  color: #0f172a !important;
+}
+
+.theme-dark .answer-option {
+  background-color: #ffffff !important;
+  border-color: #d3e0ea !important;
+}
+
+.theme-dark .answer-option:hover {
+  background-color: #f6f5f5 !important;
+  border-color: #1687a7 !important;
+}
+
+.theme-dark .answer-option.selected {
+  background-color: #e8f5f8 !important;
+  border-color: #1687a7 !important;
+}
+
+.theme-dark .answer-option .answer-letter {
+  background-color: #d3e0ea !important;
+  border-color: #276678 !important;
+  color: #0f172a !important;
+}
