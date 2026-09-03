@@ -1,0 +1,116 @@
+.auth-page {
+  min-height: 100vh;
+  background: #f6f5f5;
+  color: #276678;
+}
+
+.auth-page__shell {
+  width: min(100%, 1120px);
+}
+
+.auth-page__brand-panel {
+  background: linear-gradient(145deg, #276678 0%, #1687a7 100%);
+}
+
+.auth-page__card {
+  background: #ffffff;
+  border: 1px solid #d3e0ea;
+  box-shadow: 0 24px 70px rgba(39, 102, 120, 0.12);
+}
+
+.auth-page__input {
+  background: #ffffff !important;
+  border-color: #b9ced7 !important;
+  color: #276678 !important;
+}
+
+.auth-page__input::placeholder {
+  color: #7c9aa6 !important;
+}
+
+.auth-page__input:focus {
+  border-color: #1687a7 !important;
+  box-shadow: 0 0 0 3px rgba(22, 135, 167, 0.14) !important;
+}
+
+.auth-page__label {
+  color: #276678 !important;
+}
+
+.auth-page__submit {
+  width: 100%;
+  border: 0;
+  border-radius: 0.75rem;
+  background: #1687a7;
+  color: #ffffff;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-page__submit:hover {
+  background: #276678;
+  box-shadow: 0 8px 20px rgba(22, 135, 167, 0.2);
+}
+
+.auth-page__submit:focus-visible {
+  outline: 3px solid rgba(22, 135, 167, 0.22);
+  outline-offset: 2px;
+}
+
+.auth-page__back {
+  color: #5f7f8d;
+}
+
+.auth-page__back:hover {
+  color: #1687a7;
+}
+
+.theme-dark .auth-page {
+  background: #091a21;
+  color: #d3e0ea;
+}
+
+.theme-dark .auth-page__card {
+  background: #102a33;
+  border-color: #194353;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.theme-dark .auth-page__input {
+  background: #091a21 !important;
+  border-color: #285363 !important;
+  color: #d3e0ea !important;
+}
+
+.theme-dark .auth-page__input::placeholder {
+  color: #7f9da8 !important;
+}
+
+.theme-dark .auth-page__input:focus {
+  border-color: #45aeca !important;
+  box-shadow: 0 0 0 3px rgba(69, 174, 202, 0.14) !important;
+}
+
+.theme-dark .auth-page__label {
+  color: #d3e0ea !important;
+}
+
+.theme-dark .auth-page__back {
+  color: #9bb5bf;
+}
+
+.theme-dark .auth-page__back:hover {
+  color: #45aeca;
+}
+
+@media (max-width: 767px) {
+  .auth-page__brand-panel {
+    display: none;
+  }
+
+  .auth-page__card {
+    box-shadow: none;
+  }
+}
