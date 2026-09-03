@@ -9,11 +9,54 @@ body,
   overflow: hidden;
 }
 
-/*
- * Active mock-test viewport
- * Keep the existing CAT-style layout, but compact the controls so the
- * complete test workspace fits inside the viewport without nested scrolling.
- */
+body {
+  background: #f8fafc;
+  color: #0f172a;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-dark body,
+.theme-dark {
+  background: #020617;
+  color: #e2e8f0;
+}
+
+.theme-dark .bg-slate-50 { background-color: #0f172a !important; }
+.theme-dark .bg-slate-100 { background-color: #1e293b !important; }
+.theme-dark .bg-white { background-color: #0f172a !important; }
+.theme-dark .bg-gray-50 { background-color: #0f172a !important; }
+.theme-dark .bg-gray-100 { background-color: #1e293b !important; }
+
+.theme-dark .text-slate-950,
+.theme-dark .text-slate-900,
+.theme-dark .text-slate-800,
+.theme-dark .text-gray-900 { color: #f8fafc !important; }
+
+.theme-dark .text-slate-700,
+.theme-dark .text-slate-600,
+.theme-dark .text-gray-700,
+.theme-dark .text-gray-600 { color: #cbd5e1 !important; }
+
+.theme-dark .text-slate-500,
+.theme-dark .text-gray-500 { color: #94a3b8 !important; }
+
+.theme-dark .border-slate-200,
+.theme-dark .border-slate-300,
+.theme-dark .border-gray-200,
+.theme-dark .border-gray-300 { border-color: #334155 !important; }
+
+.theme-dark .hover\\:bg-slate-100:hover,
+.theme-dark .hover\\:bg-slate-200:hover { background-color: #1e293b !important; }
+
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+/* Compact active mock-test viewport */
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] {
   font-size: 13px;
 }
