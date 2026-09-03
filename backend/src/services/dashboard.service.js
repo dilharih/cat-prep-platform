@@ -1,5 +1,13 @@
 const prisma = require("../config/prisma");
 
+function getLocalDateKey(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
 async function getDashboardStats(userId) {
   // Get all answered question attempts
   const attempts = await prisma.attempt.findMany({
@@ -30,110 +38,79 @@ async function getDashboardStats(userId) {
     (attempt) => attempt.isCorrect
   ).length;
 
-  const wrongAnswers =
-  questionsSolved - correctAnswers;
+  const wrongAnswers = questionsSolved - correctAnswers;
 
   const accuracy =
     questionsSolved > 0
-      ? Math.round(
-          (correctAnswers / questionsSolved) * 100
-        )
+      ? Math.round((correctAnswers / questionsSolved) * 100)
       : 0;
 
   // =========================
   // MOCK TESTS
   // =========================
 
-  const mockTests =
-    await prisma.mockTestAttempt.count({
-      where: {
-        userId,
-      },
-    });
+  const mockTests = await prisma.mockTestAttempt.count({
+    where: {
+      userId,
+    },
+  });
 
   // =========================
   // STUDY STREAK
   // =========================
 
-  const studyDays = new Set();
-
-  for (const attempt of attempts) {
-    const date = new Date(attempt.createdAt);
-
-    const day = date.toISOString().split("T")[0];
-
-    studyDays.add(day);
-  }
-
-  let studyStreak = 0;
-
-  const today = new Date();
-
-  today.setHours(0, 0, 0, 0);
-
-  const todayString = today
-    .toISOString()
-    .split("T")[0];
-
-  const yesterday = new Date(today);
-
-  yesterday.setDate(
-    yesterday.getDate() - 1
+  // Use calendar dates in the server's local timezone instead of UTC.
+  // This prevents attempts around midnight from being assigned to the
+  // wrong day and incorrectly breaking the streak.
+  const studyDays = new Set(
+    attempts.map((attempt) => getLocalDateKey(new Date(attempt.createdAt)))
   );
 
-  const yesterdayString = yesterday
-    .toISOString()
-    .split("T")[0];
+  let studyStreak = 0;
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
 
-  // Streak must start today or yesterday
-  let currentDate;
+  const todayKey = getLocalDateKey(currentDate);
+  const yesterday = new Date(currentDate);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayKey = getLocalDateKey(yesterday);
 
-  if (studyDays.has(todayString)) {
-    currentDate = today;
-  } else if (studyDays.has(yesterdayString)) {
-    currentDate = yesterday;
+  // A current streak can start today or continue from yesterday.
+  if (studyDays.has(todayKey)) {
+    studyStreak = 1;
+  } else if (studyDays.has(yesterdayKey)) {
+    studyStreak = 1;
+    currentDate.setDate(currentDate.getDate() - 1);
   } else {
-    studyStreak = 0;
-
     return {
-  questionsSolved,
-  correctAnswers,
-  wrongAnswers,
-  accuracy,
-  mockTests,
-  studyStreak,
-};
+      questionsSolved,
+      correctAnswers,
+      wrongAnswers,
+      accuracy,
+      mockTests,
+      studyStreak,
+    };
   }
 
   while (true) {
-    const dateString = currentDate
-      .toISOString()
-      .split("T")[0];
+    currentDate.setDate(currentDate.getDate() - 1);
+    const previousDayKey = getLocalDateKey(currentDate);
 
-    if (!studyDays.has(dateString)) {
+    if (!studyDays.has(previousDayKey)) {
       break;
     }
 
     studyStreak++;
-
-    const previousDate =
-      new Date(currentDate);
-
-    previousDate.setDate(
-      previousDate.getDate() - 1
-    );
-
-    currentDate = previousDate;
   }
 
- return {
-  questionsSolved,
-  correctAnswers,
-  wrongAnswers,
-  accuracy,
-  mockTests,
-  studyStreak,
-};
+  return {
+    questionsSolved,
+    correctAnswers,
+    wrongAnswers,
+    accuracy,
+    mockTests,
+    studyStreak,
+  };
 }
 
 module.exports = {
