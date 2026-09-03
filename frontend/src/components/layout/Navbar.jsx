@@ -5,7 +5,6 @@ import { useTheme } from "../../context/ThemeContext";
 const links = [
   { name: "Home", path: "/", publicOnly: true },
   { name: "Dashboard", path: "/dashboard", protected: true },
-  { name: "Practice", path: "/practice", protected: true },
   { name: "Mock Tests", path: "/mock-tests", protected: true },
   { name: "History", path: "/history", protected: true },
 ];
