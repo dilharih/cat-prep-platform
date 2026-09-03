@@ -15,8 +15,9 @@ import SiteLayout from "../layouts/SiteLayout";
 function AppRouter() {
   return (
     <BrowserRouter>
-      <SiteLayout>
-        <Routes>
+      <Routes>
+        {/* Normal pages share the site navigation. */}
+        <Route element={<SiteLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
 
@@ -57,15 +58,6 @@ function AppRouter() {
           />
 
           <Route
-            path="/mock-test/:mockTestId"
-            element={
-              <ProtectedRoute>
-                <MockTestPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
             path="/mock-test-result/:attemptId"
             element={
               <ProtectedRoute>
@@ -82,8 +74,18 @@ function AppRouter() {
               </ProtectedRoute>
             }
           />
-        </Routes>
-      </SiteLayout>
+        </Route>
+
+        {/* Active mock test deliberately sits outside SiteLayout, so no navbar is shown. */}
+        <Route
+          path="/mock-test/:mockTestId"
+          element={
+            <ProtectedRoute>
+              <MockTestPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 }
