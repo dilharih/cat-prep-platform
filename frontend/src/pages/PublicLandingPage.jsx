@@ -33,30 +33,39 @@ function PublicLandingPage() {
 
   return (
     <main className="public-landing-page min-h-screen overflow-x-hidden bg-[#f6f5f5] text-[#276678]">
-      <section className="mx-auto flex min-h-screen max-w-7xl flex-col px-6 pb-10 pt-6 sm:px-10 lg:px-12 lg:pb-12 lg:pt-7">
-        <nav className="public-landing-nav flex shrink-0 items-center justify-between">
+      <header className="public-landing-header border-b border-[#d3e0ea]/70 bg-[#f6f5f5]/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10 lg:px-12">
           <Link
             to="/"
             className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#276678]"
+            aria-label="CAT Prep home"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#276678] text-sm font-black text-white">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#276678] text-sm font-black text-white shadow-sm">
               C
             </span>
             CAT <span className="text-[#1687a7]">Prep</span>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <nav className="flex items-center gap-3" aria-label="Public navigation">
+            <a
+              href="#features"
+              className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-[#5f7f8d] transition hover:bg-[#d3e0ea]/50 hover:text-[#276678] sm:inline-flex"
+            >
+              Features
+            </a>
             <ThemeToggle />
             <Link
               to="/login"
-              className="public-landing-login rounded-xl border border-[#276678] bg-white px-5 py-2.5 text-sm font-bold text-[#276678] transition hover:bg-[#276678] hover:text-white"
+              className="rounded-xl border border-[#276678] bg-white px-5 py-2.5 text-sm font-bold text-[#276678] transition hover:bg-[#276678] hover:text-white"
             >
               Log in
             </Link>
-          </div>
-        </nav>
+          </nav>
+        </div>
+      </header>
 
-        <div className="grid flex-1 items-center gap-8 py-7 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12 lg:py-5">
+      <section className="mx-auto flex min-h-screen max-w-7xl flex-col px-6 pb-10 pt-10 sm:px-10 lg:px-12 lg:pb-12 lg:pt-12">
+        <div className="grid flex-1 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
           <div className="public-landing-copy lg:-translate-y-1">
             <div className="mb-4 inline-flex items-center rounded-full border border-[#d3e0ea] bg-white px-4 py-2 text-sm font-bold text-[#276678] shadow-sm">
               <span className="mr-2 h-2 w-2 rounded-full bg-[#1687a7]" />
@@ -162,6 +171,33 @@ function PublicLandingPage() {
           Get started
         </Link>
       </section>
+
+      <footer className="public-landing-footer border-t border-[#285363] bg-[#091a21] text-[#d3e0ea]">
+        <div className="mx-auto max-w-7xl px-6 py-10 sm:px-10 lg:px-12">
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <Link to="/" className="flex items-center gap-2 text-lg font-extrabold">
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#276678] text-xs font-black text-white">
+                  C
+                </span>
+                CAT <span className="text-[#1687a7]">Prep</span>
+              </Link>
+              <p className="mt-3 max-w-sm text-sm leading-6 text-[#91b2bf]">
+                A simple platform for focused CAT preparation, mock tests, and performance tracking.
+              </p>
+            </div>
+
+            <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold" aria-label="Footer navigation">
+              <a href="#features" className="transition hover:text-white">Features</a>
+              <Link to="/login" className="transition hover:text-white">Log in</Link>
+            </nav>
+          </div>
+
+          <div className="mt-8 border-t border-[#285363] pt-6 text-xs text-[#6f919e]">
+            © {new Date().getFullYear()} CAT Prep. Built for CAT aspirants.
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
