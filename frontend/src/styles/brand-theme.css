@@ -237,11 +237,8 @@ body,
 
 /* =====================================================
    MOCK TEST QUESTION LAYOUT
-   Keep the split layout for passages, but let questions
-   without a passage use the full available workspace.
    ===================================================== */
 
-/* Questions without passages: hide the unused directions column. */
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div.overflow-auto > div.grid:not(:has(> div:first-child div.h-full.overflow-auto)) {
   grid-template-columns: minmax(0, 1fr) !important;
 }
@@ -255,7 +252,6 @@ body,
   padding: 24px 28px 28px !important;
 }
 
-/* Passage questions keep the balanced split layout. */
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div.overflow-auto > div.grid:has(> div:first-child div.h-full.overflow-auto) {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
 }
@@ -282,7 +278,6 @@ body,
   border-color: #276678 !important;
 }
 
-/* Dark-mode answer options: use the same deep teal surface as the question area. */
 .theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
   background: #123740 !important;
   color: #e5f3f7 !important;
@@ -296,7 +291,6 @@ body,
   color: #ffffff !important;
 }
 
-/* Keep selected answers clearly green in both themes. */
 .theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] div[class*="space-y-3"] > button[class*="bg-green-50"] {
   background: #dcfce7 !important;
   color: #14532d !important;
@@ -308,4 +302,122 @@ body,
   background: #16a34a !important;
   border-color: #16a34a !important;
   color: #ffffff !important;
+}
+
+/* =====================================================
+   RESULT PAGE
+   Keep result-page styling isolated from global theme rules.
+   ===================================================== */
+.result-page {
+  background-color: #f6f5f5 !important;
+  color: #276678 !important;
+}
+
+.result-page .result-panel {
+  background-color: #ffffff !important;
+  border: 1px solid #d3e0ea !important;
+}
+
+.result-page .result-heading,
+.result-page .result-title,
+.result-page .result-value,
+.result-page .result-brand {
+  color: #276678 !important;
+}
+
+.result-page .result-muted {
+  color: #5f7f8d !important;
+}
+
+.result-page .result-accent {
+  color: #1687a7 !important;
+}
+
+.result-page .result-divider,
+.result-page .result-divider-bottom,
+.result-page .result-actions {
+  border-color: #d3e0ea !important;
+}
+
+.result-page .result-stat,
+.result-page .result-info {
+  background-color: #f6f5f5 !important;
+  border-color: #d3e0ea !important;
+}
+
+.result-page .result-secondary-button {
+  background-color: #f6f5f5 !important;
+  color: #276678 !important;
+  border: 1px solid #d3e0ea !important;
+}
+
+.result-page .result-secondary-button:hover {
+  background-color: #d3e0ea !important;
+  border-color: #1687a7 !important;
+}
+
+.result-page .result-dashboard-button {
+  color: #5f7f8d !important;
+}
+
+.result-page .result-dashboard-button:hover {
+  background-color: #d3e0ea !important;
+  color: #276678 !important;
+}
+
+.theme-dark .result-page {
+  background-color: #091a21 !important;
+  color: #d3e0ea !important;
+}
+
+.theme-dark .result-page .result-panel {
+  background-color: #102a33 !important;
+  border-color: #245766 !important;
+}
+
+.theme-dark .result-page .result-heading,
+.theme-dark .result-page .result-title,
+.theme-dark .result-page .result-value,
+.theme-dark .result-page .result-brand {
+  color: #d3e0ea !important;
+}
+
+.theme-dark .result-page .result-muted {
+  color: #9bb5bf !important;
+}
+
+.theme-dark .result-page .result-accent {
+  color: #45aeca !important;
+}
+
+.theme-dark .result-page .result-divider,
+.theme-dark .result-page .result-divider-bottom,
+.theme-dark .result-page .result-actions {
+  border-color: #245766 !important;
+}
+
+.theme-dark .result-page .result-stat,
+.theme-dark .result-page .result-info {
+  background-color: #194353 !important;
+  border-color: #245766 !important;
+}
+
+.theme-dark .result-page .result-secondary-button {
+  background-color: #194353 !important;
+  color: #d3e0ea !important;
+  border-color: #245766 !important;
+}
+
+.theme-dark .result-page .result-secondary-button:hover {
+  background-color: #245766 !important;
+  border-color: #1687a7 !important;
+}
+
+.theme-dark .result-page .result-dashboard-button {
+  color: #9bb5bf !important;
+}
+
+.theme-dark .result-page .result-dashboard-button:hover {
+  background-color: #194353 !important;
+  color: #d3e0ea !important;
 }
