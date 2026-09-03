@@ -47,12 +47,12 @@ function Dashboard() {
     );
   }
 
-  const questionsSolved = stats?.questionsSolved ?? 0;
+  const questionsAttempted = stats?.questionsAttempted ?? 0;
   const accuracy = stats?.accuracy ?? 0;
   const mockTests = stats?.mockTests ?? 0;
   const studyStreak = stats?.studyStreak ?? 0;
-  const correctAnswers = stats?.correctAnswers ?? Math.round(questionsSolved * (accuracy / 100));
-  const wrongAnswers = stats?.wrongAnswers ?? Math.max(0, questionsSolved - correctAnswers);
+  const correctAnswers = stats?.correctAnswers ?? Math.round(questionsAttempted * (accuracy / 100));
+  const wrongAnswers = stats?.wrongAnswers ?? Math.max(0, questionsAttempted - correctAnswers);
   const displayName = user?.name || user?.username || "CAT Aspirant";
   const initial = displayName.charAt(0).toUpperCase();
   const firstName = displayName.split(" ")[0];
@@ -77,8 +77,8 @@ function Dashboard() {
       </section>
 
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard icon={<FiTarget />} label="Questions Solved" value={questionsSolved} detail={questionsSolved ? "Keep the momentum going" : "Your journey starts here"} />
-        <StatCard icon={<FiTrendingUp />} label="Accuracy" value={`${accuracy}%`} detail={questionsSolved ? `${correctAnswers} correct answers` : "No attempts yet"} />
+        <StatCard icon={<FiTarget />} label="Questions Attempted" value={questionsAttempted} detail={questionsAttempted ? "Keep the momentum going" : "Your journey starts here"} />
+        <StatCard icon={<FiTrendingUp />} label="Accuracy" value={`${accuracy}%`} detail={questionsAttempted ? `${correctAnswers} correct answers` : "No attempts yet"} />
         <StatCard icon={<FiBarChart2 />} label="Mock Tests" value={mockTests} detail={mockTests ? "Tests completed" : "Take your first mock"} />
         <StatCard icon={<FiClock />} label="Study Streak" value={studyStreak} detail={studyStreak === 1 ? "day active" : "days active"} />
       </section>
@@ -94,7 +94,7 @@ function Dashboard() {
             <div className="hidden rounded-xl bg-[#d3e0ea]/60 p-3 text-xl text-[#276678] dark:bg-[#194353] dark:text-[#d3e0ea] sm:block"><FiBarChart2 /></div>
           </div>
           <div className="mt-8 grid gap-4 border-y border-[#d3e0ea] py-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-[#d3e0ea] dark:border-slate-700 dark:divide-slate-700">
-            <PerformanceItem icon={<FiTarget />} label="Attempted" value={questionsSolved} />
+            <PerformanceItem icon={<FiTarget />} label="Attempted" value={questionsAttempted} />
             <PerformanceItem icon={<FiCheckCircle />} label="Correct" value={correctAnswers} />
             <PerformanceItem icon={<FiXCircle />} label="Wrong" value={wrongAnswers} />
           </div>
