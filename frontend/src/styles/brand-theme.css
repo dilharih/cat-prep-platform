@@ -234,3 +234,49 @@ body,
 .theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > header.bg-black {
   background-color: #194353 !important;
 }
+
+/* =====================================================
+   MOCK TEST QUESTION LAYOUT
+   Keep the split layout for passages, but let questions
+   without a passage use the full available workspace.
+   ===================================================== */
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child:not(:has(div[class*="h-full"][class*="overflow-auto"]))) {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child:not(:has(div[class*="h-full"][class*="overflow-auto"]))) > div:first-child {
+  display: none !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child:not(:has(div[class*="h-full"][class*="overflow-auto"]))) > div:nth-child(2) {
+  grid-column: 1 / -1 !important;
+  padding: 20px 24px 24px !important;
+}
+
+/* Keep passage questions balanced. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div.grid:has(> div:first-child div[class*="h-full"][class*="overflow-auto"]) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+}
+
+/* Cleaner palette treatment */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button {
+  border-width: 1px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button:hover {
+  transform: translateY(-1px);
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button[class*="bg-slate-200"] {
+  background-color: #d3e0ea !important;
+  color: #102a33 !important;
+  border-color: #d3e0ea !important;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button[class*="bg-white"] {
+  background-color: #102a33 !important;
+  color: #d3e0ea !important;
+  border-color: #276678 !important;
+}
