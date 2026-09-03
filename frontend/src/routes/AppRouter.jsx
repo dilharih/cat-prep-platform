@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PublicLandingPage from "../pages/PublicLandingPage";
 import LoginPage from "../features/auth/pages/LoginPage";
 import Dashboard from "../pages/Dashboard";
-import PracticePage from "../features/practice/pages/PracticePage";
 import MockTestListPage from "../features/test/pages/MockTestListPage";
 import MockTestPage from "../features/test/pages/MockTestPage";
 import MockTestResultPage from "../features/test/pages/MockTestResultPage";
@@ -28,9 +27,7 @@ function AppRouter() {
 
         <Route element={<SiteLayout />}>
           <Route path="/login" element={<LoginPage />} />
-
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/practice" element={<ProtectedRoute><PracticePage /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><AttemptHistoryPage /></ProtectedRoute>} />
           <Route path="/mock-tests" element={<ProtectedRoute><MockTestListPage /></ProtectedRoute>} />
           <Route path="/mock-test-result/:attemptId" element={<ProtectedRoute><MockTestResultPage /></ProtectedRoute>} />
