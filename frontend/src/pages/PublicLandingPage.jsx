@@ -1,5 +1,6 @@
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import ThemeToggle from "../components/common/ThemeToggle";
 import "../styles/public-landing.css";
 
 const benefits = [
@@ -31,9 +32,9 @@ function PublicLandingPage() {
   }
 
   return (
-    <main className="public-landing-page min-h-screen overflow-y-auto bg-[#f6f5f5] text-[#276678]">
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-6 sm:px-10 lg:px-12 lg:pb-20 lg:pt-8">
-        <nav className="public-landing-nav flex items-center justify-between">
+    <main className="public-landing-page min-h-screen overflow-x-hidden bg-[#f6f5f5] text-[#276678]">
+      <section className="mx-auto flex min-h-screen max-w-7xl flex-col px-6 pb-10 pt-6 sm:px-10 lg:px-12 lg:pb-12 lg:pt-7">
+        <nav className="public-landing-nav flex shrink-0 items-center justify-between">
           <Link
             to="/"
             className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#276678]"
@@ -44,32 +45,35 @@ function PublicLandingPage() {
             CAT <span className="text-[#1687a7]">Prep</span>
           </Link>
 
-          <Link
-            to="/login"
-            className="rounded-xl border border-[#276678] bg-white px-5 py-2.5 text-sm font-bold text-[#276678] transition hover:bg-[#276678] hover:text-white"
-          >
-            Log in
-          </Link>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <Link
+              to="/login"
+              className="public-landing-login rounded-xl border border-[#276678] bg-white px-5 py-2.5 text-sm font-bold text-[#276678] transition hover:bg-[#276678] hover:text-white"
+            >
+              Log in
+            </Link>
+          </div>
         </nav>
 
-        <div className="grid items-center gap-10 pt-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:pt-14">
-          <div className="public-landing-copy">
-            <div className="mb-5 inline-flex items-center rounded-full border border-[#d3e0ea] bg-white px-4 py-2 text-sm font-bold text-[#276678] shadow-sm">
+        <div className="grid flex-1 items-center gap-8 py-7 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12 lg:py-5">
+          <div className="public-landing-copy lg:-translate-y-1">
+            <div className="mb-4 inline-flex items-center rounded-full border border-[#d3e0ea] bg-white px-4 py-2 text-sm font-bold text-[#276678] shadow-sm">
               <span className="mr-2 h-2 w-2 rounded-full bg-[#1687a7]" />
               Free CAT preparation
             </div>
 
-            <h1 className="max-w-2xl text-5xl font-extrabold leading-[1.04] tracking-tight text-[#276678] sm:text-6xl lg:text-[4.25rem]">
+            <h1 className="max-w-2xl text-5xl font-extrabold leading-[1.04] tracking-tight text-[#276678] sm:text-6xl lg:text-[4.1rem]">
               Practice better.
               <span className="block text-[#1687a7]">Score higher.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-[#5f7f8d] sm:text-xl">
+            <p className="mt-5 max-w-xl text-lg leading-8 text-[#5f7f8d] sm:text-xl">
               Prepare for CAT with previous-year questions, realistic mock tests,
-              and focused practice—all in one simple platform.
+              and clear performance tracking—all in one simple platform.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 to="/login"
                 className="rounded-xl bg-[#1687a7] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1687a7]/15 transition hover:bg-[#276678]"
@@ -84,7 +88,7 @@ function PublicLandingPage() {
               </Link>
             </div>
 
-            <div className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-[#d3e0ea] pt-6">
+            <div className="mt-7 grid max-w-xl grid-cols-3 gap-4 border-t border-[#d3e0ea] pt-5">
               <div>
                 <p className="text-sm font-bold text-[#276678]">CAT PYQs</p>
                 <p className="mt-1 text-xs leading-5 text-[#5f7f8d]">Real past questions</p>
@@ -100,11 +104,11 @@ function PublicLandingPage() {
             </div>
           </div>
 
-          <div className="public-landing-visual overflow-hidden rounded-[2rem] border border-[#d3e0ea] bg-white p-2 shadow-[0_28px_80px_rgba(39,102,120,0.16)] sm:p-3">
+          <div className="public-landing-visual flex items-center justify-center overflow-hidden rounded-[1.75rem] border border-[#d3e0ea] bg-white p-2 shadow-[0_24px_70px_rgba(39,102,120,0.14)] sm:p-3 lg:justify-end">
             <img
               src="/landing-study.png"
               alt="Focused CAT preparation with books, notes, and past papers"
-              className="h-auto max-h-[650px] w-full rounded-[1.5rem] object-contain"
+              className="mx-auto max-h-[min(62vh,560px)] w-full rounded-[1.35rem] object-contain object-center"
             />
           </div>
         </div>
