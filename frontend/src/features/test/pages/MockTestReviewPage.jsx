@@ -13,21 +13,11 @@ function MockTestReviewPage() {
   useEffect(() => {
     async function loadReview() {
       try {
-        const response = await api.get(
-          `/mock-test-results/${attemptId}`
-        );
-
+        const response = await api.get(`/mock-test-results/${attemptId}`);
         setResult(response.data.data);
       } catch (error) {
-        console.error(
-          "Failed to load attempt review:",
-          error
-        );
-
-        setError(
-          error.response?.data?.message ||
-            "Failed to load attempt review."
-        );
+        console.error("Failed to load attempt review:", error);
+        setError(error.response?.data?.message || "Failed to load attempt review.");
       } finally {
         setLoading(false);
       }
@@ -36,68 +26,41 @@ function MockTestReviewPage() {
     loadReview();
   }, [attemptId]);
 
-  // =====================================================
-  // LOADING
-  // =====================================================
-
   if (loading) {
     return (
-      <div className="fixed inset-0 overflow-y-auto bg-slate-100">
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="rounded-xl bg-white px-8 py-6 shadow-sm">
-            <h2 className="text-xl font-semibold">
-              Loading review...
-            </h2>
-          </div>
+      <div className="review-page flex min-h-screen items-center justify-center p-4">
+        <div className="review-panel rounded-2xl p-7 text-center shadow-sm">
+          <div className="mx-auto mb-3 h-8 w-8 animate-spin rounded-full border-2 border-[#D3E0EA] border-t-[#1687A7]" />
+          <h2 className="review-heading text-lg font-semibold">Loading review...</h2>
         </div>
       </div>
     );
   }
-
-  // =====================================================
-  // ERROR
-  // =====================================================
 
   if (error) {
     return (
-      <div className="fixed inset-0 overflow-y-auto bg-slate-100">
-        <div className="mx-auto max-w-lg p-8">
-          <div className="rounded-xl bg-white p-8 shadow-sm">
-
-            <h2 className="text-xl font-semibold text-red-600">
-              {error}
-            </h2>
-
-            <button
-              onClick={() =>
-                navigate(
-                  `/mock-test-result/${attemptId}`
-                )
-              }
-              className="mt-5 rounded-lg bg-blue-600 px-5 py-2.5 font-medium text-white hover:bg-blue-700"
-            >
-              Back to Result
-            </button>
-
-          </div>
+      <div className="review-page flex min-h-screen items-center justify-center p-4">
+        <div className="review-panel w-full max-w-lg rounded-2xl p-7 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
+            Unable to load review
+          </p>
+          <h2 className="review-heading mt-2 text-xl font-bold">{error}</h2>
+          <button
+            onClick={() => navigate(`/mock-test-result/${attemptId}`)}
+            className="mt-5 rounded-xl bg-[#276678] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1687A7] focus:outline-none focus:ring-2 focus:ring-[#1687A7] focus:ring-offset-2"
+          >
+            Back to Result
+          </button>
         </div>
       </div>
     );
   }
 
-  // =====================================================
-  // RESULT NOT FOUND
-  // =====================================================
-
   if (!result) {
     return (
-      <div className="fixed inset-0 overflow-y-auto bg-slate-100">
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="rounded-xl bg-white p-8 shadow-sm">
-            <h2 className="text-xl font-semibold">
-              Review not found.
-            </h2>
-          </div>
+      <div className="review-page flex min-h-screen items-center justify-center p-4">
+        <div className="review-panel rounded-2xl p-7 shadow-sm">
+          <h2 className="review-heading text-xl font-bold">Review not found.</h2>
         </div>
       </div>
     );
@@ -105,209 +68,134 @@ function MockTestReviewPage() {
 
   const answers = result.answers || [];
 
-  // =====================================================
-  // PAGE
-  // =====================================================
-
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-100">
-
-      {/* =================================================
-          HEADER
-      ================================================= */}
-
-      <header className="bg-black px-6 py-4 text-white">
-
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-
-          <div>
-
-            <h1 className="text-xl font-extrabold">
-              CAT
-              <span className="text-orange-500">
-                Prep
+    <div className="review-page min-h-screen font-sans">
+      <header className="review-header border-b">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#276678] text-sm font-extrabold text-white">
+                C
               </span>
-            </h1>
-
-            <p className="mt-1 text-xs text-slate-400">
+              <span className="review-brand text-sm font-bold tracking-wide">CATPrep</span>
+            </div>
+            <p className="review-muted mt-2 text-xs font-semibold uppercase tracking-wider">
               Attempt Review
             </p>
-
           </div>
 
           <button
-            onClick={() =>
-              navigate(
-                `/mock-test-result/${attemptId}`
-              )
-            }
-            className="rounded-lg border border-slate-600 px-4 py-2 text-sm font-medium hover:bg-slate-800"
+            onClick={() => navigate(`/mock-test-result/${attemptId}`)}
+            className="review-secondary-button shrink-0 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-[#1687A7] focus:ring-offset-2"
           >
             Back to Result
           </button>
-
         </div>
-
       </header>
 
-      {/* =================================================
-          CONTENT
-      ================================================= */}
-
-      <main className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-8">
-
-        {/* TITLE */}
-
-        <div className="mb-8">
-
-          <h2 className="text-3xl font-bold text-slate-900">
+      <main className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <section className="review-panel rounded-2xl p-5 shadow-sm sm:p-6">
+          <p className="review-accent text-xs font-bold uppercase tracking-wider">Review</p>
+          <h1 className="review-title mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">
             {result.mockTest.title}
-          </h2>
+          </h1>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <span className="review-muted">Review your answers and explanations.</span>
+            <span className="review-count font-semibold">{answers.length} questions</span>
+          </div>
+        </section>
 
-          <p className="mt-2 text-slate-500">
-            Review your attempted questions
-          </p>
-
-        </div>
-
-        {/* =================================================
-            QUESTIONS
-        ================================================= */}
-
-        <div className="space-y-6">
-
+        <div className="mt-5 space-y-5">
           {answers.map((answer, index) => {
-
             const unanswered =
               answer.selectedAnswer === null ||
               answer.selectedAnswer === undefined ||
               answer.selectedAnswer === "";
-
-            const correct =
-              !unanswered && answer.isCorrect;
+            const correct = !unanswered && answer.isCorrect;
 
             return (
-              <div
-                key={answer.id}
-                className="rounded-2xl border border-slate-200 bg-white shadow-sm"
-              >
-
-                {/* QUESTION HEADER */}
-
-                <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-
-                  <h3 className="text-lg font-bold">
-                    Question {index + 1}
-                  </h3>
-
-                  {/* STATUS */}
+              <article key={answer.id} className="review-panel overflow-hidden rounded-2xl shadow-sm">
+                <div className="review-question-header flex flex-col gap-3 border-b px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                  <div className="flex items-center gap-3">
+                    <span className="review-question-number inline-flex h-9 min-w-9 items-center justify-center rounded-xl px-2 text-sm font-extrabold">
+                      {index + 1}
+                    </span>
+                    <h2 className="review-heading text-base font-bold">Question {index + 1}</h2>
+                  </div>
 
                   {correct && (
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
+                    <span className="review-status review-status-correct rounded-full px-3 py-1 text-xs font-bold">
                       Correct
                     </span>
                   )}
-
                   {!correct && !unanswered && (
-                    <span className="rounded-full bg-red-100 px-3 py-1 text-sm font-semibold text-red-700">
+                    <span className="review-status review-status-wrong rounded-full px-3 py-1 text-xs font-bold">
                       Wrong
                     </span>
                   )}
-
                   {unanswered && (
-                    <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600">
+                    <span className="review-status review-status-unanswered rounded-full px-3 py-1 text-xs font-bold">
                       Unanswered
                     </span>
                   )}
-
                 </div>
 
-                {/* QUESTION */}
-
-                <div className="p-6">
-
-                  <p className="text-lg font-medium leading-7 text-slate-900">
+                <div className="p-5 sm:p-6">
+                  <p className="review-question text-base font-medium leading-7 sm:text-lg">
                     {answer.question.question}
                   </p>
 
-                  {/* YOUR ANSWER */}
-
-                  <div className="mt-6">
-
-                    <p className="text-sm font-semibold text-slate-500">
-                      Your Answer
-                    </p>
-
-                    <div className="mt-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-
-                      {unanswered ? (
-                        <span className="text-slate-500">
-                          Not answered
-                        </span>
-                      ) : (
-                        <span className="font-semibold text-slate-900">
-                          {answer.selectedAnswer}
-                        </span>
-                      )}
-
+                  <div className="mt-5 grid gap-4 md:grid-cols-2">
+                    <div className="review-answer-block rounded-xl border p-4">
+                      <p className="review-muted text-xs font-bold uppercase tracking-wider">
+                        Your Answer
+                      </p>
+                      <p className="review-answer mt-2 text-sm font-semibold leading-6">
+                        {unanswered ? "Not answered" : answer.selectedAnswer}
+                      </p>
                     </div>
 
+                    <div className="review-correct-block rounded-xl border p-4">
+                      <p className="review-muted text-xs font-bold uppercase tracking-wider">
+                        Correct Answer
+                      </p>
+                      <p className="review-correct-answer mt-2 text-sm font-semibold leading-6">
+                        {answer.question.correctAnswer}
+                      </p>
+                    </div>
                   </div>
 
-                  {/* EXPLANATION */}
-
                   {answer.question.explanation && (
-                    <div className="mt-6 rounded-xl bg-blue-50 p-5">
-
-                      <p className="text-sm font-bold text-blue-700">
+                    <div className="review-explanation mt-4 rounded-xl border p-4">
+                      <p className="review-accent text-xs font-bold uppercase tracking-wider">
                         Explanation
                       </p>
-
-                      <p className="mt-2 leading-6 text-slate-700">
+                      <p className="review-explanation-text mt-2 text-sm leading-6">
                         {answer.question.explanation}
                       </p>
-
                     </div>
                   )}
-
                 </div>
-
-              </div>
+              </article>
             );
           })}
-
         </div>
 
-        {/* =================================================
-            BOTTOM ACTIONS
-        ================================================= */}
-
-        <div className="mt-8 flex flex-wrap gap-3 pb-10">
-
+        <div className="review-actions mt-5 flex flex-wrap gap-2 border-t pt-5 pb-10">
           <button
-            onClick={() =>
-              navigate(
-                `/mock-test-result/${attemptId}`
-              )
-            }
-            className="rounded-lg bg-blue-700 px-6 py-3 font-semibold text-white hover:bg-blue-800"
+            onClick={() => navigate(`/mock-test-result/${attemptId}`)}
+            className="rounded-xl bg-[#276678] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1687A7] focus:outline-none focus:ring-2 focus:ring-[#1687A7] focus:ring-offset-2"
           >
             Back to Result
           </button>
-
           <button
-            onClick={() =>
-              navigate("/mock-tests")
-            }
-            className="rounded-lg border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+            onClick={() => navigate("/mock-tests")}
+            className="review-secondary-button rounded-xl px-5 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-[#1687A7] focus:ring-offset-2"
           >
             Mock Tests
           </button>
-
         </div>
-
       </main>
-
     </div>
   );
 }
