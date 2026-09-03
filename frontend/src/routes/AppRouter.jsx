@@ -20,7 +20,7 @@ function AppRouterContent() {
   return (
     <>
       {isMockTestPage && (
-        <div className="fixed right-[174px] top-[84px] z-[100] rounded-xl border border-white/10 bg-slate-900/80 p-1 shadow-lg backdrop-blur-sm">
+        <div className="fixed right-[174px] top-[84px] z-[100]">
           <ThemeToggle />
         </div>
       )}
