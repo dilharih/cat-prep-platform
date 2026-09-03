@@ -93,7 +93,7 @@ body,
 /* Dashboard next-step card */
 .dashboard-next-step {
   background-color: #ffffff !important;
-  border-color: rgba(22, 135, 167, 0.2) !important;
+  border-color: var(--brand-primary-dark) !important;
   color: #276678 !important;
 }
 
