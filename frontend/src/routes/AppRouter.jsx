@@ -35,8 +35,9 @@ function AppRouterContent() {
           }
         />
 
+        <Route path="/login" element={<LoginPage />} />
+
         <Route element={<SiteLayout />}>
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><AttemptHistoryPage /></ProtectedRoute>} />
           <Route path="/mock-tests" element={<ProtectedRoute><MockTestListPage /></ProtectedRoute>} />
