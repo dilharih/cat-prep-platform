@@ -281,3 +281,31 @@ body,
   color: #d3e0ea !important;
   border-color: #276678 !important;
 }
+
+/* Dark-mode answer options: use the same deep teal surface as the question area. */
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
+  background: #123740 !important;
+  color: #e5f3f7 !important;
+  border-color: #245766 !important;
+  box-shadow: none !important;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] div[class*="space-y-3"] > button:hover {
+  background: #194353 !important;
+  border-color: #1687a7 !important;
+  color: #ffffff !important;
+}
+
+/* Keep selected answers clearly green in both themes. */
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] div[class*="space-y-3"] > button[class*="bg-green-50"] {
+  background: #dcfce7 !important;
+  color: #14532d !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 2px 7px rgba(22, 163, 74, 0.12) !important;
+}
+
+.theme-dark #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] main section[class*="rounded-2xl"] div[class*="space-y-3"] > button[class*="bg-green-50"] > span:first-child {
+  background: #16a34a !important;
+  border-color: #16a34a !important;
+  color: #ffffff !important;
+}
