@@ -23,3 +23,13 @@
   border-color: #276678 !important;
   color: #0f172a !important;
 }
+
+/* The current answer UI uses Tailwind classes rather than answer-option.
+   Keep text dark whenever an answer card becomes white in dark mode. */
+.theme-dark main section button[class*="bg-white"] {
+  color: #0f172a !important;
+}
+
+.theme-dark main section button[class*="bg-white"] > span {
+  color: #0f172a !important;
+}
