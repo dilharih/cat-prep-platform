@@ -1,40 +1,46 @@
-.auth-page {
+/* Login page visual system. The layout itself is shared by AuthLayout. */
+
+.min-h-screen.bg-gray-50.flex.items-center.justify-center.px-6:has(.auth-login-form) {
   min-height: 100vh;
-  background: #f6f5f5;
-  color: #276678;
+  background: #f6f5f5 !important;
+  padding: 2rem 1.25rem;
 }
 
-.auth-page__shell {
-  width: min(100%, 1120px);
+.min-h-screen.bg-gray-50.flex.items-center.justify-center.px-6:has(.auth-login-form) > div {
+  width: min(100%, 480px);
+  max-width: 480px;
+  border: 1px solid #d3e0ea !important;
+  border-radius: 1.5rem;
+  background: #ffffff !important;
+  padding: 2.5rem !important;
+  box-shadow: 0 24px 70px rgba(39, 102, 120, 0.12) !important;
 }
 
-.auth-page__brand-panel {
-  background: linear-gradient(145deg, #276678 0%, #1687a7 100%);
+.auth-login-form {
+  width: 100%;
 }
 
-.auth-page__card {
-  background: #ffffff;
-  border: 1px solid #d3e0ea;
-  box-shadow: 0 24px 70px rgba(39, 102, 120, 0.12);
+.auth-login-form h1 {
+  color: #276678 !important;
 }
 
-.auth-page__input {
+.auth-login-form label {
+  color: #276678 !important;
+}
+
+.auth-login-form input.auth-page__input {
   background: #ffffff !important;
   border-color: #b9ced7 !important;
   color: #276678 !important;
 }
 
-.auth-page__input::placeholder {
+.auth-login-form input.auth-page__input::placeholder {
   color: #7c9aa6 !important;
 }
 
-.auth-page__input:focus {
+.auth-login-form input.auth-page__input:focus {
   border-color: #1687a7 !important;
   box-shadow: 0 0 0 3px rgba(22, 135, 167, 0.14) !important;
-}
-
-.auth-page__label {
-  color: #276678 !important;
 }
 
 .auth-page__submit {
@@ -49,9 +55,10 @@
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.auth-page__submit:hover {
+.auth-page__submit:hover:not(:disabled) {
   background: #276678;
   box-shadow: 0 8px 20px rgba(22, 135, 167, 0.2);
+  transform: translateY(-1px);
 }
 
 .auth-page__submit:focus-visible {
@@ -60,57 +67,79 @@
 }
 
 .auth-page__back {
-  color: #5f7f8d;
+  color: #5f7f8d !important;
 }
 
 .auth-page__back:hover {
-  color: #1687a7;
+  color: #1687a7 !important;
 }
 
-.theme-dark .auth-page {
-  background: #091a21;
-  color: #d3e0ea;
+/* Dark mode */
+.theme-dark .min-h-screen.bg-gray-50.flex.items-center.justify-center.px-6:has(.auth-login-form) {
+  background: #091a21 !important;
 }
 
-.theme-dark .auth-page__card {
-  background: #102a33;
-  border-color: #194353;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+.theme-dark .min-h-screen.bg-gray-50.flex.items-center.justify-center.px-6:has(.auth-login-form) > div {
+  border-color: #194353 !important;
+  background: #102a33 !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28) !important;
 }
 
-.theme-dark .auth-page__input {
+.theme-dark .auth-login-form h1 {
+  color: #d3e0ea !important;
+}
+
+.theme-dark .auth-login-form label {
+  color: #d3e0ea !important;
+}
+
+.theme-dark .auth-login-form p.text-\[\#5f7f8d\] {
+  color: #9bb5bf !important;
+}
+
+.theme-dark .auth-login-form span.text-\[\#276678\] {
+  color: #d3e0ea !important;
+}
+
+.theme-dark .auth-login-form span.text-\[\#1687a7\] {
+  color: #45aeca !important;
+}
+
+.theme-dark .auth-login-form input.auth-page__input {
   background: #091a21 !important;
   border-color: #285363 !important;
   color: #d3e0ea !important;
 }
 
-.theme-dark .auth-page__input::placeholder {
+.theme-dark .auth-login-form input.auth-page__input::placeholder {
   color: #7f9da8 !important;
 }
 
-.theme-dark .auth-page__input:focus {
+.theme-dark .auth-login-form input.auth-page__input:focus {
   border-color: #45aeca !important;
   box-shadow: 0 0 0 3px rgba(69, 174, 202, 0.14) !important;
 }
 
-.theme-dark .auth-page__label {
-  color: #d3e0ea !important;
-}
-
 .theme-dark .auth-page__back {
-  color: #9bb5bf;
+  color: #9bb5bf !important;
 }
 
 .theme-dark .auth-page__back:hover {
-  color: #45aeca;
+  color: #45aeca !important;
 }
 
-@media (max-width: 767px) {
-  .auth-page__brand-panel {
-    display: none;
+.theme-dark .auth-login-secure {
+  color: #7f9da8 !important;
+}
+
+@media (max-width: 640px) {
+  .min-h-screen.bg-gray-50.flex.items-center.justify-center.px-6:has(.auth-login-form) {
+    padding: 1.25rem;
   }
 
-  .auth-page__card {
-    box-shadow: none;
+  .min-h-screen.bg-gray-50.flex.items-center.justify-center.px-6:has(.auth-login-form) > div {
+    border-radius: 1.25rem;
+    padding: 1.5rem !important;
+    box-shadow: 0 16px 40px rgba(39, 102, 120, 0.08) !important;
   }
 }
