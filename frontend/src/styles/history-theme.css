@@ -1,0 +1,230 @@
+/* Question History page theme */
+
+.history-page {
+  background-color: #f6f5f5 !important;
+  color: #276678 !important;
+}
+
+.history-page .history-title,
+.history-page .history-heading,
+.history-page .history-question {
+  color: #276678 !important;
+}
+
+.history-page .history-muted,
+.history-page .history-meta,
+.history-page .history-divider {
+  color: #5f7f8d !important;
+}
+
+.history-page .history-eyebrow,
+.history-page .history-accent {
+  color: #1687a7 !important;
+}
+
+.history-page .history-panel,
+.history-page .history-card {
+  background-color: #ffffff !important;
+  border: 1px solid #d3e0ea !important;
+}
+
+.history-page .history-card-header {
+  background-color: #f6f5f5 !important;
+  border-color: #d3e0ea !important;
+}
+
+.history-page .history-question-number {
+  background-color: #d3e0ea !important;
+  color: #276678 !important;
+}
+
+.history-page .history-badge {
+  background-color: #f6f5f5 !important;
+  color: #5f7f8d !important;
+  border: 1px solid #d3e0ea !important;
+}
+
+.history-page .history-badge-section {
+  background-color: #e6f4f8 !important;
+  color: #1687a7 !important;
+  border-color: #b9dce7 !important;
+}
+
+.history-page .history-status.correct {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.history-page .history-status.wrong {
+  background-color: #fee2e2 !important;
+  color: #b91c1c !important;
+}
+
+.history-page .history-answer {
+  background-color: #f6f5f5 !important;
+  border-color: #d3e0ea !important;
+}
+
+.history-page .history-answer-correct {
+  color: #15803d !important;
+}
+
+.history-page .history-answer-wrong {
+  color: #b91c1c !important;
+}
+
+.history-page .history-explanation {
+  background-color: #eef7fa !important;
+  border-color: #b9dce7 !important;
+}
+
+.history-page .history-explanation-title {
+  color: #1687a7 !important;
+}
+
+.history-page .history-explanation-text {
+  color: #276678 !important;
+}
+
+.history-page .history-label {
+  color: #5f7f8d !important;
+}
+
+.history-page .history-filter {
+  background-color: #d3e0ea !important;
+  color: #276678 !important;
+}
+
+.history-page .history-filter:hover {
+  background-color: #b9d0db !important;
+}
+
+.history-page .history-filter.active {
+  background-color: #1687a7 !important;
+  color: #ffffff !important;
+}
+
+.history-page .history-select {
+  background-color: #ffffff !important;
+  color: #276678 !important;
+  border: 1px solid #8fb6c4 !important;
+}
+
+.history-page .history-count {
+  color: #276678 !important;
+}
+
+.history-page .history-error {
+  background-color: #fef2f2 !important;
+  border-color: #fecaca !important;
+  color: #b91c1c !important;
+}
+
+/* Preserve the existing dark-mode appearance while improving consistency. */
+.theme-dark .history-page {
+  background-color: #091a21 !important;
+  color: #d3e0ea !important;
+}
+
+.theme-dark .history-page .history-title,
+.theme-dark .history-page .history-heading,
+.theme-dark .history-page .history-question {
+  color: #d3e0ea !important;
+}
+
+.theme-dark .history-page .history-muted,
+.theme-dark .history-page .history-meta,
+.theme-dark .history-page .history-divider,
+.theme-dark .history-page .history-label {
+  color: #91b2bf !important;
+}
+
+.theme-dark .history-page .history-eyebrow,
+.theme-dark .history-page .history-accent,
+.theme-dark .history-page .history-explanation-title {
+  color: #45aeca !important;
+}
+
+.theme-dark .history-page .history-panel,
+.theme-dark .history-page .history-card {
+  background-color: #102a33 !important;
+  border-color: #285363 !important;
+}
+
+.theme-dark .history-page .history-card-header {
+  background-color: #194353 !important;
+  border-color: #285363 !important;
+}
+
+.theme-dark .history-page .history-question-number {
+  background-color: #276678 !important;
+  color: #d3e0ea !important;
+}
+
+.theme-dark .history-page .history-badge {
+  background-color: #123740 !important;
+  color: #b8d0d9 !important;
+  border-color: #245766 !important;
+}
+
+.theme-dark .history-page .history-badge-section {
+  background-color: #d3e0ea !important;
+  color: #1687a7 !important;
+  border-color: #d3e0ea !important;
+}
+
+.theme-dark .history-page .history-status.correct {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.theme-dark .history-page .history-status.wrong {
+  background-color: #450a0a !important;
+  color: #fca5a5 !important;
+}
+
+.theme-dark .history-page .history-answer {
+  background-color: #194353 !important;
+  border-color: #245766 !important;
+}
+
+.theme-dark .history-page .history-answer-correct {
+  color: #86efac !important;
+}
+
+.theme-dark .history-page .history-answer-wrong {
+  color: #fca5a5 !important;
+}
+
+.theme-dark .history-page .history-explanation {
+  background-color: #194353 !important;
+  border-color: #276678 !important;
+}
+
+.theme-dark .history-page .history-explanation-text {
+  color: #d3e0ea !important;
+}
+
+.theme-dark .history-page .history-filter {
+  background-color: #194353 !important;
+  color: #d3e0ea !important;
+}
+
+.theme-dark .history-page .history-filter:hover {
+  background-color: #245766 !important;
+}
+
+.theme-dark .history-page .history-filter.active {
+  background-color: #1687a7 !important;
+  color: #ffffff !important;
+}
+
+.theme-dark .history-page .history-select {
+  background-color: #0d252e !important;
+  color: #d3e0ea !important;
+  border-color: #285363 !important;
+}
+
+.theme-dark .history-page .history-count {
+  color: #d3e0ea !important;
+}
