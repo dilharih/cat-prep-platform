@@ -1,6 +1,6 @@
 .theme-switch {
   --scale: 0.8;
-  --toggle-duration: 3s;
+  --toggle-duration: 1s;
   position: relative;
   display: inline-flex;
   align-items: center;
