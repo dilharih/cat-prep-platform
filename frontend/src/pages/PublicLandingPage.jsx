@@ -1,5 +1,6 @@
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import "../styles/public-landing.css";
 
 const benefits = [
   {
