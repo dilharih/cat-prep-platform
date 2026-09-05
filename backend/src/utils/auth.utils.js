@@ -59,7 +59,7 @@ function setSessionCookie(res, token) {
   });
 }
 
-function ensureCsrfCookie(req, res) {
+function ensureCsrfCookie(req, res, next) {
   const cookies = parseCookies(req.headers.cookie);
   let token = cookies[csrfCookieName];
 
@@ -72,7 +72,7 @@ function ensureCsrfCookie(req, res) {
     });
   }
 
-  return token;
+  return next();
 }
 
 function requireCsrf(req, res, next) {
