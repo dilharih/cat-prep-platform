@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const crypto = require("crypto");
 
 const healthRoutes = require("./routes/health.routes");
 const authRoutes = require("./routes/auth.routes");
@@ -13,7 +14,10 @@ const {
   setSecurityHeaders,
   validateOrigin,
 } = require("./middleware/security.middleware");
-const { ensureCsrfCookie } = require("./utils/auth.utils");
+const {
+  ensureCsrfCookie,
+  requireCsrf,
+} = require("./utils/auth.utils");
 
 const app = express();
 const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
@@ -23,7 +27,11 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(setSecurityHeaders);
-app.use(requestIdMiddleware);
+app.use((req, res, next) => {
+  const id = req.get("X-Request-ID") || crypto.randomUUID();
+  res.setHeader("X-Request-ID", id);
+  next();
+});
 app.use(
   cors({
     origin: frontendUrl,
@@ -35,6 +43,13 @@ app.use(
 app.use(validateOrigin);
 app.use(express.json({ limit: "50kb" }));
 app.use(ensureCsrfCookie);
+app.use((req, res, next) => {
+  if (["GET", "HEAD", "OPTIONS"].includes(req.method)) {
+    return next();
+  }
+
+  return requireCsrf(req, res, next);
+});
 
 app.use("/api/attempts", attemptRoutes);
 app.use("/api/mock-test-results", mockTestResultRoutes);
@@ -44,11 +59,5 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/mock-tests", mockTestRoutes);
 app.use("/api/mock-test-attempts", mockTestAttemptRoutes);
-
-function requestIdMiddleware(req, res, next) {
-  const id = require("crypto").randomUUID();
-  res.setHeader("X-Request-ID", id);
-  next();
-}
 
 module.exports = app;
