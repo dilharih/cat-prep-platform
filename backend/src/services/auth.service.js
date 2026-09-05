@@ -2,6 +2,9 @@ const bcrypt = require("bcrypt");
 const prisma = require("../config/prisma");
 const jwt = require("jsonwebtoken");
 
+const BCRYPT_ROUNDS = 12;
+const MAX_PASSWORD_LENGTH = 128;
+
 function createToken(user) {
   return jwt.sign(
     {
@@ -23,13 +26,27 @@ function formatUser(user) {
   };
 }
 
+function validateCredentials(email, password) {
+  if (!email || !password) {
+    throw new Error("Invalid email or password");
+  }
+
+  if (password.length > MAX_PASSWORD_LENGTH) {
+    throw new Error("Invalid email or password");
+  }
+}
+
 async function registerUser(data) {
   const name = data.name?.trim();
   const email = data.email?.trim().toLowerCase();
   const { password } = data;
 
   if (!name || !email || !password) {
-    throw new Error("Name, email, and password are required");
+    throw new Error("Please provide all required fields");
+  }
+
+  if (name.length > 100 || email.length > 254 || password.length > MAX_PASSWORD_LENGTH) {
+    throw new Error("Invalid registration details");
   }
 
   const existingUser = await prisma.user.findUnique({
@@ -37,10 +54,10 @@ async function registerUser(data) {
   });
 
   if (existingUser) {
-    throw new Error("User already exists");
+    throw new Error("Unable to create account with these details");
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, BCRYPT_ROUNDS);
 
   const user = await prisma.user.create({
     data: {
@@ -52,7 +69,7 @@ async function registerUser(data) {
 
   return {
     success: true,
-    message: "User registered successfully",
+    message: "Account created successfully",
     token: createToken(user),
     user: formatUser(user),
   };
@@ -61,6 +78,8 @@ async function registerUser(data) {
 async function loginUser(data) {
   const email = data.email?.trim().toLowerCase();
   const { password } = data;
+
+  validateCredentials(email, password);
 
   const user = await prisma.user.findUnique({
     where: { email },
@@ -84,7 +103,16 @@ async function loginUser(data) {
   };
 }
 
+async function getUserById(userId) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  return user ? formatUser(user) : null;
+}
+
 module.exports = {
   loginUser,
   registerUser,
+  getUserById,
 };
