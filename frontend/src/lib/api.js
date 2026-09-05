@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
   withCredentials: true,
 });
 
@@ -9,13 +9,21 @@ api.interceptors.request.use(
   (config) => {
     const csrfCookie = document.cookie
       .split("; ")
-      .find((cookie) => cookie.startsWith("csrf_token="));
+      .find(
+        (cookie) =>
+          cookie.startsWith("csrf_token=") || cookie.startsWith("__Host-csrf=")
+      );
 
-    const csrfToken = csrfCookie
-      ? decodeURIComponent(csrfCookie.slice("csrf_token=".length))
-      : null;
+    const separatorIndex = csrfCookie?.indexOf("=");
+    const csrfToken =
+      csrfCookie && separatorIndex !== undefined
+        ? decodeURIComponent(csrfCookie.slice(separatorIndex + 1))
+        : null;
 
-    if (csrfToken && !["get", "head", "options"].includes(config.method?.toLowerCase())) {
+    if (
+      csrfToken &&
+      !["get", "head", "options"].includes(config.method?.toLowerCase())
+    ) {
       config.headers["X-CSRF-Token"] = csrfToken;
     }
 
