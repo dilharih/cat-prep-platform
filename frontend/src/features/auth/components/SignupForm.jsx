@@ -42,7 +42,7 @@ function SignupForm() {
           try {
             setGoogleError("");
             const result = await googleLogin(response.credential);
-            login(result.user, result.token);
+            login(result.user);
             navigate("/dashboard");
           } catch (error) {
             setGoogleError(
@@ -88,7 +88,7 @@ function SignupForm() {
         email: data.email,
         password: data.password,
       });
-      login(result.user, result.token);
+      login(result.user);
       navigate("/dashboard");
     } catch (error) {
       setGoogleError("");
@@ -141,7 +141,7 @@ function SignupForm() {
         <Input
           label="Password"
           type="password"
-          placeholder="At least 8 characters"
+          placeholder="At least 15 characters"
           error={errors.password?.message}
           className="auth-page__input"
           {...register("password")}
