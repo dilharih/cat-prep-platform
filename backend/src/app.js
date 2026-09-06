@@ -43,7 +43,7 @@ app.use(
   })
 );
 app.use(validateOrigin);
-app.use(express.json({ limit: "50kb" }));
+app.use(express.json({ limit: "1mb" }));
 app.use(ensureCsrfCookie);
 app.use((req, res, next) => {
   if (["GET", "HEAD", "OPTIONS"].includes(req.method)) {
