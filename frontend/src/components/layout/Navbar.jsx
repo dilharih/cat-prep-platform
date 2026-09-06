@@ -7,6 +7,7 @@ const links = [
   { name: "Dashboard", path: "/dashboard", protected: true },
   { name: "Mock Tests", path: "/mock-tests", protected: true },
   { name: "History", path: "/history", protected: true },
+  { name: "Admin", path: "/admin/mock-tests", adminOnly: true },
 ];
 
 function Navbar() {
@@ -24,6 +25,7 @@ function Navbar() {
 
   const visibleLinks = links.filter((link) => {
     if (link.publicOnly) return !user;
+    if (link.adminOnly) return user?.role === "ADMIN";
     return !link.protected || user;
   });
 
