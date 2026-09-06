@@ -90,6 +90,80 @@ async function createQuestionForMockTest(mockTestId, data) {
   });
 }
 
+async function createQuestionsBulk(mockTestId, questions) {
+  const mockTest = await ensureMockTest(mockTestId);
+
+  if (!Array.isArray(questions) || questions.length === 0) {
+    throw validationError("At least one question is required for bulk import");
+  }
+  if (questions.length > 200) {
+    throw validationError("Bulk import is limited to 200 questions at a time");
+  }
+
+  const normalizedQuestions = questions.map((data, index) => {
+    const mergedData = {
+      ...data,
+      year: data.year ?? mockTest.year,
+      slot: data.slot ?? mockTest.slot,
+    };
+    try {
+      validateQuestionData(mergedData);
+    } catch (error) {
+      throw validationError(`Question ${index + 1}: ${error.message}`);
+    }
+    return mergedData;
+  });
+
+  return prisma.$transaction(async (tx) => {
+    const last = await tx.mockTestQuestion.findFirst({
+      where: { mockTestId },
+      orderBy: { order: "desc" },
+      select: { order: true },
+    });
+
+    let nextOrder = (last?.order ?? -1) + 1;
+    const created = [];
+
+    for (const data of normalizedQuestions) {
+      let passageId = null;
+      if (data.passageContent?.trim()) {
+        const passage = await tx.passage.create({
+          data: {
+            title: data.passageTitle?.trim() || null,
+            content: data.passageContent.trim(),
+          },
+        });
+        passageId = passage.id;
+      }
+
+      const question = await tx.question.create({
+        data: {
+          ...buildQuestionData(data),
+          passageId,
+        },
+        include: { passage: true },
+      });
+
+      await tx.mockTestQuestion.create({
+        data: {
+          mockTestId,
+          questionId: question.id,
+          order: nextOrder,
+        },
+      });
+
+      created.push({
+        id: question.id,
+        order: nextOrder,
+        question,
+      });
+      nextOrder += 1;
+    }
+
+    return created;
+  });
+}
+
 async function updateQuestion(questionId, data) {
   validateQuestionData(data, { partial: true });
   const existing = await prisma.question.findUnique({ where: { id: questionId }, include: { passage: true } });
@@ -134,4 +208,4 @@ async function removeQuestionFromMockTest(mockTestId, questionId) {
   });
 }
 
-module.exports = { getMockTestQuestions, createQuestionForMockTest, updateQuestion, removeQuestionFromMockTest };
+module.exports = { getMockTestQuestions, createQuestionForMockTest, createQuestionsBulk, updateQuestion, removeQuestionFromMockTest };
