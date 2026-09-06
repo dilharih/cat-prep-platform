@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import PublicLandingPage from "../pages/PublicLandingPage";
+import PrivacyPolicyPage from "../pages/PrivacyPolicyPage";
 import LoginPage from "../features/auth/pages/LoginPage";
 import SignupPage from "../features/auth/pages/SignupPage";
 import Dashboard from "../pages/Dashboard";
@@ -35,6 +36,8 @@ function AppRouterContent() {
             </PublicOnlyRoute>
           }
         />
+
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
 
         <Route
           path="/login"
