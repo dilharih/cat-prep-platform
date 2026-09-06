@@ -2,10 +2,44 @@
   min-height: 100vh;
 }
 
+/* ================================
+   LIGHT MODE
+   ================================ */
+
+.public-landing-page .public-landing-header {
+  background: rgba(246, 245, 245, 0.95) !important;
+  color: #276678 !important;
+  border-color: rgba(211, 224, 234, 0.7) !important;
+}
+
+.public-landing-page .public-landing-footer {
+  background: #f6f5f5 !important;
+  color: #276678 !important;
+}
+
+/* ================================
+   DARK MODE
+   ================================ */
+
 .theme-dark .public-landing-page {
   background: #091a21 !important;
   color: #d3e0ea !important;
 }
+
+.theme-dark .public-landing-page .public-landing-header {
+  background: rgba(16, 42, 51, 0.95) !important;
+  color: #d3e0ea !important;
+  border-color: #194353 !important;
+}
+
+.theme-dark .public-landing-page .public-landing-footer {
+  background: #091a21 !important;
+  color: #d3e0ea !important;
+}
+
+/* ================================
+   NAVIGATION
+   ================================ */
 
 .theme-dark .public-landing-page .public-landing-nav a:first-child {
   color: #d3e0ea !important;
@@ -21,6 +55,10 @@
   background: #1687a7 !important;
   color: #ffffff !important;
 }
+
+/* ================================
+   HERO
+   ================================ */
 
 .theme-dark .public-landing-page .public-landing-copy h1,
 .theme-dark .public-landing-page .public-landing-copy .text-\[\#276678\] {
@@ -56,11 +94,19 @@
   color: #91b2bf !important;
 }
 
+/* ================================
+   HERO VISUAL
+   ================================ */
+
 .theme-dark .public-landing-page .public-landing-visual {
   background: #102a33 !important;
   border-color: #285363 !important;
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28) !important;
 }
+
+/* ================================
+   FEATURES
+   ================================ */
 
 .theme-dark .public-landing-page .public-landing-features {
   background: #102a33 !important;
@@ -80,13 +126,21 @@
   color: #5f7f8d !important;
 }
 
-.theme-dark .public-landing-page .public-landing-cta h2 {
-  color: #d3e0ea !important;
-}
+/* ================================
+   CTA
+   ================================ */
 
 .theme-dark .public-landing-page .public-landing-cta {
   color: #d3e0ea !important;
 }
+
+.theme-dark .public-landing-page .public-landing-cta h2 {
+  color: #d3e0ea !important;
+}
+
+/* ================================
+   MOBILE
+   ================================ */
 
 @media (max-width: 640px) {
   .public-landing-page .public-landing-visual {
