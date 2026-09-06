@@ -11,6 +11,7 @@ const mockTestRoutes = require("./routes/mockTest.routes");
 const mockTestAttemptRoutes = require("./routes/mockTestAttempt.routes");
 const mockTestResultRoutes = require("./routes/mockTestResult.routes");
 const adminRoutes = require("./routes/admin.routes");
+const adminMockTestRoutes = require("./routes/admin-mockTest.routes");
 const {
   setSecurityHeaders,
   validateOrigin,
@@ -61,5 +62,6 @@ app.use("/api/questions", questionRoutes);
 app.use("/api/mock-tests", mockTestRoutes);
 app.use("/api/mock-test-attempts", mockTestAttemptRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/admin/mock-tests", adminMockTestRoutes);
 
 module.exports = app;
