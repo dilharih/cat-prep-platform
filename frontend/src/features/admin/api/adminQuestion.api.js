@@ -10,6 +10,11 @@ export async function createAdminQuestion(mockTestId, data) {
   return response.data.data;
 }
 
+export async function bulkCreateAdminQuestions(mockTestId, questions) {
+  const response = await api.post(`/admin/mock-tests/${mockTestId}/questions/bulk`, { questions });
+  return response.data.data;
+}
+
 export async function updateAdminQuestion(questionId, data) {
   const response = await api.patch(`/admin/questions/${questionId}`, data);
   return response.data.data;
