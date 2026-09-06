@@ -191,6 +191,7 @@ function PublicLandingPage() {
             <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold" aria-label="Footer navigation">
               <a href="#features" className="transition">Features</a>
               <Link to="/login" className="transition">Log in</Link>
+              <Link to="/privacy" className="transition">Privacy Policy</Link>
             </nav>
           </div>
 
