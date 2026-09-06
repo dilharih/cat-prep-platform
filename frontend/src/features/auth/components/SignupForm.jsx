@@ -31,26 +31,33 @@ function SignupForm() {
       return undefined;
     }
 
-    const initializeGoogle = () => {
+    const handleGoogleCredential = async (response) => {
+      try {
+        setGoogleError("");
+        const result = await googleLogin(response.credential);
+        login(result.user);
+        navigate("/dashboard");
+      } catch (error) {
+        setGoogleError(
+          error.response?.data?.message || "Google sign-in failed. Please try again."
+        );
+      }
+    };
+
+    window.__catPrepGoogleCallback = handleGoogleCredential;
+
+    const renderGoogleButton = () => {
       if (!window.google?.accounts?.id || !googleButtonRef.current) {
         return;
       }
 
-      window.google.accounts.id.initialize({
-        client_id: clientId,
-        callback: async (response) => {
-          try {
-            setGoogleError("");
-            const result = await googleLogin(response.credential);
-            login(result.user);
-            navigate("/dashboard");
-          } catch (error) {
-            setGoogleError(
-              error.response?.data?.message || "Google sign-in failed. Please try again."
-            );
-          }
-        },
-      });
+      if (!window.__catPrepGoogleInitialized) {
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: (response) => window.__catPrepGoogleCallback?.(response),
+        });
+        window.__catPrepGoogleInitialized = true;
+      }
 
       googleButtonRef.current.innerHTML = "";
       window.google.accounts.id.renderButton(googleButtonRef.current, {
@@ -64,21 +71,33 @@ function SignupForm() {
     };
 
     if (window.google?.accounts?.id) {
-      initializeGoogle();
-      return undefined;
+      renderGoogleButton();
+      return () => {
+        if (window.__catPrepGoogleCallback === handleGoogleCredential) {
+          delete window.__catPrepGoogleCallback;
+        }
+      };
     }
 
-    const script = document.createElement("script");
-    script.src = "https://accounts.google.com/gsi/client";
-    script.async = true;
-    script.defer = true;
-    script.onload = initializeGoogle;
-    document.head.appendChild(script);
+    let script = document.querySelector('script[src="https://accounts.google.com/gsi/client"]');
+
+    if (!script) {
+      script = document.createElement("script");
+      script.src = "https://accounts.google.com/gsi/client";
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+
+    script.addEventListener("load", renderGoogleButton);
 
     return () => {
-      script.onload = null;
+      script.removeEventListener("load", renderGoogleButton);
+      if (window.__catPrepGoogleCallback === handleGoogleCredential) {
+        delete window.__catPrepGoogleCallback;
+      }
     };
-  }, [login, navigate]);
+  }, []);
 
   async function onSubmit(data) {
     try {
