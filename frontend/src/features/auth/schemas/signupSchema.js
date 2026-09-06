@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+const MIN_PASSWORD_LENGTH = 8;
 const MAX_PASSWORD_LENGTH = 128;
 
 export const signupSchema = z
@@ -8,12 +9,14 @@ export const signupSchema = z
     email: z.email("Please enter a valid email address").max(254, "Email is too long"),
     password: z
       .string()
-      .min(15, "Password must contain at least 15 characters")
-      .max(MAX_PASSWORD_LENGTH, "Password must contain at most 128 characters"),
+      .min(MIN_PASSWORD_LENGTH, "Password must contain at least 8 characters")
+      .max(MAX_PASSWORD_LENGTH, "Password must contain at most 128 characters")
+      .regex(/^[A-Za-z0-9]+$/, "Password must contain only letters and numbers"),
     confirmPassword: z
       .string()
-      .min(15, "Please confirm your password")
-      .max(MAX_PASSWORD_LENGTH, "Password must contain at most 128 characters"),
+      .min(MIN_PASSWORD_LENGTH, "Please confirm your password")
+      .max(MAX_PASSWORD_LENGTH, "Password must contain at most 128 characters")
+      .regex(/^[A-Za-z0-9]+$/, "Password must contain only letters and numbers"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
