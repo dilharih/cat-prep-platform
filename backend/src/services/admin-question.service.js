@@ -114,6 +114,9 @@ async function createQuestionsBulk(mockTestId, questions) {
     return mergedData;
   });
 
+  // A 68-question paper can require well over Prisma's default 5-second
+  // interactive transaction timeout, especially when passages are created.
+  // Keep the import atomic while allowing a realistic amount of time locally.
   return prisma.$transaction(async (tx) => {
     const last = await tx.mockTestQuestion.findFirst({
       where: { mockTestId },
@@ -141,7 +144,6 @@ async function createQuestionsBulk(mockTestId, questions) {
           ...buildQuestionData(data),
           passageId,
         },
-        include: { passage: true },
       });
 
       await tx.mockTestQuestion.create({
@@ -161,6 +163,9 @@ async function createQuestionsBulk(mockTestId, questions) {
     }
 
     return created;
+  }, {
+    maxWait: 10000,
+    timeout: 30000,
   });
 }
 
