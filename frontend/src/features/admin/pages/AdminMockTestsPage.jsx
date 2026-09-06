@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { FiEdit2, FiPlus, FiTrash2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiEdit2, FiList, FiPlus, FiTrash2 } from "react-icons/fi";
 import {
   createAdminMockTest,
   deleteAdminMockTest,
@@ -17,6 +18,7 @@ const EMPTY_FORM = {
 };
 
 function AdminMockTestsPage() {
+  const navigate = useNavigate();
   const [mockTests, setMockTests] = useState([]);
   const [form, setForm] = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
@@ -246,6 +248,13 @@ function AdminMockTestsPage() {
                   </div>
 
                   <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/admin/mock-tests/${mockTest.id}/questions`)}
+                      className="inline-flex items-center gap-2 rounded-lg bg-[#1687a7] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#276678] focus:outline-none focus:ring-2 focus:ring-[#1687a7] focus:ring-offset-2 dark:focus:ring-offset-[#102a33]"
+                    >
+                      <FiList /> Manage Questions
+                    </button>
                     <button type="button" onClick={() => startEdit(mockTest)} className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-[#1687a7] hover:text-[#276678] dark:border-[#194353] dark:text-slate-300 dark:hover:border-[#1687a7] dark:hover:text-[#d3e0ea]">
                       <FiEdit2 /> Edit
                     </button>
