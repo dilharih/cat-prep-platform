@@ -37,6 +37,20 @@ function validateCredentials(email, password) {
   }
 }
 
+function validatePasswordStrength(password) {
+  if (
+    password.length < MIN_PASSWORD_LENGTH ||
+    !/[A-Z]/.test(password) ||
+    !/[a-z]/.test(password) ||
+    !/[0-9]/.test(password) ||
+    !/[^A-Za-z0-9]/.test(password)
+  ) {
+    throw new Error(
+      "Password must be at least 8 characters and include an uppercase letter, lowercase letter, number, and symbol"
+    );
+  }
+}
+
 async function registerUser(data) {
   const name = data.name?.trim();
   const email = data.email?.trim().toLowerCase();
@@ -50,9 +64,7 @@ async function registerUser(data) {
     throw new Error("Invalid registration details");
   }
 
-  if (password.length < MIN_PASSWORD_LENGTH || !/^[A-Za-z0-9]+$/.test(password)) {
-    throw new Error("Password must contain at least 8 letters and numbers only");
-  }
+  validatePasswordStrength(password);
 
   const existingUser = await prisma.user.findUnique({
     where: { email },
