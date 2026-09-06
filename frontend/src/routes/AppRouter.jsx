@@ -10,7 +10,9 @@ import MockTestPage from "../features/test/pages/MockTestPage";
 import MockTestResultPage from "../features/test/pages/MockTestResultPage";
 import MockTestReviewPage from "../features/test/pages/MockTestReviewPage";
 import AttemptHistoryPage from "../features/practice/pages/AttemptHistoryPage";
+import AdminMockTestsPage from "../features/admin/pages/AdminMockTestsPage";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import AdminRoute from "../components/auth/AdminRoute";
 import PublicOnlyRoute from "../components/auth/PublicOnlyRoute";
 import ThemeToggle from "../components/common/ThemeToggle";
 import SiteLayout from "../layouts/SiteLayout";
@@ -63,6 +65,7 @@ function AppRouterContent() {
           <Route path="/mock-tests" element={<ProtectedRoute><MockTestListPage /></ProtectedRoute>} />
           <Route path="/mock-test-result/:attemptId" element={<ProtectedRoute><MockTestResultPage /></ProtectedRoute>} />
           <Route path="/mock-test-review/:attemptId" element={<ProtectedRoute><MockTestReviewPage /></ProtectedRoute>} />
+          <Route path="/admin/mock-tests" element={<AdminRoute><AdminMockTestsPage /></AdminRoute>} />
         </Route>
 
         <Route
