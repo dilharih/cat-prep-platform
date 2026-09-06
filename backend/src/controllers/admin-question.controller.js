@@ -1,6 +1,7 @@
 const {
   getMockTestQuestions,
   createQuestionForMockTest,
+  createQuestionsBulk,
   updateQuestion,
   removeQuestionFromMockTest,
 } = require("../services/admin-question.service");
@@ -30,6 +31,21 @@ async function create(req, res) {
   }
 }
 
+async function bulkCreate(req, res) {
+  try {
+    const data = req.body || {};
+    const questions = Array.isArray(data) ? data : data.questions;
+    const created = await createQuestionsBulk(req.params.mockTestId, questions);
+    return res.status(201).json({
+      success: true,
+      message: `${created.length} questions imported successfully`,
+      data: created,
+    });
+  } catch (error) {
+    return sendError(res, error);
+  }
+}
+
 async function update(req, res) {
   try {
     return res.status(200).json({ success: true, message: "Question updated successfully", data: await updateQuestion(req.params.questionId, req.body || {}) });
@@ -47,4 +63,4 @@ async function remove(req, res) {
   }
 }
 
-module.exports = { list, create, update, remove };
+module.exports = { list, create, bulkCreate, update, remove };
