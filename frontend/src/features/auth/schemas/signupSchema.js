@@ -11,12 +11,14 @@ export const signupSchema = z
       .string()
       .min(MIN_PASSWORD_LENGTH, "Password must contain at least 8 characters")
       .max(MAX_PASSWORD_LENGTH, "Password must contain at most 128 characters")
-      .regex(/^[A-Za-z0-9]+$/, "Password must contain only letters and numbers"),
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
+      .regex(/[^A-Za-z0-9]/, "Password must contain at least one symbol"),
     confirmPassword: z
       .string()
       .min(MIN_PASSWORD_LENGTH, "Please confirm your password")
-      .max(MAX_PASSWORD_LENGTH, "Password must contain at most 128 characters")
-      .regex(/^[A-Za-z0-9]+$/, "Password must contain only letters and numbers"),
+      .max(MAX_PASSWORD_LENGTH, "Password must contain at most 128 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
