@@ -1,0 +1,21 @@
+.privacy-policy-page section h2 {
+  margin-bottom: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #276678;
+}
+
+.privacy-policy-page section p {
+  max-width: 70ch;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #5f7f8d;
+}
+
+.dark .privacy-policy-page section h2 {
+  color: #d3e0ea;
+}
+
+.dark .privacy-policy-page section p {
+  color: #9bb5bf;
+}
