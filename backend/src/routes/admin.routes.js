@@ -19,6 +19,7 @@ router.patch("/mock-tests/:id", update);
 router.delete("/mock-tests/:id", remove);
 router.get("/mock-tests/:mockTestId/questions", questionController.list);
 router.post("/mock-tests/:mockTestId/questions", questionController.create);
+router.post("/mock-tests/:mockTestId/questions/bulk", questionController.bulkCreate);
 router.patch("/questions/:questionId", questionController.update);
 router.delete("/mock-tests/:mockTestId/questions/:questionId", questionController.remove);
 
