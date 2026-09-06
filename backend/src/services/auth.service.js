@@ -3,6 +3,7 @@ const prisma = require("../config/prisma");
 const jwt = require("jsonwebtoken");
 
 const BCRYPT_ROUNDS = 12;
+const MIN_PASSWORD_LENGTH = 8;
 const MAX_PASSWORD_LENGTH = 128;
 
 function createToken(user) {
@@ -47,6 +48,10 @@ async function registerUser(data) {
 
   if (name.length > 100 || email.length > 254 || password.length > MAX_PASSWORD_LENGTH) {
     throw new Error("Invalid registration details");
+  }
+
+  if (password.length < MIN_PASSWORD_LENGTH || !/^[A-Za-z0-9]+$/.test(password)) {
+    throw new Error("Password must contain at least 8 letters and numbers only");
   }
 
   const existingUser = await prisma.user.findUnique({
