@@ -1,9 +1,10 @@
 const prisma = require("../config/prisma");
 
 async function getMockTestById(mockTestId) {
-  const mockTest = await prisma.mockTest.findUnique({
+  const mockTest = await prisma.mockTest.findFirst({
     where: {
       id: mockTestId,
+      isPublished: true,
     },
     include: {
       questions: {
@@ -11,12 +12,12 @@ async function getMockTestById(mockTestId) {
           order: "asc",
         },
         include: {
-  question: {
-    include: {
-      passage: true,
-    },
-  },
-},
+          question: {
+            include: {
+              passage: true,
+            },
+          },
+        },
       },
     },
   });
@@ -26,6 +27,9 @@ async function getMockTestById(mockTestId) {
 
 async function getMockTests() {
   const mockTests = await prisma.mockTest.findMany({
+    where: {
+      isPublished: true,
+    },
     orderBy: [
       {
         year: "desc",
@@ -41,6 +45,7 @@ async function getMockTests() {
       year: true,
       slot: true,
       isOfficial: true,
+      isPublished: true,
       createdAt: true,
       _count: {
         select: {
