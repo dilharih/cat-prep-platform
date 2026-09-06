@@ -11,6 +11,7 @@ import MockTestResultPage from "../features/test/pages/MockTestResultPage";
 import MockTestReviewPage from "../features/test/pages/MockTestReviewPage";
 import AttemptHistoryPage from "../features/practice/pages/AttemptHistoryPage";
 import AdminMockTestsPage from "../features/admin/pages/AdminMockTestsPage";
+import AdminMockTestQuestionsPage from "../features/admin/pages/AdminMockTestQuestionsPage";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import AdminRoute from "../components/auth/AdminRoute";
 import PublicOnlyRoute from "../components/auth/PublicOnlyRoute";
@@ -28,37 +29,11 @@ function AppRouterContent() {
           <ThemeToggle />
         </div>
       )}
-
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PublicOnlyRoute>
-              <PublicLandingPage />
-            </PublicOnlyRoute>
-          }
-        />
-
+        <Route path="/" element={<PublicOnlyRoute><PublicLandingPage /></PublicOnlyRoute>} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
-
-        <Route
-          path="/login"
-          element={
-            <PublicOnlyRoute>
-              <LoginPage />
-            </PublicOnlyRoute>
-          }
-        />
-
-        <Route
-          path="/signup"
-          element={
-            <PublicOnlyRoute>
-              <SignupPage />
-            </PublicOnlyRoute>
-          }
-        />
-
+        <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
+        <Route path="/signup" element={<PublicOnlyRoute><SignupPage /></PublicOnlyRoute>} />
         <Route element={<SiteLayout />}>
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><AttemptHistoryPage /></ProtectedRoute>} />
@@ -66,23 +41,16 @@ function AppRouterContent() {
           <Route path="/mock-test-result/:attemptId" element={<ProtectedRoute><MockTestResultPage /></ProtectedRoute>} />
           <Route path="/mock-test-review/:attemptId" element={<ProtectedRoute><MockTestReviewPage /></ProtectedRoute>} />
           <Route path="/admin/mock-tests" element={<AdminRoute><AdminMockTestsPage /></AdminRoute>} />
+          <Route path="/admin/mock-tests/:mockTestId/questions" element={<AdminRoute><AdminMockTestQuestionsPage /></AdminRoute>} />
         </Route>
-
-        <Route
-          path="/mock-test/:mockTestId"
-          element={<ProtectedRoute><MockTestPage /></ProtectedRoute>}
-        />
+        <Route path="/mock-test/:mockTestId" element={<ProtectedRoute><MockTestPage /></ProtectedRoute>} />
       </Routes>
     </>
   );
 }
 
 function AppRouter() {
-  return (
-    <BrowserRouter>
-      <AppRouterContent />
-    </BrowserRouter>
-  );
+  return <BrowserRouter><AppRouterContent /></BrowserRouter>;
 }
 
 export default AppRouter;
