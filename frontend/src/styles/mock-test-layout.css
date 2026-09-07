@@ -1,0 +1,149 @@
+/*
+ * Mock-test reading layout
+ *
+ * Keep the exam shell fixed, but allow the question content region to
+ * become scrollable only when its contents actually exceed the viewport.
+ * This is intentionally scoped to the full-screen mock-test shell.
+ */
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] {
+  --mock-content-size: 14px;
+  --mock-question-size: 15px;
+  --mock-question-leading: 1.38;
+  --mock-option-size: 14px;
+  --mock-option-leading: 1.35;
+}
+
+/* The fixed shell must give its middle content a real, shrinkable height. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main {
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  overflow: hidden !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main > div {
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+/* Question card becomes a vertical flex layout: header + content + footer. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] {
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+/*
+ * IMPORTANT: this was previously forced to overflow:hidden. That clipped
+ * long questions/options. It now owns the only scroll area for the question.
+ */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] {
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}
+
+/* Keep the question content compact and readable. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div {
+  min-height: 0 !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div {
+  min-height: 0 !important;
+  padding: 10px !important;
+}
+
+/* Passage/question text: normal weight instead of heavy/bold. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] p[class*="leading-7"] {
+  font-size: var(--mock-question-size) !important;
+  line-height: var(--mock-question-leading) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  margin: 0 !important;
+}
+
+/* Reduce the gap between question text, answer label, and choices. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="mb-6"] {
+  margin-bottom: 10px !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="mb-5"] {
+  margin-bottom: 8px !important;
+}
+
+/* Answer choices: smaller, tighter, normal-weight text with wrapping. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] {
+  gap: 6px !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
+  min-height: 42px !important;
+  padding: 7px 9px !important;
+  gap: 9px !important;
+  align-items: flex-start !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button > span:first-child {
+  flex: 0 0 30px !important;
+  width: 30px !important;
+  height: 30px !important;
+  margin-top: 0 !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button > span:last-child,
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button > span:not(:first-child) {
+  font-size: var(--mock-option-size) !important;
+  line-height: var(--mock-option-leading) !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+
+/* If the option text is wrapped in a nested element, normalize it too. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button * {
+  max-width: 100%;
+}
+
+/* Navigation stays visible; only the content above it is scrollable. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="border-t"] {
+  flex: 0 0 auto !important;
+}
+
+/* Right-side palette has its own independent scroll only if it needs it. */
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main aside[class*="rounded-2xl"] {
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+#root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main aside[class*="rounded-2xl"] > div[class*="overflow-auto"] {
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* On shorter screens, compact the question content a little further. */
+@media (max-height: 760px) {
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] {
+    --mock-question-size: 14px;
+    --mock-option-size: 13px;
+    --mock-question-leading: 1.3;
+    --mock-option-leading: 1.3;
+  }
+
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] > div[class*="overflow-auto"] > div > div {
+    padding: 8px !important;
+  }
+
+  #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] > main section[class*="rounded-2xl"] div[class*="space-y-3"] > button {
+    min-height: 38px !important;
+    padding: 6px 8px !important;
+  }
+}
