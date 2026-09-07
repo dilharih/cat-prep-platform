@@ -1,0 +1,93 @@
+.aero-shards {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(22, 135, 167, 0.18), transparent 34%),
+    radial-gradient(circle at 15% 20%, rgba(211, 224, 234, 0.06), transparent 30%),
+    linear-gradient(135deg, #091a21 0%, #0d2831 52%, #091a21 100%);
+}
+
+.aero-shards__field {
+  position: absolute;
+  inset: -12%;
+  transform: rotate(-7deg) scale(1.08);
+}
+
+.aero-shards__shard {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  transform: rotate(var(--shard-rotate));
+  transform-origin: center;
+  opacity: var(--shard-opacity);
+  background: linear-gradient(90deg, transparent, #1687a7 25%, #d3e0ea 52%, #1687a7 78%, transparent);
+  box-shadow: 0 0 14px rgba(22, 135, 167, 0.22);
+  animation: aero-shard-drift var(--shard-duration) ease-in-out var(--shard-delay) infinite alternate;
+}
+
+.aero-shards__glow {
+  position: absolute;
+  width: min(48vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.22;
+  background: #1687a7;
+}
+
+.aero-shards__glow--one {
+  left: -12%;
+  top: 12%;
+}
+
+.aero-shards__glow--two {
+  right: -12%;
+  bottom: -18%;
+  opacity: 0.16;
+  background: #276678;
+}
+
+.aero-shards__sweep {
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 50%;
+  width: 1px;
+  opacity: 0.32;
+  background: linear-gradient(to bottom, transparent, #d3e0ea, transparent);
+  box-shadow: 0 0 45px 10px rgba(22, 135, 167, 0.18);
+  transform: rotate(28deg);
+  animation: aero-sweep 7s ease-in-out infinite;
+}
+
+@keyframes aero-shard-drift {
+  from {
+    transform: translate3d(-18px, 8px, 0) rotate(var(--shard-rotate)) scaleX(0.92);
+  }
+  to {
+    transform: translate3d(18px, -8px, 0) rotate(calc(var(--shard-rotate) + 8deg)) scaleX(1.08);
+  }
+}
+
+@keyframes aero-sweep {
+  0%, 100% {
+    transform: translateX(-28vw) rotate(28deg);
+    opacity: 0;
+  }
+  18%, 78% {
+    opacity: 0.32;
+  }
+  50% {
+    transform: translateX(28vw) rotate(28deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aero-shards__shard,
+  .aero-shards__sweep {
+    animation: none;
+  }
+}
