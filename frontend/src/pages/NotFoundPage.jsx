@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/not-found.css";
+import "../styles/not-found-scroll-fix.css";
 
 const shards = [
   { className: "nf-shard nf-shard-a", points: "0,34 18,0 39,12 28,55" },
