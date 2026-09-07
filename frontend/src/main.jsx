@@ -6,6 +6,7 @@ import "./styles/theme-toggle.css";
 import "./styles/brand-theme.css";
 import "./styles/answer-visibility.css";
 import "./styles/history-theme.css";
+import "./styles/mock-test-layout.css";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
