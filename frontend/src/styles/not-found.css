@@ -85,7 +85,7 @@
 }
 
 .nf-eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: rgba(211, 224, 234, 0.78);
   font-size: 0.62rem;
   font-weight: 800;
@@ -97,7 +97,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0px, 0.7vw, 8px);
+  gap: clamp(2px, 0.9vw, 10px);
   line-height: 0.78;
   user-select: none;
 }
@@ -108,89 +108,22 @@
   font-size: clamp(7rem, 18vw, 12.5rem);
   font-weight: 850;
   letter-spacing: -0.1em;
-  text-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
 }
 
 .nf-four {
   color: #f6f5f5;
-}
-
-.nf-zero-wrap {
-  position: relative;
-  display: grid;
-  place-items: center;
+  text-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
 }
 
 .nf-zero {
-  color: rgba(211, 224, 234, 0.1);
-  -webkit-text-stroke: 1px rgba(211, 224, 234, 0.3);
-}
-
-.nf-portal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 55%;
-  aspect-ratio: 1;
-  overflow: hidden;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(211, 224, 234, 0.35);
-  border-radius: 50%;
-  box-shadow: 0 0 30px rgba(22, 135, 167, 0.24), inset 0 0 20px rgba(211, 224, 234, 0.12);
-}
-
-.nf-portal-glow,
-.nf-portal-sky,
-.nf-portal-mountains,
-.nf-portal-water,
-.nf-portal-steps {
-  position: absolute;
-}
-
-.nf-portal-glow {
-  inset: -20%;
-  background: radial-gradient(circle, rgba(211, 224, 234, 0.28), transparent 65%);
-}
-
-.nf-portal-sky {
-  inset: 0;
-  background: linear-gradient(180deg, #d3e0ea 0%, #8eb7c4 42%, #276678 68%, #102a33 100%);
-}
-
-.nf-portal-mountains {
-  right: -10%;
-  bottom: 29%;
-  left: -10%;
-  height: 42%;
-  background: linear-gradient(145deg, transparent 0 18%, #102a33 18.5% 32%, transparent 32.5%), linear-gradient(35deg, transparent 0 28%, #194353 28.5% 48%, transparent 48.5%), linear-gradient(150deg, transparent 0 50%, #276678 50.5% 66%, transparent 66.5%);
-}
-
-.nf-portal-water {
-  right: -15%;
-  bottom: -5%;
-  left: -15%;
-  height: 42%;
-  background: repeating-linear-gradient(170deg, rgba(211, 224, 234, 0.2) 0 1px, transparent 1px 8px), linear-gradient(180deg, #276678, #091a21);
-}
-
-.nf-portal-steps {
-  right: 18%;
-  bottom: 2%;
-  left: 18%;
-  height: 36%;
-  transform: perspective(100px) rotateX(57deg);
-}
-
-.nf-portal-steps span {
-  display: block;
-  height: 12%;
-  margin: 2% 0;
-  border: 1px solid rgba(211, 224, 234, 0.34);
-  background: rgba(211, 224, 234, 0.08);
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, 0.16vw, 2px) rgba(211, 224, 234, 0.68);
+  text-shadow: 0 0 28px rgba(22, 135, 167, 0.42);
+  filter: drop-shadow(0 0 14px rgba(22, 135, 167, 0.24));
 }
 
 .nf-message {
-  margin-top: 4px;
+  margin-top: 10px;
 }
 
 .nf-message h1 {
@@ -239,7 +172,7 @@
 
 @media (max-width: 640px) {
   .nf-header {
-    padding: 18px 18px;
+    padding: 18px;
   }
 
   .nf-brand {
