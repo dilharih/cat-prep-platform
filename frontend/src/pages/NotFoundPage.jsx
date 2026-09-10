@@ -24,6 +24,19 @@ function NotFoundPage() {
         opacity: 0.9,
       };
 
+  const numberStyle = {
+    color: darkMode ? "rgba(22, 135, 167, 0.55)" : "rgba(39, 102, 120, 0.5)",
+    filter: "blur(4px)",
+    textShadow: darkMode
+      ? "0 0 85px rgba(22, 135, 167, 0.42)"
+      : "0 0 85px rgba(22, 135, 167, 0.24)",
+  };
+
+  const zeroStyle = {
+    ...numberStyle,
+    color: darkMode ? "rgba(39, 102, 120, 0.48)" : "rgba(22, 135, 167, 0.34)",
+  };
+
   return (
     <main className={`not-found-page ${darkMode ? "nf-dark" : "nf-light"}`}>
       <div className="nf-background" aria-hidden="true">
@@ -61,9 +74,9 @@ function NotFoundPage() {
         <p className="nf-eyebrow">404 / ERROR PAGE</p>
 
         <div className="nf-number" aria-label="404">
-          <span className="nf-four">4</span>
-          <span className="nf-zero">0</span>
-          <span className="nf-four">4</span>
+          <span className="nf-four" style={numberStyle}>4</span>
+          <span className="nf-zero" style={zeroStyle}>0</span>
+          <span className="nf-four" style={numberStyle}>4</span>
         </div>
 
         <div className="nf-message">
