@@ -12,9 +12,9 @@ function NotFoundPage() {
     <main className={`not-found-page ${darkMode ? "nf-dark" : "nf-light"}`}>
       <div className="nf-background" aria-hidden="true">
         <GradientWaves
-          horizonColor="#091a21"
+          horizonColor={darkMode ? "#091a21" : "#F6F5F5"}
           waveColor="#1687A7"
-          crestColor="#D3E0EA"
+          crestColor={darkMode ? "#D3E0EA" : "#276678"}
           speed={0.4}
           amplitude={2.5}
           waveScale={0.6}
