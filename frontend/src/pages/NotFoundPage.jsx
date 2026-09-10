@@ -1,20 +1,34 @@
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 import GradientWaves from "../components/common/GradientWaves";
 import ThemeToggle from "../components/common/ThemeToggle";
-import { useTheme } from "../context/ThemeContext";
 import "../styles/not-found.css";
 import "../styles/not-found-scroll-fix.css";
 
 function NotFoundPage() {
   const { darkMode } = useTheme();
 
+  const waveProps = darkMode
+    ? {
+        horizonColor: "#091a21",
+        waveColor: "#1687A7",
+        crestColor: "#D3E0EA",
+        brightness: 0.85,
+        opacity: 0.9,
+      }
+    : {
+        horizonColor: "#F6F5F5",
+        waveColor: "#D3E0EA",
+        crestColor: "#276678",
+        brightness: 1,
+        opacity: 0.9,
+      };
+
   return (
     <main className={`not-found-page ${darkMode ? "nf-dark" : "nf-light"}`}>
       <div className="nf-background" aria-hidden="true">
         <GradientWaves
-          horizonColor={darkMode ? "#091a21" : "#F6F5F5"}
-          waveColor="#1687A7"
-          crestColor={darkMode ? "#D3E0EA" : "#276678"}
+          {...waveProps}
           speed={0.4}
           amplitude={2.5}
           waveScale={0.6}
@@ -26,8 +40,6 @@ function NotFoundPage() {
           height={5.5}
           fogDepth={15}
           detail="medium"
-          brightness={darkMode ? 0.85 : 1}
-          opacity={0.9}
           mouseInteraction
           parallaxStrength={0.5}
           grain
@@ -46,7 +58,7 @@ function NotFoundPage() {
       </header>
 
       <section className="nf-content">
-        <p className="nf-eyebrow">ERROR 404</p>
+        <p className="nf-eyebrow">404 / ERROR PAGE</p>
 
         <div className="nf-number" aria-label="404">
           <span className="nf-four">4</span>
@@ -55,8 +67,8 @@ function NotFoundPage() {
         </div>
 
         <div className="nf-message">
-          <h1>Wrong turn.</h1>
-          <p>This page doesn’t exist or has moved somewhere else.</p>
+          <h1>Sorry, we couldn’t find this page.</h1>
+          <p>The page you’re looking for doesn’t exist or has been moved.</p>
           <Link to="/" className="nf-home-button">
             Back to Home
             <span aria-hidden="true">→</span>
