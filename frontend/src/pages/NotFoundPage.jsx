@@ -4,20 +4,6 @@ import ThemeToggle from "../components/common/ThemeToggle";
 import "../styles/not-found.css";
 import "../styles/not-found-scroll-fix.css";
 
-function Portal() {
-  return (
-    <div className="nf-portal" aria-hidden="true">
-      <div className="nf-portal-glow" />
-      <div className="nf-portal-sky" />
-      <div className="nf-portal-mountains" />
-      <div className="nf-portal-water" />
-      <div className="nf-portal-steps">
-        {Array.from({ length: 7 }, (_, index) => <span key={index} />)}
-      </div>
-    </div>
-  );
-}
-
 function NotFoundPage() {
   return (
     <main className="not-found-page">
@@ -61,10 +47,7 @@ function NotFoundPage() {
 
         <div className="nf-number" aria-label="404">
           <span className="nf-four">4</span>
-          <div className="nf-zero-wrap">
-            <span className="nf-zero">0</span>
-            <Portal />
-          </div>
+          <span className="nf-zero">0</span>
           <span className="nf-four">4</span>
         </div>
 
