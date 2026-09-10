@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import GradientWaves from "../components/common/GradientWaves";
 import ThemeToggle from "../components/common/ThemeToggle";
+import { useTheme } from "../context/ThemeContext";
 import "../styles/not-found.css";
 import "../styles/not-found-scroll-fix.css";
 
 function NotFoundPage() {
+  const { darkMode } = useTheme();
+
   return (
-    <main className="not-found-page">
+    <main className={`not-found-page ${darkMode ? "nf-dark" : "nf-light"}`}>
       <div className="nf-background" aria-hidden="true">
         <GradientWaves
           horizonColor="#091a21"
@@ -23,7 +26,7 @@ function NotFoundPage() {
           height={5.5}
           fogDepth={15}
           detail="medium"
-          brightness={0.85}
+          brightness={darkMode ? 0.85 : 1}
           opacity={0.9}
           mouseInteraction
           parallaxStrength={0.5}
