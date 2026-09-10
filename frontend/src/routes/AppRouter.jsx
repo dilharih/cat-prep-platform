@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import PublicLandingPage from "../pages/PublicLandingPage";
 import PrivacyPolicyPage from "../pages/PrivacyPolicyPage";
-import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../features/auth/pages/LoginPage";
 import SignupPage from "../features/auth/pages/SignupPage";
 import Dashboard from "../pages/Dashboard";
@@ -45,7 +44,6 @@ function AppRouterContent() {
           <Route path="/admin/mock-tests/:mockTestId/questions" element={<AdminRoute><AdminMockTestQuestionsPage /></AdminRoute>} />
         </Route>
         <Route path="/mock-test/:mockTestId" element={<ProtectedRoute><MockTestPage /></ProtectedRoute>} />
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
