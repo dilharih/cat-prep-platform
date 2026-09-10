@@ -3,15 +3,28 @@
 }
 
 .not-found-page {
+  --nf-bg: #091a21;
+  --nf-text: #f6f5f5;
+  --nf-muted: rgba(211, 224, 234, 0.72);
+  --nf-soft: rgba(211, 224, 234, 0.78);
+  --nf-border: rgba(211, 224, 234, 0.32);
   position: relative;
   width: 100%;
   height: 100dvh;
   min-height: 100dvh;
   overflow: hidden;
   isolation: isolate;
-  background: #091a21;
-  color: #f6f5f5;
+  background: var(--nf-bg);
+  color: var(--nf-text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.not-found-page.nf-light {
+  --nf-bg: #f6f5f5;
+  --nf-text: #102a33;
+  --nf-muted: rgba(39, 102, 120, 0.78);
+  --nf-soft: rgba(39, 102, 120, 0.86);
+  --nf-border: rgba(39, 102, 120, 0.32);
 }
 
 .nf-background {
@@ -34,6 +47,10 @@
   background: radial-gradient(circle at 50% 48%, transparent 30%, rgba(9, 26, 33, 0.45) 100%);
 }
 
+.nf-light .nf-vignette {
+  background: radial-gradient(circle at 50% 48%, transparent 30%, rgba(246, 245, 245, 0.34) 100%);
+}
+
 .nf-noise {
   position: absolute;
   inset: 0;
@@ -54,7 +71,7 @@
 }
 
 .nf-brand {
-  color: #f6f5f5;
+  color: var(--nf-text);
   font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.04em;
@@ -62,7 +79,7 @@
 }
 
 .nf-brand span {
-  color: #d3e0ea;
+  color: var(--nf-muted);
   font-weight: 500;
 }
 
@@ -86,7 +103,7 @@
 
 .nf-eyebrow {
   margin: 0 0 10px;
-  color: rgba(211, 224, 234, 0.78);
+  color: var(--nf-soft);
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.28em;
@@ -111,7 +128,7 @@
 }
 
 .nf-four {
-  color: #f6f5f5;
+  color: var(--nf-text);
   text-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
 }
 
@@ -122,13 +139,17 @@
   filter: drop-shadow(0 0 14px rgba(22, 135, 167, 0.24));
 }
 
+.nf-light .nf-zero {
+  -webkit-text-stroke-color: rgba(39, 102, 120, 0.58);
+}
+
 .nf-message {
   margin-top: 10px;
 }
 
 .nf-message h1 {
   margin: 0;
-  color: #f6f5f5;
+  color: var(--nf-text);
   font-size: clamp(1.4rem, 2.8vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -137,7 +158,7 @@
 .nf-message p {
   margin: 8px auto 0;
   max-width: 430px;
-  color: rgba(211, 224, 234, 0.72);
+  color: var(--nf-muted);
   font-size: 0.84rem;
   line-height: 1.6;
 }
@@ -148,10 +169,10 @@
   gap: 10px;
   margin-top: 18px;
   padding: 10px 16px;
-  border: 1px solid rgba(211, 224, 234, 0.32);
+  border: 1px solid var(--nf-border);
   border-radius: 999px;
   background: rgba(9, 26, 33, 0.3);
-  color: #f6f5f5;
+  color: var(--nf-text);
   font-size: 0.8rem;
   font-weight: 700;
   text-decoration: none;
@@ -159,14 +180,18 @@
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
 }
 
+.nf-light .nf-home-button {
+  background: rgba(246, 245, 245, 0.48);
+}
+
 .nf-home-button:hover {
   transform: translateY(-2px);
   background: rgba(22, 135, 167, 0.2);
-  border-color: rgba(211, 224, 234, 0.55);
+  border-color: var(--nf-soft);
 }
 
 .nf-home-button:focus-visible {
-  outline: 2px solid #d3e0ea;
+  outline: 2px solid var(--nf-soft);
   outline-offset: 3px;
 }
 
