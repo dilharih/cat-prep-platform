@@ -1,1 +1,407 @@
-.not-found-page { overflow: hidden; }
+* {
+  box-sizing: border-box;
+}
+
+.not-found-page {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #091a21;
+  color: #f6f5f5;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.nf-background,
+.nf-vignette,
+.nf-noise,
+.nf-orbit,
+.nf-floor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.nf-background {
+  z-index: -5;
+}
+
+.nf-background .gradient-waves-container {
+  position: absolute;
+  inset: 0;
+}
+
+.nf-vignette {
+  z-index: -4;
+  background:
+    radial-gradient(circle at 50% 48%, transparent 20%, rgba(9, 26, 33, 0.08) 58%, rgba(3, 12, 16, 0.82) 100%),
+    linear-gradient(180deg, rgba(9, 26, 33, 0.34), rgba(9, 26, 33, 0.18) 48%, rgba(4, 15, 19, 0.58));
+}
+
+.nf-noise {
+  z-index: -3;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+.nf-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px clamp(22px, 5vw, 72px);
+}
+
+.nf-brand {
+  color: #f6f5f5;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.nf-brand span {
+  color: #d3e0ea;
+  font-weight: 500;
+}
+
+.nf-tagline {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(211, 224, 234, 0.72);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.nf-tagline span:last-of-type {
+  color: #d3e0ea;
+}
+
+.nf-tagline i {
+  width: 28px;
+  height: 1px;
+  margin-left: 7px;
+  background: rgba(211, 224, 234, 0.45);
+}
+
+.nf-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 24px 56px;
+  text-align: center;
+}
+
+.nf-eyebrow {
+  margin: 0 0 4px;
+  color: #d3e0ea;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.nf-number {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3px, 1.4vw, 18px);
+  margin-top: -5px;
+  line-height: 0.82;
+  user-select: none;
+}
+
+.nf-four,
+.nf-zero {
+  display: block;
+  font-size: clamp(8rem, 23vw, 18rem);
+  font-weight: 900;
+  letter-spacing: -0.1em;
+  text-shadow: 0 0 20px rgba(22, 135, 167, 0.32), 0 0 70px rgba(22, 135, 167, 0.22);
+}
+
+.nf-four {
+  color: rgba(246, 245, 245, 0.95);
+}
+
+.nf-zero-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.nf-zero {
+  color: rgba(211, 224, 234, 0.14);
+  -webkit-text-stroke: 1px rgba(211, 224, 234, 0.38);
+}
+
+.nf-portal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64%;
+  aspect-ratio: 1 / 1.05;
+  overflow: hidden;
+  transform: translate(-50%, -49%);
+  border: 1px solid rgba(211, 224, 234, 0.32);
+  border-radius: 50%;
+  box-shadow: inset 0 0 25px rgba(22, 135, 167, 0.5), 0 0 35px rgba(22, 135, 167, 0.38);
+}
+
+.nf-portal-glow {
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(circle, rgba(211, 224, 234, 0.4), rgba(22, 135, 167, 0.18) 35%, transparent 68%);
+}
+
+.nf-portal-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #d3e0ea 0%, #8eb7c4 42%, #276678 66%, #102a33 100%);
+}
+
+.nf-portal-mountains {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 31%;
+  height: 42%;
+  background: linear-gradient(145deg, transparent 0 17%, #102a33 17.5% 31%, transparent 31.5%), linear-gradient(35deg, transparent 0 28%, #194353 28.5% 47%, transparent 47.5%), linear-gradient(150deg, transparent 0 48%, #276678 48.5% 64%, transparent 64.5%);
+  opacity: 0.94;
+}
+
+.nf-portal-water {
+  position: absolute;
+  right: -15%;
+  bottom: -6%;
+  left: -15%;
+  height: 42%;
+  background: repeating-linear-gradient(170deg, rgba(211, 224, 234, 0.2) 0 1px, transparent 1px 9px), linear-gradient(180deg, #276678, #091a21);
+}
+
+.nf-portal-steps {
+  position: absolute;
+  right: 17%;
+  bottom: -2%;
+  left: 17%;
+  height: 38%;
+  transform: perspective(100px) rotateX(57deg);
+}
+
+.nf-portal-steps span {
+  display: block;
+  height: 12%;
+  margin: 2% 0;
+  border: 1px solid rgba(211, 224, 234, 0.34);
+  background: rgba(211, 224, 234, 0.08);
+}
+
+.nf-side-label {
+  position: absolute;
+  top: 43%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: rgba(211, 224, 234, 0.6);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 1.4;
+}
+
+.nf-side-label i {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin-top: 7px;
+  background: rgba(211, 224, 234, 0.4);
+}
+
+.nf-side-left {
+  right: calc(50% + clamp(175px, 23vw, 350px));
+  align-items: flex-end;
+  text-align: right;
+}
+
+.nf-side-right {
+  left: calc(50% + clamp(175px, 23vw, 350px));
+  align-items: flex-start;
+  text-align: left;
+}
+
+.nf-message {
+  margin-top: -9px;
+  max-width: 520px;
+}
+
+.nf-message h1 {
+  margin: 0;
+  color: #f6f5f5;
+  font-size: clamp(1.25rem, 2.1vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.nf-message p {
+  margin: 9px 0 18px;
+  color: rgba(211, 224, 234, 0.72);
+  font-size: 0.9rem;
+}
+
+.nf-home-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 0 17px;
+  border: 1px solid rgba(211, 224, 234, 0.3);
+  border-radius: 999px;
+  background: rgba(9, 26, 33, 0.42);
+  color: #f6f5f5;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 18px rgba(22, 135, 167, 0.08);
+  backdrop-filter: blur(10px);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.nf-home-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(211, 224, 234, 0.58);
+  background: rgba(22, 135, 167, 0.25);
+}
+
+.nf-home-button:focus-visible {
+  outline: 2px solid #d3e0ea;
+  outline-offset: 3px;
+}
+
+.nf-home-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.nf-orbit {
+  z-index: -2;
+  top: 50%;
+  left: 50%;
+  width: min(80vw, 1000px);
+  height: min(32vw, 400px);
+  border: 1px solid rgba(211, 224, 234, 0.08);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-14deg);
+}
+
+.nf-orbit-two {
+  width: min(62vw, 760px);
+  height: min(24vw, 300px);
+  transform: translate(-50%, -50%) rotate(19deg);
+  border-color: rgba(22, 135, 167, 0.13);
+}
+
+.nf-floor {
+  z-index: 1;
+  top: auto;
+  height: 24%;
+  background: linear-gradient(180deg, transparent, rgba(4, 15, 19, 0.72));
+}
+
+.nf-floor-glow {
+  position: absolute;
+  right: 20%;
+  bottom: 7%;
+  left: 20%;
+  height: 1px;
+  background: rgba(211, 224, 234, 0.35);
+  box-shadow: 0 0 22px rgba(22, 135, 167, 0.7);
+}
+
+.nf-path {
+  position: absolute;
+  bottom: -22%;
+  left: 50%;
+  width: 1px;
+  height: 180%;
+  transform-origin: bottom center;
+  background: linear-gradient(180deg, transparent, rgba(211, 224, 234, 0.3));
+}
+
+.nf-path-one {
+  transform: translateX(-120px) rotate(15deg);
+}
+
+.nf-path-two {
+  transform: translateX(120px) rotate(-15deg);
+}
+
+@media (max-width: 800px) {
+  .nf-tagline,
+  .nf-side-label {
+    display: none;
+  }
+
+  .nf-header {
+    padding: 22px 20px;
+  }
+
+  .nf-content {
+    padding: 64px 18px 44px;
+  }
+
+  .nf-number {
+    gap: 0;
+  }
+
+  .nf-four,
+  .nf-zero {
+    font-size: clamp(7rem, 34vw, 11rem);
+  }
+
+  .nf-message h1 {
+    font-size: 1.2rem;
+  }
+
+  .nf-message p {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 801px) {
+  .nf-four,
+  .nf-zero {
+    font-size: clamp(6rem, 17vw, 10rem);
+  }
+
+  .nf-content {
+    padding-top: 54px;
+    padding-bottom: 32px;
+  }
+
+  .nf-message p {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-home-button {
+    transition: none;
+  }
+}
