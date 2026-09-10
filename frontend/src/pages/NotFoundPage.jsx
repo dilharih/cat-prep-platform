@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import GradientWaves from "../components/common/GradientWaves";
+import ThemeToggle from "../components/common/ThemeToggle";
 import "../styles/not-found.css";
 import "../styles/not-found-scroll-fix.css";
 
@@ -47,22 +48,16 @@ function NotFoundPage() {
 
       <div className="nf-vignette" aria-hidden="true" />
       <div className="nf-noise" aria-hidden="true" />
-      <div className="nf-orbit nf-orbit-one" aria-hidden="true" />
-      <div className="nf-orbit nf-orbit-two" aria-hidden="true" />
 
       <header className="nf-header">
         <Link to="/" className="nf-brand" aria-label="CAT Prep home">
           CAT <span>Prep</span>
         </Link>
-        <div className="nf-tagline" aria-hidden="true">
-          <span>Same Destination.</span>
-          <span>A Smarter You.</span>
-          <i />
-        </div>
+        <ThemeToggle />
       </header>
 
       <section className="nf-content">
-        <p className="nf-eyebrow">PAGE NOT FOUND</p>
+        <p className="nf-eyebrow">ERROR 404</p>
 
         <div className="nf-number" aria-label="404">
           <span className="nf-four">4</span>
@@ -73,32 +68,15 @@ function NotFoundPage() {
           <span className="nf-four">4</span>
         </div>
 
-        <div className="nf-side-label nf-side-left" aria-hidden="true">
-          <span>DIFFERENT</span>
-          <span>PATHS</span>
-          <i />
-        </div>
-        <div className="nf-side-label nf-side-right" aria-hidden="true">
-          <span>SAME</span>
-          <span>GOAL</span>
-          <i />
-        </div>
-
         <div className="nf-message">
-          <h1>Looks like you’ve taken a wrong turn.</h1>
-          <p>The page you’re looking for doesn’t exist or has been moved.</p>
+          <h1>Wrong turn.</h1>
+          <p>This page doesn’t exist or has moved somewhere else.</p>
           <Link to="/" className="nf-home-button">
-            <span className="nf-home-icon" aria-hidden="true">⌂</span>
             Back to Home
+            <span aria-hidden="true">→</span>
           </Link>
         </div>
       </section>
-
-      <div className="nf-floor" aria-hidden="true">
-        <div className="nf-path nf-path-one" />
-        <div className="nf-path nf-path-two" />
-        <div className="nf-floor-glow" />
-      </div>
     </main>
   );
 }
