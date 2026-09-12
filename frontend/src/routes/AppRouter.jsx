@@ -43,7 +43,7 @@ function AppRouterContent() {
           <Route path="/mock-test-result/:attemptId" element={<ProtectedRoute><MockTestResultPage /></ProtectedRoute>} />
           <Route path="/mock-test-review/:attemptId" element={<ProtectedRoute><MockTestReviewPage /></ProtectedRoute>} />
           <Route path="/admin/mock-tests" element={<AdminRoute><AdminMockTestsPage /></AdminRoute>} />
-          <Route path="/admin/mock-tests/:mockTestId/questions" element={<AdminRoute><AdminMockTestQuestionsPage /></AdminMockTestQuestionsPage>} />
+          <Route path="/admin/mock-tests/:mockTestId/questions" element={<AdminRoute><AdminMockTestQuestionsPage /></AdminRoute>} />
         </Route>
         <Route path="/mock-test/:mockTestId" element={<ProtectedRoute><MockTestPage /></ProtectedRoute>} />
       </Routes>
