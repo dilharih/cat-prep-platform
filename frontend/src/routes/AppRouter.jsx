@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import PublicLandingPage from "../pages/PublicLandingPage";
 import PrivacyPolicyPage from "../pages/PrivacyPolicyPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../features/auth/pages/LoginPage";
 import SignupPage from "../features/auth/pages/SignupPage";
 import Dashboard from "../pages/Dashboard";
@@ -34,6 +35,7 @@ function AppRouterContent() {
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
         <Route path="/signup" element={<PublicOnlyRoute><SignupPage /></PublicOnlyRoute>} />
+        <Route path="/404" element={<NotFoundPage />} />
         <Route element={<SiteLayout />}>
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><AttemptHistoryPage /></ProtectedRoute>} />
@@ -41,7 +43,7 @@ function AppRouterContent() {
           <Route path="/mock-test-result/:attemptId" element={<ProtectedRoute><MockTestResultPage /></ProtectedRoute>} />
           <Route path="/mock-test-review/:attemptId" element={<ProtectedRoute><MockTestReviewPage /></ProtectedRoute>} />
           <Route path="/admin/mock-tests" element={<AdminRoute><AdminMockTestsPage /></AdminRoute>} />
-          <Route path="/admin/mock-tests/:mockTestId/questions" element={<AdminRoute><AdminMockTestQuestionsPage /></AdminRoute>} />
+          <Route path="/admin/mock-tests/:mockTestId/questions" element={<AdminRoute><AdminMockTestQuestionsPage /></AdminMockTestQuestionsPage>} />
         </Route>
         <Route path="/mock-test/:mockTestId" element={<ProtectedRoute><MockTestPage /></ProtectedRoute>} />
       </Routes>
