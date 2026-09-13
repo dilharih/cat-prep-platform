@@ -35,7 +35,6 @@ function AppRouterContent() {
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
         <Route path="/signup" element={<PublicOnlyRoute><SignupPage /></PublicOnlyRoute>} />
-        <Route path="*" element={<NotFoundPage />} />
         <Route element={<SiteLayout />}>
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><AttemptHistoryPage /></ProtectedRoute>} />
@@ -46,6 +45,7 @@ function AppRouterContent() {
           <Route path="/admin/mock-tests/:mockTestId/questions" element={<AdminRoute><AdminMockTestQuestionsPage /></AdminRoute>} />
         </Route>
         <Route path="/mock-test/:mockTestId" element={<ProtectedRoute><MockTestPage /></ProtectedRoute>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
