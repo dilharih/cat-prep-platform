@@ -5,7 +5,6 @@ import api from "../../../lib/api";
 function MockTestReviewPage() {
   const { attemptId } = useParams();
   const navigate = useNavigate();
-
   const [result, setResult] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -23,14 +22,12 @@ function MockTestReviewPage() {
         setLoading(false);
       }
     }
-
     loadReview();
   }, [attemptId]);
 
   const answers = result?.answers || [];
   const currentAnswer = answers[currentIndex];
   const currentQuestion = currentAnswer?.question;
-
   const availableSections = useMemo(
     () => [...new Set(answers.map((answer) => answer.question?.section).filter(Boolean))],
     [answers]
@@ -261,7 +258,7 @@ function MockTestReviewPage() {
 
                 <div className={`p-4 sm:p-5 ${currentQuestion.passage ? "" : "lg:col-span-2"}`}>
                   <p className="review-muted mb-2 text-xs font-bold uppercase tracking-wide">Question</p>
-                  <p className="review-question text-sm font-semibold leading-6 sm:text-[15px] sm:leading-6">{currentQuestion.question}</p>
+                  <p className="review-question text-base font-semibold leading-6 sm:text-base sm:leading-6">{currentQuestion.question}</p>
 
                   {options.length > 0 ? (
                     <div className="mt-4 space-y-2">
@@ -270,10 +267,10 @@ function MockTestReviewPage() {
                         const isWrongSelection = currentAnswer.selectedAnswer === option && !isCorrectOption;
                         const stateClass = isCorrectOption ? "correct" : isWrongSelection ? "wrong" : "";
                         return (
-                          <div key={option} className={`review-option ${stateClass} flex items-start gap-3 rounded-xl border p-3`}>
-                            <span className="review-option-label flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-extrabold">{option}</span>
+                          <div key={option} className={`review-option ${stateClass} flex items-start gap-3 rounded-xl border p-3.5`}>
+                            <span className="review-option-label flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-extrabold">{option}</span>
                             <div className="min-w-0 flex-1">
-                              <p className="review-option-text text-sm font-medium leading-5">{text}</p>
+                              <p className="review-option-text text-sm font-medium leading-6">{text}</p>
                               {isCorrectOption && <p className="mt-1.5 text-xs font-bold text-green-700">✓ Correct answer</p>}
                               {isWrongSelection && <p className="mt-1.5 text-xs font-bold text-red-700">✕ Your answer</p>}
                             </div>
