@@ -235,7 +235,7 @@ function MockTestReviewPage() {
       </div>
 
       <main className="min-h-0 flex-1 overflow-hidden p-3 sm:p-4">
-        <div className="mx-auto grid h-full min-h-0 w-full max-w-[1400px] gap-3 lg:grid-cols-[minmax(0,1fr)_240px]">
+        <div className="mx-auto grid h-full min-h-0 w-full gap-3 lg:grid-cols-[minmax(0,1fr)_220px]">
           <section className="review-panel flex min-h-0 flex-col overflow-hidden rounded-2xl shadow-sm">
             <div className="review-divider flex shrink-0 items-center justify-between border-b px-5 py-3 sm:px-6">
               <div>
@@ -334,7 +334,7 @@ function MockTestReviewPage() {
             </div>
           </section>
 
-          <aside className="review-panel min-h-0 overflow-hidden rounded-2xl p-4 shadow-sm lg:overflow-auto">
+          <aside className="review-panel min-h-0 overflow-hidden rounded-2xl p-3 shadow-sm lg:overflow-auto">
             <div className="flex items-center justify-between">
               <div>
                 <p className="review-accent text-xs font-bold uppercase tracking-wide">Question Palette</p>
@@ -343,7 +343,7 @@ function MockTestReviewPage() {
               <span className="review-muted text-xs font-semibold">{sectionQuestions.length}</span>
             </div>
 
-            <div className="review-palette mt-4 rounded-xl border p-3">
+            <div className="review-palette mt-3 rounded-xl border p-2.5">
               <div className="grid grid-cols-5 gap-2 sm:grid-cols-8 lg:grid-cols-5">
                 {sectionQuestions.map((answer) => {
                   const index = answer.originalIndex;
@@ -354,7 +354,7 @@ function MockTestReviewPage() {
                       type="button"
                       onClick={() => goToQuestion(index)}
                       aria-label={`Question ${index + 1}: ${state}`}
-                      className={`review-palette-number ${state} ${currentIndex === index ? "current" : ""} flex h-9 items-center justify-center rounded-lg border text-xs font-bold transition`}
+                      className={`review-palette-number ${state} ${currentIndex === index ? "current" : ""} flex h-8 items-center justify-center rounded-lg border text-xs font-bold transition`}
                     >
                       {index + 1}
                     </button>
