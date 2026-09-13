@@ -235,7 +235,7 @@ function MockTestReviewPage() {
       </div>
 
       <main className="min-h-0 flex-1 overflow-hidden p-3 sm:p-4">
-        <div className="mx-auto grid h-full min-h-0 w-full max-w-[1400px] gap-3 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="mx-auto grid h-full min-h-0 w-full max-w-[1400px] gap-3 lg:grid-cols-[minmax(0,1fr)_240px]">
           <section className="review-panel flex min-h-0 flex-col overflow-hidden rounded-2xl shadow-sm">
             <div className="review-divider flex shrink-0 items-center justify-between border-b px-5 py-3 sm:px-6">
               <div>
@@ -259,32 +259,32 @@ function MockTestReviewPage() {
                   </div>
                 ) : null}
 
-                <div className={`p-5 sm:p-6 ${currentQuestion.passage ? "" : "lg:col-span-2 lg:max-w-4xl"}`}>
+                <div className={`p-4 sm:p-5 ${currentQuestion.passage ? "" : "lg:col-span-2"}`}>
                   <p className="review-muted mb-2 text-xs font-bold uppercase tracking-wide">Question</p>
-                  <p className="review-question text-[15px] font-semibold leading-7 sm:text-base">{currentQuestion.question}</p>
+                  <p className="review-question text-sm font-semibold leading-6 sm:text-[15px] sm:leading-6">{currentQuestion.question}</p>
 
                   {options.length > 0 ? (
-                    <div className="mt-6 space-y-3">
+                    <div className="mt-4 space-y-2">
                       {options.map(([option, text]) => {
                         const isCorrectOption = currentQuestion.correctAnswer === option;
                         const isWrongSelection = currentAnswer.selectedAnswer === option && !isCorrectOption;
                         const stateClass = isCorrectOption ? "correct" : isWrongSelection ? "wrong" : "";
                         return (
-                          <div key={option} className={`review-option ${stateClass} flex items-start gap-3 rounded-xl border p-4`}>
-                            <span className="review-option-label flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-extrabold">{option}</span>
+                          <div key={option} className={`review-option ${stateClass} flex items-start gap-3 rounded-xl border p-3`}>
+                            <span className="review-option-label flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-extrabold">{option}</span>
                             <div className="min-w-0 flex-1">
-                              <p className="review-option-text text-sm font-medium leading-6">{text}</p>
-                              {isCorrectOption && <p className="mt-2 text-xs font-bold text-green-700">✓ Correct answer</p>}
-                              {isWrongSelection && <p className="mt-2 text-xs font-bold text-red-700">✕ Your answer</p>}
+                              <p className="review-option-text text-sm font-medium leading-5">{text}</p>
+                              {isCorrectOption && <p className="mt-1.5 text-xs font-bold text-green-700">✓ Correct answer</p>}
+                              {isWrongSelection && <p className="mt-1.5 text-xs font-bold text-red-700">✕ Your answer</p>}
                             </div>
                           </div>
                         );
                       })}
                     </div>
                   ) : (
-                    <div className="review-answer-summary mt-6 rounded-xl border p-5">
+                    <div className="review-answer-summary mt-4 rounded-xl border p-4">
                       <p className="review-accent text-xs font-bold uppercase tracking-wide">TITA Answer</p>
-                      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2">
                         <div>
                           <p className="review-muted text-xs font-bold uppercase tracking-wide">Your answer</p>
                           <p className="review-heading mt-1 text-lg font-extrabold">{unanswered ? "Not answered" : currentAnswer.selectedAnswer}</p>
@@ -298,16 +298,16 @@ function MockTestReviewPage() {
                   )}
 
                   {options.length > 0 && (
-                    <div className={`mt-4 rounded-xl border p-4 ${correct ? "review-correct-summary" : unanswered ? "review-answer-summary" : "review-wrong-summary"}`}>
+                    <div className={`mt-3 rounded-xl border p-3 ${correct ? "review-correct-summary" : unanswered ? "review-answer-summary" : "review-wrong-summary"}`}>
                       <p className="review-muted text-xs font-bold uppercase tracking-wide">Your response</p>
                       <p className="review-heading mt-1 text-sm font-bold">{unanswered ? "Not answered" : currentAnswer.selectedAnswer}</p>
                     </div>
                   )}
 
                   {currentQuestion.explanation && (
-                    <div className="review-explanation mt-4 rounded-xl border p-4">
+                    <div className="review-explanation mt-3 rounded-xl border p-3">
                       <p className="review-accent text-xs font-bold uppercase tracking-wide">Explanation</p>
-                      <p className="review-explanation-text mt-2 text-sm leading-7">{currentQuestion.explanation}</p>
+                      <p className="review-explanation-text mt-2 text-sm leading-6">{currentQuestion.explanation}</p>
                     </div>
                   )}
                 </div>
