@@ -1,40 +1,70 @@
-/* Match Mock Test answer-option styling on the review page. */
-html body .review-page .review-option,
+/* Match Mock Test answer-option styling while respecting light/dark mode. */
+
+/* Light mode */
+html body .review-page .review-option {
+  background: #ffffff !important;
+  border-color: #d3e0ea !important;
+}
+
+html body .review-page .review-option-label {
+  background: #f6f5f5 !important;
+  color: #276678 !important;
+}
+
+html body .review-page .review-option-text {
+  color: #276678 !important;
+}
+
+html body .review-page .review-option.correct {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+}
+
+html body .review-page .review-option.correct .review-option-label {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+html body .review-page .review-option.wrong {
+  background: #fff7f7 !important;
+  border-color: #fca5a5 !important;
+}
+
+html body .review-page .review-option.wrong .review-option-label {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+/* Dark mode */
 html body .theme-dark .review-page .review-option {
   background: #123740 !important;
   border-color: #245766 !important;
 }
 
-html body .review-page .review-option-label,
 html body .theme-dark .review-page .review-option-label {
   background: #d3e0ea !important;
   color: #276678 !important;
 }
 
-html body .review-page .review-option-text,
 html body .theme-dark .review-page .review-option-text {
   color: #ffffff !important;
 }
 
-html body .review-page .review-option.correct,
 html body .theme-dark .review-page .review-option.correct {
   background: #064e3b !important;
   border-color: #16a34a !important;
 }
 
-html body .review-page .review-option.correct .review-option-label,
 html body .theme-dark .review-page .review-option.correct .review-option-label {
   background: #16a34a !important;
   color: #ffffff !important;
 }
 
-html body .review-page .review-option.wrong,
 html body .theme-dark .review-page .review-option.wrong {
   background: #4b2020 !important;
   border-color: #dc2626 !important;
 }
 
-html body .review-page .review-option.wrong .review-option-label,
 html body .theme-dark .review-page .review-option.wrong .review-option-label {
   background: #dc2626 !important;
   color: #ffffff !important;
