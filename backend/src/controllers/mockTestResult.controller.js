@@ -28,7 +28,7 @@ async function getMockTestResult(req, res) {
 
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal server error",
     });
   }
 }
