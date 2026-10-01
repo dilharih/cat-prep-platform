@@ -10,7 +10,8 @@ async function getAllQuestions(req, res) {
 
     res.status(200).json({
       success: true,
-      data: questions,
+      data: questions.questions,
+      pagination: questions.pagination,
     });
   } catch (error) {
     res.status(500).json({
