@@ -14,7 +14,29 @@ async function getQuestions(filters = {}) {
     orderBy: [
       { year: "desc" },
       { section: "asc" }
-    ]
+    ],
+    select: {
+      id: true,
+      year: true,
+      slot: true,
+      section: true,
+      topic: true,
+      type: true,
+      passage: {
+        select: {
+          id: true,
+          title: true,
+          content: true,
+        },
+      },
+      question: true,
+      optionA: true,
+      optionB: true,
+      optionC: true,
+      optionD: true,
+      marks: true,
+      negativeMarks: true,
+    },
   });
 
   return questions;
@@ -24,7 +46,29 @@ async function getQuestionById(id) {
   return prisma.question.findUnique({
     where: {
       id
-    }
+    },
+    select: {
+      id: true,
+      year: true,
+      slot: true,
+      section: true,
+      topic: true,
+      type: true,
+      passage: {
+        select: {
+          id: true,
+          title: true,
+          content: true,
+        },
+      },
+      question: true,
+      optionA: true,
+      optionB: true,
+      optionC: true,
+      optionD: true,
+      marks: true,
+      negativeMarks: true,
+    },
   });
 }
 
