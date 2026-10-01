@@ -5,6 +5,8 @@ backend/node_modules/
 
 # Environment variables
 .env
+.env.*
+!.env.example
 
 # Build output
 dist/
