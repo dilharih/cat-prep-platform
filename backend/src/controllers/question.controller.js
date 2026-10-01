@@ -14,9 +14,10 @@ async function getAllQuestions(req, res) {
       pagination: questions.pagination,
     });
   } catch (error) {
+    console.error("Failed to get questions:", error);
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal server error",
     });
   }
 }
@@ -37,9 +38,10 @@ async function getSingleQuestion(req, res) {
       data: question,
     });
   } catch (error) {
+    console.error("Failed to get question:", error);
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal server error",
     });
   }
 }
@@ -60,9 +62,10 @@ async function submitQuestionAttempt(req, res) {
       data: result,
     });
   } catch (error) {
+    console.error("Question attempt submission error:", error);
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal server error",
     });
   }
 }
