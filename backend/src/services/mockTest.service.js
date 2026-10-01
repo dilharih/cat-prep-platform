@@ -54,54 +54,75 @@ async function getMockTests(filters = {}) {
     throw new Error("Page must be a positive integer");
   }
 
-  if (!Number.isInteger(limit) || limit < 1 || limit > MAX_MOCK_TEST_PAGE_SIZE) {
-    throw new Error(`Limit must be an integer between 1 and ${MAX_MOCK_TEST_PAGE_SIZE}`);
+  if (
+    !Number.isInteger(limit) ||
+    limit < 1 ||
+    limit > MAX_MOCK_TEST_PAGE_SIZE
+  ) {
+    throw new Error(
+      `Limit must be an integer between 1 and ${MAX_MOCK_TEST_PAGE_SIZE}`
+    );
   }
 
   const where = { isPublished: true };
 
   if (filters.year !== undefined) {
     const year = Number(filters.year);
-    if (!Number.isInteger(year)) throw new Error("Year must be an integer");
+    if (!Number.isInteger(year)) {
+      throw new Error("Year must be an integer");
+    }
     where.year = year;
   }
 
   if (filters.slot !== undefined) {
     const slot = Number(filters.slot);
-    if (!Number.isInteger(slot)) throw new Error("Slot must be an integer");
+    if (!Number.isInteger(slot)) {
+      throw new Error("Slot must be an integer");
+    }
     where.slot = slot;
   }
 
   const [mockTests, total] = await Promise.all([
     prisma.mockTest.findMany({
-  const mockTests = await prisma.mockTest.findMany({
       where,
       orderBy: [
-      {
-        year: "desc",
-      },
-      {
-        slot: "asc",
-      },
-    ],
-    select: {
-      id: true,
-      title: true,
-      duration: true,
-      year: true,
-      slot: true,
-      isOfficial: true,
-      isPublished: true,
-      createdAt: true,
-      _count: {
-        select: {
-          questions: true,
+        {
+          year: "desc",
+        },
+        {
+          slot: "asc",
+        },
+      ],
+      skip: (page - 1) * limit,
+      take: limit,
+      select: {
+        id: true,
+        title: true,
+        duration: true,
+        year: true,
+        slot: true,
+        isOfficial: true,
+        isPublished: true,
+        createdAt: true,
+        _count: {
+          select: {
+            questions: true,
+          },
         },
       },
-    },
-  });
+    }),
+    prisma.mockTest.count({ where }),
+  ]);
 
-  return mockTests;
+  return {
+    mockTests,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
 }
 
 module.exports = {
