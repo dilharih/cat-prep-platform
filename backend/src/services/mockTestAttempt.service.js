@@ -1,5 +1,7 @@
 const prisma = require("../config/prisma");
 
+const MAX_ANSWER_LENGTH = 100;
+
 async function submitMockTest(
   userId,
   mockTestId,
@@ -36,6 +38,36 @@ async function submitMockTest(
     normalizedTimeTaken > mockTest.duration * 60
   ) {
     throw new Error("Invalid time taken");
+  }
+
+  const questionIds = new Set(
+    mockTest.questions.map((item) => item.question.id)
+  );
+  const submittedQuestionIds = Object.keys(answers);
+
+  if (
+    submittedQuestionIds.some(
+      (questionId) => !questionIds.has(questionId)
+    )
+  ) {
+    throw new Error("Invalid answer submission");
+  }
+
+  if (
+    submittedQuestionIds.some(
+      (questionId) => {
+        const answer = answers[questionId];
+
+        return (
+          answer !== null &&
+          answer !== "" &&
+          (typeof answer !== "string" ||
+            answer.length > MAX_ANSWER_LENGTH)
+        );
+      }
+    )
+  ) {
+    throw new Error("Invalid answer submission");
   }
 
   const existingAttempt =

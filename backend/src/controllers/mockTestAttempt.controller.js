@@ -6,7 +6,11 @@ async function submitMockTestController(req, res) {
   try {
     const { answers, timeTaken } = req.body;
 
-    if (!answers || typeof answers !== "object") {
+    if (
+      !answers ||
+      typeof answers !== "object" ||
+      Array.isArray(answers)
+    ) {
       return res.status(400).json({
         success: false,
         message: "Answers are required",
@@ -17,7 +21,7 @@ async function submitMockTestController(req, res) {
       req.user.userId,
       req.params.mockTestId,
       answers,
-      timeTaken || 0
+      timeTaken ?? 0
     );
 
     res.status(200).json({
@@ -30,6 +34,7 @@ async function submitMockTestController(req, res) {
     if (
       error.message === "Invalid time taken" ||
       error.message === "Mock test already submitted" ||
+      error.message === "Invalid answer submission" ||
       error.code === "P2002"
     ) {
       return res.status(409).json({
@@ -37,7 +42,9 @@ async function submitMockTestController(req, res) {
         message:
           error.message === "Invalid time taken"
             ? "Invalid time taken"
-            : "Mock test already submitted",
+            : error.message === "Invalid answer submission"
+              ? "Invalid answer submission"
+              : "Mock test already submitted",
       });
     }
 
