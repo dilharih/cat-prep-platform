@@ -11,9 +11,10 @@ async function getMyAttemptsController(req, res) {
       data: attempts,
     });
   } catch (error) {
+    console.error("Failed to get attempts:", error);
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal server error",
     });
   }
 }
