@@ -13,8 +13,27 @@ async function getMockTestById(mockTestId) {
         },
         include: {
           question: {
-            include: {
-              passage: true,
+            select: {
+              id: true,
+              year: true,
+              slot: true,
+              section: true,
+              topic: true,
+              type: true,
+              question: true,
+              optionA: true,
+              optionB: true,
+              optionC: true,
+              optionD: true,
+              marks: true,
+              negativeMarks: true,
+              passage: {
+                select: {
+                  id: true,
+                  title: true,
+                  content: true,
+                },
+              },
             },
           },
         },
