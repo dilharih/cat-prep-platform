@@ -28,7 +28,7 @@ async function getMockTest(req, res) {
 
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal server error",
     });
   }
 }
@@ -49,7 +49,7 @@ async function getMockTestsList(req, res) {
 
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal server error",
     });
   }
 }
