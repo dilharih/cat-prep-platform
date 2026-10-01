@@ -29,11 +29,15 @@ async function submitMockTestController(req, res) {
 
     if (
       error.message === "Invalid time taken" ||
-      error.message === "Mock test already submitted"
+      error.message === "Mock test already submitted" ||
+      error.code === "P2002"
     ) {
       return res.status(409).json({
         success: false,
-        message: error.message,
+        message:
+          error.message === "Invalid time taken"
+            ? "Invalid time taken"
+            : "Mock test already submitted",
       });
     }
 
