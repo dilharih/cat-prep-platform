@@ -74,7 +74,22 @@ function MockTestPage() {
       navigate(`/mock-test-result/${result.mockTestAttempt.id}`);
     } catch (submitError) {
       console.error("Failed to submit mock test:", submitError);
-      alert(submitError.response?.data?.message || "Failed to submit mock test.");
+
+      const existingAttemptId =
+        submitError.response?.data?.data?.attemptId;
+
+      if (
+        submitError.response?.status === 409 &&
+        existingAttemptId
+      ) {
+        navigate(`/mock-test-result/${existingAttemptId}`);
+        return;
+      }
+
+      alert(
+        submitError.response?.data?.message ||
+          "Failed to submit mock test."
+      );
       submittingRef.current = false;
       setSubmitting(false);
     }

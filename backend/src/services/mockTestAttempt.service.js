@@ -82,7 +82,9 @@ async function submitMockTest(
     });
 
   if (existingAttempt) {
-    throw new Error("Mock test already submitted");
+    const error = new Error("Mock test already submitted");
+    error.attemptId = existingAttempt.id;
+    throw error;
   }
 
   let score = 0;

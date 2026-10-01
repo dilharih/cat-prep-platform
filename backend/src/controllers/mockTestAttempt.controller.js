@@ -45,6 +45,9 @@ async function submitMockTestController(req, res) {
             : error.message === "Invalid answer submission"
               ? "Invalid answer submission"
               : "Mock test already submitted",
+        data: error.attemptId
+          ? { attemptId: error.attemptId }
+          : undefined,
       });
     }
 
