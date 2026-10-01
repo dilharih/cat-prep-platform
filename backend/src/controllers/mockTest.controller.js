@@ -35,13 +35,26 @@ async function getMockTest(req, res) {
 
 async function getMockTestsList(req, res) {
   try {
-    const mockTests = await getMockTests();
+    const result = await getMockTests(req.query);
 
     res.status(200).json({
       success: true,
-      data: mockTests,
+      data: result.mockTests,
+      pagination: result.pagination,
     });
   } catch (error) {
+    if (
+      error.message === "Page must be a positive integer" ||
+      error.message === "Year must be an integer" ||
+      error.message === "Slot must be an integer" ||
+      error.message === "Limit must be an integer between 1 and 50"
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
     console.error(
       "Failed to get mock tests:",
       error

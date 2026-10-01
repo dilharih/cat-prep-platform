@@ -7,6 +7,7 @@ function MockTestListPage() {
   const navigate = useNavigate();
 
   const [mockTests, setMockTests] = useState([]);
+  const [pagination, setPagination] = useState({ page: 1, limit: 20, total: 0, totalPages: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [yearFilter, setYearFilter] = useState("ALL");
@@ -15,8 +16,17 @@ function MockTestListPage() {
   useEffect(() => {
     async function loadMockTests() {
       try {
-        const response = await api.get("/mock-tests");
+        const params = new URLSearchParams({
+          page: String(pagination.page),
+          limit: String(pagination.limit),
+        });
+
+        if (yearFilter !== "ALL") params.set("year", yearFilter);
+        if (slotFilter !== "ALL") params.set("slot", slotFilter);
+
+        const response = await api.get(`/mock-tests?${params.toString()}`);
         setMockTests(response.data.data);
+        setPagination((current) => ({ ...current, ...response.data.pagination }));
       } catch (requestError) {
         console.error("Failed to load mock tests:", requestError);
         setError(
@@ -29,24 +39,15 @@ function MockTestListPage() {
     }
 
     loadMockTests();
-  }, []);
+  }, [pagination.page, pagination.limit, yearFilter, slotFilter]);
 
-  const years = [
-    ...new Set(mockTests.map((mockTest) => mockTest.year).filter(Boolean)),
-  ].sort((a, b) => b - a);
+  const years = [...new Set(mockTests.map((mockTest) => mockTest.year).filter(Boolean))].sort((a, b) => b - a);
 
   const slots = [
     ...new Set(mockTests.map((mockTest) => mockTest.slot).filter(Boolean)),
   ].sort((a, b) => a - b);
 
-  const filteredMockTests = mockTests.filter((mockTest) => {
-    const matchesYear =
-      yearFilter === "ALL" || String(mockTest.year) === yearFilter;
-    const matchesSlot =
-      slotFilter === "ALL" || String(mockTest.slot) === slotFilter;
-
-    return matchesYear && matchesSlot;
-  });
+  const filteredMockTests = mockTests;
 
   if (loading) {
     return (
@@ -135,7 +136,7 @@ function MockTestListPage() {
 
           <div className="mt-6 flex flex-col gap-2 border-t border-slate-200 pt-5 text-sm dark:border-slate-700 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-slate-500 dark:text-slate-400">
-              Showing <span className="font-bold text-slate-900 dark:text-slate-100">{filteredMockTests.length}</span> of <span className="font-bold text-slate-900 dark:text-slate-100">{mockTests.length}</span> papers
+              Showing <span className="font-bold text-slate-900 dark:text-slate-100">{mockTests.length}</span> of <span className="font-bold text-slate-900 dark:text-slate-100">{pagination.total}</span> papers
             </p>
             {(yearFilter !== "ALL" || slotFilter !== "ALL") && (
               <button
@@ -187,7 +188,7 @@ function MockTestListPage() {
               <h2 className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">Pick your paper</h2>
             </div>
             <span className="rounded-full bg-[#d3e0ea]/70 px-3 py-1 text-xs font-bold text-[#276678] dark:bg-[#194353] dark:text-[#d3e0ea]">
-              {filteredMockTests.length} available
+              {pagination.total} available
             </span>
           </div>
 
@@ -232,6 +233,13 @@ function MockTestListPage() {
           </div>
         </section>
       )}
+          {pagination.totalPages > 1 && (
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <button type="button" disabled={pagination.page === 1} onClick={() => setPagination((current) => ({ ...current, page: current.page - 1 }))} className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Previous</button>
+              <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">Page {pagination.page} of {pagination.totalPages}</span>
+              <button type="button" disabled={pagination.page === pagination.totalPages} onClick={() => setPagination((current) => ({ ...current, page: current.page + 1 }))} className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Next</button>
+            </div>
+          )}
     </div>
   );
 }
