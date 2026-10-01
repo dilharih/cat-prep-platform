@@ -70,23 +70,6 @@ async function submitMockTest(
     throw new Error("Invalid answer submission");
   }
 
-  const existingAttempt =
-    await prisma.mockTestAttempt.findFirst({
-      where: {
-        userId,
-        mockTestId,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-  if (existingAttempt) {
-    const error = new Error("Mock test already submitted");
-    error.attemptId = existingAttempt.id;
-    throw error;
-  }
-
   let score = 0;
   let correctAnswers = 0;
   let answeredQuestions = 0;

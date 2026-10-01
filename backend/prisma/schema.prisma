@@ -181,7 +181,6 @@ model MockTestAttempt {
 
   createdAt DateTime @default(now())
 
-  @@unique([userId, mockTestId])
   @@index([userId])
 }
 
