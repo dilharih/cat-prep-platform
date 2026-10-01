@@ -166,10 +166,35 @@ async function getMockTestAttemptById(
         },
 
         answers: {
-  include: {
-    question: true,
-  },
-},
+          include: {
+            question: {
+              select: {
+                id: true,
+                year: true,
+                slot: true,
+                section: true,
+                topic: true,
+                type: true,
+                passage: {
+                  select: {
+                    id: true,
+                    title: true,
+                    content: true,
+                  },
+                },
+                question: true,
+                optionA: true,
+                optionB: true,
+                optionC: true,
+                optionD: true,
+                correctAnswer: true,
+                explanation: true,
+                marks: true,
+                negativeMarks: true,
+              },
+            },
+          },
+        },
       },
     });
 
