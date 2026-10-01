@@ -1,8 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "CAT preparation platform backend",
+  "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
