@@ -27,6 +27,16 @@ async function submitMockTestController(req, res) {
   } catch (error) {
     console.error("Mock test submission error:", error);
 
+    if (
+      error.message === "Invalid time taken" ||
+      error.message === "Mock test already submitted"
+    ) {
+      return res.status(409).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
     res.status(500).json({
       success: false,
       message: "Internal server error",

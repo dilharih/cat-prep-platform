@@ -28,6 +28,31 @@ async function submitMockTest(
     throw new Error("Mock test not found");
   }
 
+  const normalizedTimeTaken = Number(timeTaken);
+
+  if (
+    !Number.isInteger(normalizedTimeTaken) ||
+    normalizedTimeTaken < 0 ||
+    normalizedTimeTaken > mockTest.duration * 60
+  ) {
+    throw new Error("Invalid time taken");
+  }
+
+  const existingAttempt =
+    await prisma.mockTestAttempt.findFirst({
+      where: {
+        userId,
+        mockTestId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+  if (existingAttempt) {
+    throw new Error("Mock test already submitted");
+  }
+
   let score = 0;
   let correctAnswers = 0;
   let answeredQuestions = 0;
@@ -122,7 +147,7 @@ async function submitMockTest(
         mockTestId,
         score,
         accuracy,
-        timeTaken,
+        timeTaken: normalizedTimeTaken,
 
         answers: {
           create: answerRecords,
