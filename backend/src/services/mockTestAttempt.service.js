@@ -10,6 +10,7 @@ async function submitMockTest(
     await prisma.mockTest.findUnique({
       where: {
         id: mockTestId,
+        isPublished: true,
       },
       include: {
         questions: {
