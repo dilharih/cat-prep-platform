@@ -1,7 +1,20 @@
 const prisma = require("../config/prisma");
 
+const MAX_QUESTION_PAGE_SIZE = 50;
+
 async function getQuestions(filters = {}) {
-  const { section, year, topic } = filters;
+  const { section, year, topic, page = 1, limit = 20 } = filters;
+
+  const parsedPage = Number(page);
+  const parsedLimit = Number(limit);
+
+  if (!Number.isInteger(parsedPage) || parsedPage < 1) {
+    throw new Error("Invalid page");
+  }
+
+  if (!Number.isInteger(parsedLimit) || parsedLimit < 1 || parsedLimit > MAX_QUESTION_PAGE_SIZE) {
+    throw new Error(`Limit must be between 1 and ${MAX_QUESTION_PAGE_SIZE}`);
+  }
 
   const where = {};
 
@@ -9,8 +22,9 @@ async function getQuestions(filters = {}) {
   if (year) where.year = Number(year);
   if (topic) where.topic = topic;
 
-  const questions = await prisma.question.findMany({
-    where,
+  const [questions, total] = await Promise.all([
+    prisma.question.findMany({
+      where,
     orderBy: [
       { year: "desc" },
       { section: "asc" }
@@ -37,9 +51,21 @@ async function getQuestions(filters = {}) {
       marks: true,
       negativeMarks: true,
     },
-  });
+      skip: (parsedPage - 1) * parsedLimit,
+      take: parsedLimit,
+    }),
+    prisma.question.count({ where }),
+  ]);
 
-  return questions;
+  return {
+    questions,
+    pagination: {
+      page: parsedPage,
+      limit: parsedLimit,
+      total,
+      totalPages: Math.ceil(total / parsedLimit),
+    },
+  };
 }
 
 async function getQuestionById(id) {
