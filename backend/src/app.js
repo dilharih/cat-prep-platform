@@ -15,6 +15,7 @@ const adminMockTestRoutes = require("./routes/admin-mockTest.routes");
 const {
   setSecurityHeaders,
   validateOrigin,
+  createRateLimiter,
 } = require("./middleware/security.middleware");
 const {
   ensureCsrfCookie,
@@ -44,6 +45,7 @@ app.use(
 );
 app.use(validateOrigin);
 app.use(express.json({ limit: "1mb" }));
+app.use(createRateLimiter("general"));
 app.use(ensureCsrfCookie);
 app.use((req, res, next) => {
   if (["GET", "HEAD", "OPTIONS"].includes(req.method)) {
