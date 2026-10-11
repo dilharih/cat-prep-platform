@@ -75,18 +75,18 @@ body,
   border-color: var(--brand-soft) !important;
 }
 
-.hover\\:bg-slate-50:hover,
-.hover\\:bg-slate-100:hover,
-.hover\\:bg-slate-200:hover,
-.hover\\:bg-gray-50:hover,
-.hover\\:bg-gray-100:hover {
+.hover\:bg-slate-50:hover,
+.hover\:bg-slate-100:hover,
+.hover\:bg-slate-200:hover,
+.hover\:bg-gray-50:hover,
+.hover\:bg-gray-100:hover {
   background-color: var(--brand-soft) !important;
 }
 
-.hover\\:bg-blue-700:hover,
-.hover\\:bg-blue-600:hover,
-.hover\\:bg-cyan-700:hover,
-.hover\\:bg-indigo-700:hover {
+.hover\:bg-blue-700:hover,
+.hover\:bg-blue-600:hover,
+.hover\:bg-cyan-700:hover,
+.hover\:bg-indigo-700:hover {
   background-color: var(--brand-primary-dark) !important;
 }
 
@@ -185,9 +185,9 @@ body,
   border-color: #285363 !important;
 }
 
-.theme-dark .hover\\:bg-slate-100:hover,
-.theme-dark .hover\\:bg-slate-200:hover,
-.theme-dark .hover\\:bg-gray-100:hover {
+.theme-dark .hover\:bg-slate-100:hover,
+.theme-dark .hover\:bg-slate-200:hover,
+.theme-dark .hover\:bg-gray-100:hover {
   background-color: #194353 !important;
 }
 

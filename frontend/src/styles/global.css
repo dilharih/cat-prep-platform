@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-/* Tailwind dark: utilities follow our explicit .dark class, not the OS preference. */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Dark-mode utilities are driven by the app's .dark class, and this stylesheet intentionally
+   avoids defining a Tailwind custom variant here so it remains valid in standard CSS tooling. */
 
 html,
 body,
@@ -66,8 +66,8 @@ body {
 .theme-dark .border-gray-200,
 .theme-dark .border-gray-300 { border-color: #334155 !important; }
 
-.theme-dark .hover\\:bg-slate-100:hover,
-.theme-dark .hover\\:bg-slate-200:hover { background-color: #1e293b !important; }
+.theme-dark .hover\:bg-slate-100:hover,
+.theme-dark .hover\:bg-slate-200:hover { background-color: #1e293b !important; }
 
 .theme-dark input,
 .theme-dark textarea,
@@ -360,8 +360,7 @@ body {
 }
 
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="grid-cols-5"] button[class*="ring-2"] {
-  box-shadow: 0 0 0 2px #1687a7 !important;
-  ring-offset-width: 2px;
+  box-shadow: 0 0 0 2px var(--mock-surface), 0 0 0 4px #1687a7 !important;
 }
 
 #root > div[class*="h-screen"][class*="w-full"][class*="flex-col"][class*="overflow-hidden"] aside[class*="rounded-2xl"] div[class*="mt-6"] {

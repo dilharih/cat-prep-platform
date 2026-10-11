@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
   { name: "Dashboard", path: "/dashboard" },
+  { name: "Practice", path: "/practice" },
   { name: "Mock Tests", path: "/mock-tests" },
   { name: "History", path: "/history" },
 ];

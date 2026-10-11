@@ -1,56 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AuthContext } from "./auth-context";
-import api from "../lib/api";
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
 
-  useEffect(() => {
-    let mounted = true;
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
-    async function restoreSession() {
-      try {
-        const response = await api.get("/auth/me");
+  function login(userData, token) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(userData));
 
-        if (mounted) {
-          setUser(response.data.user);
-        }
-      } catch {
-        if (mounted) {
-          setUser(null);
-        }
-      } finally {
-        if (mounted) {
-          setLoading(false);
-        }
-      }
-    }
-
-    restoreSession();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  function login(userData) {
     setUser(userData);
   }
 
-  async function logout() {
-    try {
-      await api.post("/auth/logout");
-    } finally {
-      setUser(null);
-    }
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setUser(null);
   }
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        loading,
         login,
         logout,
       }}
