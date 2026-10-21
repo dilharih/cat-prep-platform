@@ -1,18 +1,18 @@
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_API_URL;
+// In production, call the API through Vercel's same-origin rewrite.
+// This keeps the session and CSRF cookies on the frontend origin instead
+// of relying on cross-site cookies between Vercel and Render.
+const apiUrl = import.meta.env.PROD
+  ? `${window.location.origin}/api`
+  : (import.meta.env.VITE_API_URL || "http://localhost:5000/api");
 
-if (
-  import.meta.env.PROD &&
-  (!apiUrl || !apiUrl.startsWith("https://"))
-) {
-  throw new Error(
-    "VITE_API_URL must be configured with an HTTPS URL in production"
-  );
+if (import.meta.env.PROD && !apiUrl.startsWith("https://")) {
+  throw new Error("The production API URL must use HTTPS");
 }
 
 const api = axios.create({
-  baseURL: apiUrl || "http://localhost:5000/api",
+  baseURL: apiUrl,
   withCredentials: true,
 });
 
