@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://cat-prep-api-rcss.onrender.com/api/:path*"
+    }
+  ]
+}
