@@ -961,45 +961,57 @@ function MockTestPage() {
 
                   </div>
 
-                  {/* OPTIONS */}
+                  {/* ANSWER INPUT: MCQ options or TITA typed response */}
 
-                  <div className="space-y-3">
-
-                    {options.map(
-                      ([letter, text]) => (
+                  {currentQuestion.type === "MCQ" && options.length > 0 ? (
+                    <div className="space-y-3">
+                      {options.map(([letter, text]) => (
                         <button
                           key={letter}
-                          onClick={() =>
-                            selectAnswer(letter)
-                          }
+                          type="button"
+                          onClick={() => selectAnswer(letter)}
                           disabled={submitting}
+                          aria-pressed={selectedAnswer === letter}
                           className={`flex w-full items-start gap-4 rounded-lg border p-4 text-left transition ${
                             selectedAnswer === letter
                               ? "border-green-600 bg-green-50 shadow-sm"
                               : "border-slate-300 bg-white hover:border-blue-500 hover:bg-blue-50"
                           }`}
                         >
-
                           <span
                             className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${
-                              selectedAnswer ===
-                              letter
+                              selectedAnswer === letter
                                 ? "border-green-600 bg-green-600 text-white"
                                 : "border-slate-300 bg-white text-slate-700"
                             }`}
                           >
                             {letter}
                           </span>
-
-                          <span className="pt-1 text-sm leading-6 text-slate-800">
-                            {text}
-                          </span>
-
+                          <span className="pt-1 text-sm leading-6 text-slate-800">{text}</span>
                         </button>
-                      )
-                    )}
-
-                  </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <label htmlFor={`tita-answer-${currentQuestion.id}`} className="block text-sm font-semibold text-slate-700">
+                        {currentQuestion.type === "TITA" ? "Enter your answer" : "Answer input"}
+                      </label>
+                      <input
+                        id={`tita-answer-${currentQuestion.id}`}
+                        type="text"
+                        inputMode="decimal"
+                        autoComplete="off"
+                        value={selectedAnswer ?? ""}
+                        onChange={(event) => selectAnswer(event.target.value)}
+                        disabled={submitting}
+                        placeholder="Type your answer here"
+                        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200 disabled:cursor-not-allowed disabled:bg-slate-100"
+                      />
+                      <p className="text-xs leading-5 text-slate-500">
+                        Type-in-the-answer questions do not have multiple-choice options.
+                      </p>
+                    </div>
+                  )}
 
                   {/* MARKED MESSAGE */}
 
